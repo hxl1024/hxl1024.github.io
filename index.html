@@ -162,6 +162,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-20250323周赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/03/23/20250323%E5%91%A8%E8%B5%9B/">20250323周赛</a>
+    </h1>
+  
+
+        
+        <a href="/2025/03/23/20250323%E5%91%A8%E8%B5%9B/" class="archive-article-date">
+  	<time datetime="2025-03-23T08:57:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="2-属性图"><a href="#2-属性图" class="headerlink" title="2. 属性图"></a><font color=orange>2. 属性图</font></h1><p><strong>链接：</strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/properties-graph/description/">https://leetcode.cn/problems/properties-graph/description/</a><br>给你一个二维整数数组<code>properties</code>，其维度为<code>n x m</code>，以及一个整数<code>k</code>。<br>定义一个函数<code>intersect(a, b)</code>，它返回数组<code>a</code>和<code>b</code>中<strong>共有的不同整数的数量</strong> 。<br>构造一个<strong>无向图</strong>，其中每个索引<code>i</code>对应 <code>properties[i]</code>。如果且仅当 <code>intersect(properties[i], properties[j]) &gt;= k</code>（其中 <code>i</code> 和 <code>j</code> 的范围为 <code>[0, n - 1]</code> 且 <code>i != j</code>），节点 <code>i</code> 和节点 <code>j</code> 之间有一条边。<br>返回结果图中 <strong>连通分量</strong> 的数量。<br><br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>properties &#x3D; [[1,2],[1,1],[3,4],[4,5],[5,6],[7,7]], k &#x3D; 1</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>3</font><br><strong>解释：</strong> 生成的图如下所示，有三个连通分量：<br><img src='img/202503/23/leetcode0323_1.png'></p>
+<hr>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>暴力枚举所有 properties[i] 和 properties[j]，如果交集大小 ≥k，那么用并查集合并 i 和 j。<br>初始连通块个数 cc&#x3D;n，每成功合并一次，就把 cc 减一。</p>
+<div style="border: 1px solid #ddd; border-left: 5px solid #00BFFF; background-color: #E0FFFF; padding: 10px; font-size: 110%;">
+<b>Code:</b>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="comment"># 一开始有 n 个集合 &#123;0&#125;, &#123;1&#125;, ..., &#123;n-1&#125;</span></span><br><span class="line">        <span class="comment"># 集合 i 的代表元是自己</span></span><br><span class="line">        <span class="variable language_">self</span>._fa = <span class="built_in">list</span>(<span class="built_in">range</span>(n))  <span class="comment"># 代表元</span></span><br><span class="line">        <span class="variable language_">self</span>.cc = n  <span class="comment"># 连通块个数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回 x 所在集合的代表元</span></span><br><span class="line">    <span class="comment"># 同时做路径压缩，也就是把 x 所在集合中的所有元素的 fa 都改成代表元</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">self, x: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment"># 如果 fa[x] == x，则表示 x 是代表元</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>._fa[x] != x:</span><br><span class="line">            <span class="variable language_">self</span>._fa[x] = <span class="variable language_">self</span>.find(<span class="variable language_">self</span>._fa[x])  <span class="comment"># fa 改成代表元</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>._fa[x]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 把 from 所在集合合并到 to 所在集合中</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">self, from_: <span class="built_in">int</span>, to: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        x, y = <span class="variable language_">self</span>.find(from_), <span class="variable language_">self</span>.find(to)</span><br><span class="line">        <span class="keyword">if</span> x == y:  <span class="comment"># from 和 to 在同一个集合，不做合并</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="variable language_">self</span>._fa[x] = y  <span class="comment"># 合并集合。修改后就可以认为 from 和 to 在同一个集合了</span></span><br><span class="line">        <span class="variable language_">self</span>.cc -= <span class="number">1</span>  <span class="comment"># 合并后，连通块个数减少了 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numberOfComponents</span>(<span class="params">self, properties: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        sets = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">set</span>, properties))</span><br><span class="line">        uf = UnionFind(<span class="built_in">len</span>(properties))</span><br><span class="line">        <span class="keyword">for</span> i, a <span class="keyword">in</span> <span class="built_in">enumerate</span>(sets):</span><br><span class="line">            <span class="keyword">for</span> j, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(sets[:i]):</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(a &amp; b) &gt;= k:</span><br><span class="line">                    uf.merge(j, i)</span><br><span class="line">        <span class="keyword">return</span> uf.cc</span><br><span class="line">```&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">- - -</span><br><span class="line"><span class="comment"># &lt;font color=orange&gt;3. 酿造药水需要的最少总时间&lt;/font&gt;</span></span><br><span class="line">**链接：**https://leetcode.cn/problems/find-the-minimum-amount-of-time-to-brew-potions/?slug=properties-graph&amp;region=local_v2</span><br><span class="line">给你两个长度分别为 `n` 和 `m` 的整数数组 `skill` 和 `mana` 。</span><br><span class="line">在一个实验室里，有 `n` 个巫师，他们必须按顺序酿造 `m` 个药水。每个药水的法力值为 `mana[j]`，并且每个药水 **必须** 依次通过 **所有** 巫师处理，才能完成酿造。第 `i` 个巫师在第 `j` 个药水上处理需要的时间为 $time_&#123;ij&#125; = skill[i] * mana[j]$。</span><br><span class="line">由于酿造过程非常精细，药水在当前巫师完成工作后 **必须** 立即传递给下一个巫师并开始处理。这意味着时间必须保持 **同步**，确保每个巫师在药水到达时 **马上**开始工作。</span><br><span class="line">返回酿造所有药水所需的 **最短** 总时间。</span><br><span class="line">**示例<span class="number">1</span>：**</span><br><span class="line">**输入：** &lt;font face=<span class="string">&quot;Times New Roman&quot;</span> size=<span class="number">5</span>&gt;skill = [<span class="number">1</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">4</span>], mana = [<span class="number">5</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">2</span>]&lt;/font&gt;</span><br><span class="line">**输出：** &lt;font face=<span class="string">&quot;Times New Roman&quot;</span> size=<span class="number">5</span>&gt;<span class="number">110</span>&lt;/font&gt;</span><br><span class="line">**解释：**</span><br><span class="line">&lt;br&gt;&lt;img src=<span class="string">&#x27;img/202503/23/leetcode2.png&#x27;</span>&gt;</span><br><span class="line">举个例子，为什么巫师 <span class="number">0</span> 不能在时间 `t = <span class="number">52</span>` 前开始处理第 <span class="number">1</span> 个药水，假设巫师们在时间 `t = <span class="number">50</span>` 开始准备第 <span class="number">1</span> 个药水。时间 `t = <span class="number">58</span>` 时，巫师 <span class="number">2</span> 已经完成了第 <span class="number">1</span> 个药水的处理，但巫师 <span class="number">3</span> 直到时间 `t = <span class="number">60</span>` 仍在处理第 <span class="number">0</span> 个药水，无法马上开始处理第 <span class="number">1</span> 个药水。</span><br><span class="line">- - -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 题解</span></span><br><span class="line"><span class="comment">## 正反两次扫描</span></span><br><span class="line">假设$time_i$表示巫师`i`结束上一瓶药水的时间。现在在做第 <span class="number">2</span> 瓶药水，则巫师`i`开始制药的时间为巫师`i-<span class="number">1</span>`做完第 <span class="number">2</span> 瓶药水和巫师`i`自己做完第 <span class="number">1</span> 瓶药水时间的最大值：$<span class="built_in">max</span>(time_i, time_&#123;i-<span class="number">1</span>&#125;)$。以**示例一**为例：&lt;br&gt;&lt;img src=<span class="string">&#x27;img/202503/23/lc3.png&#x27;</span>&gt;</span><br><span class="line">结束时间$time_i$这样更新：$$time_i=<span class="built_in">max</span>(time_i, time_&#123;i-<span class="number">1</span>&#125;) + skill[i]*mana[k]$$同时，在做完一轮后，要根据最后一名巫师的时间**倒退**前面所有巫师**正确的结束时间**，以便开始下一轮.最终返回$time_i[-<span class="number">1</span>]$</span><br><span class="line">&lt;div style=<span class="string">&quot;border: 1px solid #ddd; border-left: 5px solid #00BFFF; background-color: #E0FFFF; padding: 10px; font-size: 110%;&quot;</span>&gt;</span><br><span class="line">&lt;b&gt;Code:&lt;/b&gt;</span><br><span class="line">```Python</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTime</span>(<span class="params">self, skill: <span class="type">List</span>[<span class="built_in">int</span>], mana: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(skill)</span><br><span class="line">        last_finish = [<span class="number">0</span>] * n  <span class="comment"># 第 i 名巫师完成上一瓶药水的时间</span></span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> mana:</span><br><span class="line">            <span class="comment"># 按题意模拟</span></span><br><span class="line">            sum_t = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> x, last <span class="keyword">in</span> <span class="built_in">zip</span>(skill, last_finish):</span><br><span class="line">                <span class="keyword">if</span> last &gt; sum_t: sum_t = last  <span class="comment"># 手写 max</span></span><br><span class="line">                sum_t += x * m</span><br><span class="line">            <span class="comment"># 倒推：如果酿造药水的过程中没有停顿，那么 last_finish[i] 应该是多少</span></span><br><span class="line">            last_finish[-<span class="number">1</span>] = sum_t</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">2</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                sum_t -= skill[i + <span class="number">1</span>] * m</span><br><span class="line">                last_finish[i] = sum_t</span><br><span class="line">        <span class="keyword">return</span> last_finish[-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+</div>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">并查集</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/leetcode//" class="article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-20250322随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -185,9 +283,9 @@
         <p>好久没捡起来博客了，觉得还是不能落下这个，很好的一个工具。前天去货拉拉听那个学长也说写博客很重要，<br>说不定哪天就看上了你的博客呢hhh，所以决定坚持写一下博客好了！很象以前开日记的时候hhhh希望真的能很有帮助吧<br>然后写下今天的计划好了））</p>
 <hr>
 <ul>
-<li>单词+力扣算法</li>
-<li>学会VSCODE跑Python代码并写个博客防止之后又忘了</li>
-<li>看下Exact Method论文</li>
+<li><input disabled="" type="checkbox"> 单词+力扣算法</li>
+<li><input disabled="" type="checkbox"> 学会VSCODE跑Python代码并写个博客防止之后又忘了</li>
+<li><input disabled="" type="checkbox"> 看下Exact Method论文</li>
 </ul>
 
       
@@ -647,6 +745,18 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
               </li>
             
             <div class="clearfix"></div>
