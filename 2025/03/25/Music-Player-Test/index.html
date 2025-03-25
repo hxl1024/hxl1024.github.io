@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>20250325随笔 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="console.error(&quot;TypeError: Cannot read properties of undefined (reading &#39;_id&#39;)&quot;); 			 我真的吐了啊。。弄了一天发现最后重装一下hexo-tag-aplayer就好了，好笨。。最近也很水逆">
+  <meta name="description" content="var ap &#x3D; new APlayer({             element: document.getElementById(&quot;aplayer-MDClDXSD&quot;),             narrow: false,             autoplay: false,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="20250325随笔">
 <meta property="og:url" content="http://example.com/2025/03/25/Music-Player-Test/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="console.error(&quot;TypeError: Cannot read properties of undefined (reading &#39;_id&#39;)&quot;); 			 我真的吐了啊。。弄了一天发现最后重装一下hexo-tag-aplayer就好了，好笨。。最近也很水逆">
+<meta property="og:description" content="var ap &#x3D; new APlayer({             element: document.getElementById(&quot;aplayer-MDClDXSD&quot;),             narrow: false,             autoplay: false,">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-03-25T03:42:55.000Z">
-<meta property="article:modified_time" content="2025-03-25T13:49:29.787Z">
+<meta property="article:modified_time" content="2025-03-25T13:50:43.400Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,9 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" class="aplayer-style-marker">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-script-marker"></script>
+</head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -186,9 +188,26 @@
     <div class="article-entry" itemprop="articleBody">
       
         
-			<script>
-				console.error("TypeError: Cannot read properties of undefined (reading '_id')");
-			</script>
+        <div id="aplayer-MDClDXSD" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-MDClDXSD"),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+              title: "The One",
+              author: "The Chainsmokers",
+              url: "/music/The Chainsmokers - The One.mp3",
+              pic: "/img/20241026/1.png",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script>
 <p>我真的吐了啊。。弄了一天发现最后重装一下hexo-tag-aplayer就好了，好笨。。最近也很水逆</p>
 
       
@@ -443,14 +462,6 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
@@ -464,6 +475,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
               </li>
              
               <li class="article-tag-list-item">
