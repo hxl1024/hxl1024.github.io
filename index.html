@@ -164,6 +164,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-DeepACO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/04/08/DeepACO/">DeepACO</a>
+    </h1>
+  
+
+        
+        <a href="/2025/04/08/DeepACO/" class="archive-article-date">
+  	<time datetime="2025-04-08T02:07:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><ul>
+<li>传统ACO需要专家先验知识,这种启发性信息增大人工成本,本论文主要就使用神经网络代替先验知识作为启发性信息,通过自我学习不断调整即可</li>
+</ul>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><p>整体框架如下图所示,<br><img src="/img/202504/DeepACO1.png"></p>
+<h1 id="Novelty"><a href="#Novelty" class="headerlink" title="Novelty"></a>Novelty</h1><h1 id="Limitation"><a href="#Limitation" class="headerlink" title="Limitation"></a>Limitation</h1><h1 id="Code-implecation"><a href="#Code-implecation" class="headerlink" title="Code implecation"></a>Code implecation</h1><p>这里主要就放一些<strong>之前没怎么接触过的Code介绍</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">进化算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-分割等和子集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -184,7 +262,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a><font color=orange>分割等和子集</font></h1><p>**Link:**<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&envId=2025-04-07">https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&amp;envId=2025-04-07</a><br>给你一个 <strong>只包含正整数</strong> 的 <strong>非空</strong> 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>nums &#x3D; [1, 5, 11, 5]</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>true</font><br><strong>解释：</strong> 数组可以分割成[1, 5, 5]和[11]<br></p>
+        <h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a><font color=orange>分割等和子集</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&envId=2025-04-07">https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&amp;envId=2025-04-07</a><br>给你一个 <strong>只包含正整数</strong> 的 <strong>非空</strong> 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>nums &#x3D; [1, 5, 11, 5]</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>true</font><br><strong>解释：</strong> 数组可以分割成[1, 5, 5]和[11]<br></p>
 <hr>
 <h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="一、分析"><a href="#一、分析" class="headerlink" title="一、分析"></a>一、分析</h2><p>假设nums元素和为s，满足题目的前提是<strong>s为偶数</strong>。原题目变为找一个<strong>和为s&#x2F;2的子集</strong>，可以使用dfs进行记忆化搜索</p>
 <h2 id="二、流程"><a href="#二、流程" class="headerlink" title="二、流程"></a>二、流程</h2><p>从后往前递推，假设dfs(i, j)表示的是在[0, i]索引下是否能够找到和为j的子集。那么递推规则如下：<br><code>dfs(i, j) = dfs(i - 1, j - nums[i]) or dfs(i - 1, j)</code><br>如果选择<code>nums[i]</code>加入子集，那么<code>dfs(i, j) = dfs(i - 1, j - nums[i])</code>，不选择则是<code>dfs(i - 1, j)</code><br>边界即当<code>i &lt; 0</code>或者<code>j &lt; 0</code>时，RETURN False，说明没有满足的子集；当<code>j == 0</code>时，说明找到满足的子集，返回True</p>
@@ -225,11 +303,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/中等//" class="article-tag-list-link color3">中等</a>
+        			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/中等/DFS//" class="article-tag-list-link color4">DFS</a>
+        			<a href="/categories/算法/DFS/中等//" class="article-tag-list-link color3">中等</a>
         		</li>
       		
 		</ul>
@@ -440,6 +518,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">启发式算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -1099,6 +1192,18 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">paper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">启发式算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">进化算法</a>
               </li>
             
             <div class="clearfix"></div>
