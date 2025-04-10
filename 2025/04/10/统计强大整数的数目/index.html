@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 随笔 | Hexo</title>
+  <title>统计强大整数的数目 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/tags/%E9%9A%8F%E7%AC%94/index.html">
+  <meta name="description" content="分割等和子集Link： https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;count-the-number-of-powerful-integers&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-10给你三个整数start，finish和limit。同时给你一个下标从 0 开始的字符串 s ，表示一个 正 整数。如果一个正整数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统计强大整数的数目">
+<meta property="og:url" content="http://example.com/2025/04/10/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分割等和子集Link： https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;count-the-number-of-powerful-integers&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-10给你三个整数start，finish和limit。同时给你一个下标从 0 开始的字符串 s ，表示一个 正 整数。如果一个正整数">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-04-10T13:10:37.000Z">
+<meta property="article:modified_time" content="2025-04-10T13:57:15.792Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="DFS">
+<meta property="article:tag" content="Hard">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -160,147 +167,200 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-统计强大整数的数目" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      统计强大整数的数目
+    </h1>
+  
+
+        
+        <a href="/2025/04/10/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
+  	<time datetime="2025-04-10T13:10:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-10</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a><font color=red>分割等和子集</font></h1><p><strong>Link：</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/?envType=daily-question&envId=2025-04-10">https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/?envType=daily-question&amp;envId=2025-04-10</a><br>给你三个整数<code>start</code>，<code>finish</code>和<code>limit</code>。同时给你一个下标从 <strong>0</strong> 开始的字符串 <code>s</code> ，表示一个 <strong>正</strong> 整数。<br>如果一个<strong>正</strong>整数 <code>x</code>末尾部分是<code>s</code>（换句话说，<code>s</code>是<code>x</code>的后缀），且<code>x</code>中的每个数位至多是 <code>limit</code> ，那么我们称 <code>x</code> 是 <strong>强大的</strong> 。<br>请你返回区间 <code>[start..finish]</code> 内强大整数的 <strong>总数目</strong> 。<br>如果一个字符串 <code>x</code> 是 <code>y</code> 中某个下标开始（包括 <strong>0</strong> ），到下标为 <code>y.length - 1</code> 结束的子字符串，那么我们称 <code>x</code> 是<code>y</code> 的一个后缀。比方说，<code>25</code> 是<code>5125</code> 的一个后缀，但不是 <code>512</code> 的后缀。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>start &#x3D; 1, finish &#x3D; 6000, limit &#x3D; 4, s &#x3D; “124”</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>5</font><br><strong>解释：</strong> 区间 [1..6000] 内的强大数字为 124 ，1124 ，2124 ，3124 和 4124 。这些整数的各个数位都 &lt;&#x3D; 4 且 “124” 是它们的后缀。注意 5124 不是强大整数，因为第一个数位 5 大于 4。<br>这个区间内总共只有这 5 个强大整数。<br></p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>有点像位运算。</p>
+<h3 id="1-分析："><a href="#1-分析：" class="headerlink" title="1. 分析："></a>1. 分析：</h3><ul>
+<li>假设<code>dfs(i, low_limit, high_limit)</code>表示<strong>前<code>i</code>位确定</strong>，后缀为<code>s</code>的可能字符串数目。<code>low_limit</code>表示<strong>前<code>i - 1</code>位数字与<code>start</code>前<code>i</code>位重合</strong>，那么第<code>i</code>位也受到<code>start[i]</code>的约束（不能低于<code>start[i]</code>，否则会低于<code>start</code>）。同理<code>high_limit</code>表示<strong>前<code>i - 1</code>位数字与<code>finish</code>前<code>i</code>位重合</strong>，那么第<code>i</code>位也受到<code>finish[i]</code>的约束（不能高于<code>finish[i]</code>）<br><strong>结束条件：</strong></li>
+<li>后缀强制为<code>s</code>，如果得到的数字<strong>高于<code>high</code>或低于<code>start</code>，返回<code>0</code></strong></li>
+<li><code>i == n</code>时返回<code>1</code></li>
+</ul>
+<h3 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code:"></a>2. Code:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numberOfPowerfulInt</span>(<span class="params">self, start: <span class="built_in">int</span>, finish: <span class="built_in">int</span>, limit: <span class="built_in">int</span>, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        high = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(finish)))</span><br><span class="line">        n = <span class="built_in">len</span>(high)</span><br><span class="line">        low = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(start).zfill(n)))</span><br><span class="line">        <span class="comment"># 除去后缀s的位数</span></span><br><span class="line">        diff = n - <span class="built_in">len</span>(s)</span><br><span class="line"></span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, limit_low, limit_high</span>):</span><br><span class="line">            <span class="comment"># 枚举到最后一位了</span></span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">            <span class="comment"># 第 i 个数位可以从 lo 枚举到 hi</span></span><br><span class="line">            lo = low[i] <span class="keyword">if</span> limit_low <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            hi = high[i] <span class="keyword">if</span> limit_high <span class="keyword">else</span> <span class="number">9</span></span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> i &lt; diff:</span><br><span class="line">                <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">range</span>(lo, <span class="built_in">min</span>(hi, limit) + <span class="number">1</span>):</span><br><span class="line">                    res += dfs(i + <span class="number">1</span>, limit_low <span class="keyword">and</span> d == lo, limit_high <span class="keyword">and</span> d == hi)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                x = <span class="built_in">int</span>(s[i - diff])</span><br><span class="line">                <span class="keyword">if</span> lo &lt;= x &lt;= hi:</span><br><span class="line">                    res = dfs(i + <span class="number">1</span>, limit_low <span class="keyword">and</span> x == lo, limit_high <span class="keyword">and</span> x == hi)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2025" class="archive-year">2025</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/03/31/20250331%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2025-03-31T09:55:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/03/31/20250331%E9%9A%8F%E7%AC%94/">20250331随笔</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/03/25/20250325%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2025-03-25T03:42:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/03/25/20250325%E9%9A%8F%E7%AC%94/">20250325随笔</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
+      		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFS</a>
         		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2025/03/22/20250322%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2025-03-22T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2025/03/22/20250322%E9%9A%8F%E7%AC%94/">20250322随笔</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
+      		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/04/10/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2025/04/08/DeepACO/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DeepACO</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -323,9 +383,9 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
