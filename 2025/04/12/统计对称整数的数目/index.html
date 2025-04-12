@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>分割等和子集 | Hexo</title>
+  <title>统计对称整数的数目 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分割等和子集Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;partition-equal-subset-sum&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-07给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。示例1：输入： nums &amp;#x">
+  <meta name="description" content="统计对称整数的数目Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;count-symmetric-integers&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-11给你两个正整数low和high。对于一个由2 * n位数字组成的整数x，如果其前n位数字之和与后n位数字之和相等，则认为这个数字是一个对称整数。返回在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="分割等和子集">
-<meta property="og:url" content="http://example.com/2025/04/07/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/index.html">
+<meta property="og:title" content="统计对称整数的数目">
+<meta property="og:url" content="http://example.com/2025/04/12/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="分割等和子集Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;partition-equal-subset-sum&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-07给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。示例1：输入： nums &amp;#x">
+<meta property="og:description" content="统计对称整数的数目Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;count-symmetric-integers&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-11给你两个正整数low和high。对于一个由2 * n位数字组成的整数x，如果其前n位数字之和与后n位数字之和相等，则认为这个数字是一个对称整数。返回在">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-04-07T02:34:58.000Z">
-<meta property="article:modified_time" content="2025-04-08T02:05:44.598Z">
+<meta property="article:published_time" content="2025-04-12T03:52:15.000Z">
+<meta property="article:modified_time" content="2025-04-12T04:12:53.226Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="DFS">
-<meta property="article:tag" content="中等">
+<meta property="article:tag" content="Hard">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -167,31 +167,32 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-分割等和子集" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-统计对称整数的数目" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      分割等和子集
+      统计对称整数的数目
     </h1>
   
 
         
-        <a href="/2025/04/07/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2025-04-07T02:34:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-07</time>
+        <a href="/2025/04/12/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
+  	<time datetime="2025-04-12T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a><font color=orange>分割等和子集</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&envId=2025-04-07">https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&amp;envId=2025-04-07</a><br>给你一个 <strong>只包含正整数</strong> 的 <strong>非空</strong> 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>nums &#x3D; [1, 5, 11, 5]</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>true</font><br><strong>解释：</strong> 数组可以分割成[1, 5, 5]和[11]<br></p>
-<hr>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="一、分析"><a href="#一、分析" class="headerlink" title="一、分析"></a>一、分析</h2><p>假设nums元素和为s，满足题目的前提是<strong>s为偶数</strong>。原题目变为找一个<strong>和为s&#x2F;2的子集</strong>，可以使用dfs进行记忆化搜索</p>
-<h2 id="二、流程"><a href="#二、流程" class="headerlink" title="二、流程"></a>二、流程</h2><p>从后往前递推，假设dfs(i, j)表示的是在[0, i]索引下是否能够找到和为j的子集。那么递推规则如下：<br><code>dfs(i, j) = dfs(i - 1, j - nums[i]) or dfs(i - 1, j)</code><br>如果选择<code>nums[i]</code>加入子集，那么<code>dfs(i, j) = dfs(i - 1, j - nums[i])</code>，不选择则是<code>dfs(i - 1, j)</code><br>边界即当<code>i &lt; 0</code>或者<code>j &lt; 0</code>时，RETURN False，说明没有满足的子集；当<code>j == 0</code>时，说明找到满足的子集，返回True</p>
-<h2 id="三、Code"><a href="#三、Code" class="headerlink" title="三、Code"></a>三、Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">canPartition</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, j</span>):</span><br><span class="line">            <span class="keyword">if</span> j == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> j &lt; <span class="number">0</span> <span class="keyword">or</span> i &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">return</span> dfs(i-<span class="number">1</span>, j - nums[i]) <span class="keyword">or</span> dfs(i -<span class="number">1</span>, j)</span><br><span class="line">        s = <span class="built_in">sum</span>(nums)</span><br><span class="line">        <span class="keyword">return</span> s % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">and</span> dfs(<span class="built_in">len</span>(nums) - <span class="number">1</span>, s // <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+        <h1 id="统计对称整数的数目"><a href="#统计对称整数的数目" class="headerlink" title="统计对称整数的数目"></a><font color=red>统计对称整数的数目</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&envId=2025-04-11">https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&amp;envId=2025-04-11</a><br>给你两个正整数<code>low</code>和<code>high</code>。<br>对于一个由<code>2 * n</code>位数字组成的整数<code>x</code>，如果其前<code>n</code>位数字之和与后<code>n</code>位数字之和相等，则认为这个数字是一个对称整数。<br>返回在<code>[low, high]</code>范围内的<strong>对称整数的数目</strong>。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>low &#x3D; 1, high &#x3D; 100</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>9</font><br><strong>解释：</strong> 在 1 到 100 范围内共有 9 个对称整数：11、22、33、44、55、66、77、88 和 99 。<br><strong>提示：</strong></p>
+<ul>
+<li><strong>1 &lt;&#x3D; low &lt;&#x3D; high &lt;&#x3D; 10<sup>18</sup></strong></li>
+</ul>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h3 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h3><p>与前一天<a href="./%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE.md">统计强大整数的数目</a>的类似.<br>假设<code>dfs(i, start, diff, limit_low, limit_high)</code>表示现在是第<code>i</code>位, 从<code>start</code>开始有数字, 前半部分与后半部分的差别是<code>diff</code>.<code>limit_low</code>, <code>limit_high</code>还是表示是否前面的数与<code>low/high</code>重合.推导过程可以结合前一个题解自行推理(如果第二次还不会再写&#x3D; &#x3D;懒了)</p>
+<h3 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countSymmetricIntegers</span>(<span class="params">self, low: <span class="built_in">int</span>, high: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        high = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(high)))  <span class="comment"># 避免在 dfs 中频繁调用 int()</span></span><br><span class="line">        n = <span class="built_in">len</span>(high)</span><br><span class="line">        low = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(low).zfill(n)))  <span class="comment"># 补前导零，和 high 对齐</span></span><br><span class="line">        </span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i: <span class="built_in">int</span>, start: <span class="built_in">int</span>, diff: <span class="built_in">int</span>, limit_low: <span class="built_in">bool</span>, limit_high: <span class="built_in">bool</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> diff == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            lo = low[i] <span class="keyword">if</span> limit_low <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            hi = high[i] <span class="keyword">if</span> limit_high <span class="keyword">else</span> <span class="number">9</span></span><br><span class="line">            <span class="comment"># 如果前面没有填数字，且剩余数位个数是奇数，那么当前数位不能填数字</span></span><br><span class="line">            <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> (n - i) % <span class="number">2</span>:</span><br><span class="line">                <span class="comment"># 如果必须填数字（lo &gt; 0），不合法，返回 0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> lo <span class="keyword">else</span> dfs(i + <span class="number">1</span>, start, diff, <span class="literal">True</span>, <span class="literal">False</span>)</span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            is_left = start &lt; <span class="number">0</span> <span class="keyword">or</span> i &lt; (start + n) // <span class="number">2</span></span><br><span class="line">            <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">range</span>(lo, hi + <span class="number">1</span>):</span><br><span class="line">                res += dfs(i + <span class="number">1</span>,</span><br><span class="line">                           i <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> d <span class="keyword">else</span> start,  <span class="comment"># 记录第一个填数字的位置</span></span><br><span class="line">                           diff + (d <span class="keyword">if</span> is_left <span class="keyword">else</span> -d),  <span class="comment"># 左半 + 右半 -</span></span><br><span class="line">                           limit_low <span class="keyword">and</span> d == lo,</span><br><span class="line">                           limit_high <span class="keyword">and</span> d == hi)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
       
 
       
@@ -233,7 +234,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">中等</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
         		</li>
       		
 		</ul>
@@ -253,7 +254,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DFS/中等//" class="article-tag-list-link color3">中等</a>
+        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
         		</li>
       		
 		</ul>
@@ -308,7 +309,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/04/07/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/04/12/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -322,18 +323,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2025/04/08/DeepACO/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          DeepACO
-        
-      </div>
-    </a>
   
-  
-    <a href="/2025/03/31/20250331%E9%9A%8F%E7%AC%94/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">20250331随笔</div>
+    <a href="/2025/04/10/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">统计强大整数的数目</div>
       <i class="icon-circle-right"></i>
     </a>
   
