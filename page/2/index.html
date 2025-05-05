@@ -32,7 +32,9 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" class="aplayer-style-marker">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-script-marker"></script>
+</head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -161,6 +163,332 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-20250323周赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/03/23/20250323%E5%91%A8%E8%B5%9B/">20250323周赛</a>
+    </h1>
+  
+
+        
+        <a href="/2025/03/23/20250323%E5%91%A8%E8%B5%9B/" class="archive-article-date">
+  	<time datetime="2025-03-23T08:57:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="2-属性图"><a href="#2-属性图" class="headerlink" title="2. 属性图"></a><font color=orange>2. 属性图</font></h1><p><strong>链接：</strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/properties-graph/description/">https://leetcode.cn/problems/properties-graph/description/</a><br>给你一个二维整数数组<code>properties</code>，其维度为<code>n x m</code>，以及一个整数<code>k</code>。<br>定义一个函数<code>intersect(a, b)</code>，它返回数组<code>a</code>和<code>b</code>中<strong>共有的不同整数的数量</strong> 。<br>构造一个<strong>无向图</strong>，其中每个索引<code>i</code>对应 <code>properties[i]</code>。如果且仅当 <code>intersect(properties[i], properties[j]) &gt;= k</code>（其中 <code>i</code> 和 <code>j</code> 的范围为 <code>[0, n - 1]</code> 且 <code>i != j</code>），节点 <code>i</code> 和节点 <code>j</code> 之间有一条边。<br>返回结果图中 <strong>连通分量</strong> 的数量。<br><br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>properties &#x3D; [[1,2],[1,1],[3,4],[4,5],[5,6],[7,7]], k &#x3D; 1</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>3</font><br><strong>解释：</strong> 生成的图如下所示，有三个连通分量：<br><img src='/img/202503/23/leetcode0323_1.png'></p>
+<hr>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>暴力枚举所有 properties[i] 和 properties[j]，如果交集大小 ≥k，那么用并查集合并 i 和 j。<br>初始连通块个数 cc&#x3D;n，每成功合并一次，就把 cc 减一。</p>
+<div style="border: 1px solid #ddd; border-left: 5px solid #00BFFF; background-color: #E0FFFF; padding: 10px; font-size: 110%;">
+<b>Code:</b>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="comment"># 一开始有 n 个集合 &#123;0&#125;, &#123;1&#125;, ..., &#123;n-1&#125;</span></span><br><span class="line">        <span class="comment"># 集合 i 的代表元是自己</span></span><br><span class="line">        <span class="variable language_">self</span>._fa = <span class="built_in">list</span>(<span class="built_in">range</span>(n))  <span class="comment"># 代表元</span></span><br><span class="line">        <span class="variable language_">self</span>.cc = n  <span class="comment"># 连通块个数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回 x 所在集合的代表元</span></span><br><span class="line">    <span class="comment"># 同时做路径压缩，也就是把 x 所在集合中的所有元素的 fa 都改成代表元</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">self, x: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment"># 如果 fa[x] == x，则表示 x 是代表元</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>._fa[x] != x:</span><br><span class="line">            <span class="variable language_">self</span>._fa[x] = <span class="variable language_">self</span>.find(<span class="variable language_">self</span>._fa[x])  <span class="comment"># fa 改成代表元</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>._fa[x]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 把 from 所在集合合并到 to 所在集合中</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">self, from_: <span class="built_in">int</span>, to: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        x, y = <span class="variable language_">self</span>.find(from_), <span class="variable language_">self</span>.find(to)</span><br><span class="line">        <span class="keyword">if</span> x == y:  <span class="comment"># from 和 to 在同一个集合，不做合并</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="variable language_">self</span>._fa[x] = y  <span class="comment"># 合并集合。修改后就可以认为 from 和 to 在同一个集合了</span></span><br><span class="line">        <span class="variable language_">self</span>.cc -= <span class="number">1</span>  <span class="comment"># 合并后，连通块个数减少了 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numberOfComponents</span>(<span class="params">self, properties: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        sets = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">set</span>, properties))</span><br><span class="line">        uf = UnionFind(<span class="built_in">len</span>(properties))</span><br><span class="line">        <span class="keyword">for</span> i, a <span class="keyword">in</span> <span class="built_in">enumerate</span>(sets):</span><br><span class="line">            <span class="keyword">for</span> j, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(sets[:i]):</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(a &amp; b) &gt;= k:</span><br><span class="line">                    uf.merge(j, i)</span><br><span class="line">        <span class="keyword">return</span> uf.cc</span><br></pre></td></tr></table></figure>
+</div>
+
+
+<hr>
+<h1 id="3-酿造药水需要的最少总时间"><a href="#3-酿造药水需要的最少总时间" class="headerlink" title="3. 酿造药水需要的最少总时间"></a><font color=orange>3. 酿造药水需要的最少总时间</font></h1><p><strong>链接：</strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-minimum-amount-of-time-to-brew-potions/?slug=properties-graph&region=local_v2">https://leetcode.cn/problems/find-the-minimum-amount-of-time-to-brew-potions/?slug=properties-graph&amp;region=local_v2</a><br>给你两个长度分别为 <code>n</code> 和 <code>m</code> 的整数数组 <code>skill</code> 和 <code>mana</code> 。<br>在一个实验室里，有 <code>n</code> 个巫师，他们必须按顺序酿造 <code>m</code> 个药水。每个药水的法力值为 <code>mana[j]</code>，并且每个药水 <strong>必须</strong> 依次通过 <strong>所有</strong> 巫师处理，才能完成酿造。第 <code>i</code> 个巫师在第 <code>j</code> 个药水上处理需要的时间为 $time_{ij} &#x3D; skill[i] * mana[j]$。<br>由于酿造过程非常精细，药水在当前巫师完成工作后 <strong>必须</strong> 立即传递给下一个巫师并开始处理。这意味着时间必须保持 <strong>同步</strong>，确保每个巫师在药水到达时 <strong>马上</strong>开始工作。<br>返回酿造所有药水所需的 <strong>最短</strong> 总时间。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>skill &#x3D; [1,5,2,4], mana &#x3D; [5,1,4,2]</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>110</font><br><strong>解释：</strong><br><br><img src='/img/202503/23/leetcode2.png'><br>举个例子，为什么巫师 0 不能在时间 <code>t = 52</code> 前开始处理第 1 个药水，假设巫师们在时间 <code>t = 50</code> 开始准备第 1 个药水。时间 <code>t = 58</code> 时，巫师 2 已经完成了第 1 个药水的处理，但巫师 3 直到时间 <code>t = 60</code> 仍在处理第 0 个药水，无法马上开始处理第 1 个药水。</p>
+<hr>
+<h1 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h1><h2 id="正反两次扫描"><a href="#正反两次扫描" class="headerlink" title="正反两次扫描"></a>正反两次扫描</h2><p>假设$time_i$表示巫师<code>i</code>结束上一瓶药水的时间。现在在做第 2 瓶药水，则巫师<code>i</code>开始制药的时间为巫师<code>i-1</code>做完第 2 瓶药水和巫师<code>i</code>自己做完第 1 瓶药水时间的最大值：$max(time_i, time_{i-1})$。以<strong>示例一</strong>为例：<br><img src='/img/202503/23/lc3.png'><br>结束时间$time_i$这样更新：$$time_i&#x3D;max(time_i, time_{i-1}) + skill[i]*mana[k]$$同时，在做完一轮后，要根据最后一名巫师的时间<strong>倒退</strong>前面所有巫师<strong>正确的结束时间</strong>，以便开始下一轮.最终返回$time_i[-1]$</p>
+<div style="border: 1px solid #ddd; border-left: 5px solid #00BFFF; background-color: #E0FFFF; padding: 10px; font-size: 110%;">
+<b>Code:</b>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTime</span>(<span class="params">self, skill: <span class="type">List</span>[<span class="built_in">int</span>], mana: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(skill)</span><br><span class="line">        last_finish = [<span class="number">0</span>] * n  <span class="comment"># 第 i 名巫师完成上一瓶药水的时间</span></span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> mana:</span><br><span class="line">            <span class="comment"># 按题意模拟</span></span><br><span class="line">            sum_t = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> x, last <span class="keyword">in</span> <span class="built_in">zip</span>(skill, last_finish):</span><br><span class="line">                <span class="keyword">if</span> last &gt; sum_t: sum_t = last  <span class="comment"># 手写 max</span></span><br><span class="line">                sum_t += x * m</span><br><span class="line">            <span class="comment"># 倒推：如果酿造药水的过程中没有停顿，那么 last_finish[i] 应该是多少</span></span><br><span class="line">            last_finish[-<span class="number">1</span>] = sum_t</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">2</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                sum_t -= skill[i + <span class="number">1</span>] * m</span><br><span class="line">                last_finish[i] = sum_t</span><br><span class="line">        <span class="keyword">return</span> last_finish[-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+</div>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">并查集</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/leetcode//" class="article-tag-list-link color4">leetcode</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-20250322随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/03/22/20250322%E9%9A%8F%E7%AC%94/">20250322随笔</a>
+    </h1>
+  
+
+        
+        <a href="/2025/03/22/20250322%E9%9A%8F%E7%AC%94/" class="archive-article-date">
+  	<time datetime="2025-03-22T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        请输入密码查看内容
+        
+          <a class="article-more-a" href="/2025/03/22/20250322%E9%9A%8F%E7%AC%94/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-20241026" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2024/10/26/20241026/">20241026</a>
+    </h1>
+  
+
+        
+        <a href="/2024/10/26/20241026/" class="archive-article-date">
+  	<time datetime="2024-10-26T15:56:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Torch环境配置"><a href="#Torch环境配置" class="headerlink" title="Torch环境配置"></a>Torch环境配置</h1><p>师姐给了一个RBG的论文代码，发现跑不动，找了半天发现是py文件运行错了<br><strong>以后一定要认准README的提示</strong><br>换了正确的py文件后发现出现了这个问题：<br><img src="/img/20241026/1.png"><br>搜索发现是<strong>Python版本的问题</strong>，3.8及以上有这个问题，换成3.7就好了，但是创建了新的conda环境，要重新装torch。<br>然鹅我python3.8环境的pytorch是2.x版本，这刚好tm的3.7及以下用不了（只能用1.x）<br>然后碰到了好多问题：</p>
+<ol>
+<li>torch下载过慢</li>
+<li>Pycharm中下载的torch默认是CPU版本</li>
+<li>cmd使用pip下载torch版本找不到</li>
+</ol>
+<p>于是打算记录下大概的流程吧（其实非常简单）</p>
+<hr>
+<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><ol>
+<li>检查cuda是否是安装了的，在cmd里输入<code>ncvv -V</code>。如果说未知指令就有问题，要重装cuda和cuDNN<br>安装流程可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40647372/article/details/134940429">CUDA保姆级安装教程</a><br>正常的显示应该是这样的:<br><img src="/img/20241026/2.png"></li>
+<li>安装好后就是torch的问题了，首先要在torch官网查看cuda对应的torch版本。<br>在cmd里输入<code>nvidia-smi</code>，输入完后在这里查看cuda版本，比如我的这台电脑cuda版本是12.2<img src="/img/20241026/3.png"></li>
+<li>在<a target="_blank" rel="noopener" href="https://pytorch.org/">torch官网</a>查看对应的torch版本, 一般是<strong>向下兼容</strong>。比如我的cuda是12.2但是这里没有，就用12.4<br><strong>However！注意上面的Note，需要3.9版本及以上的Python</strong> 这几乎不太可能hhh 所以一般是点紫框去下pervious version<br><strong><font color=red>注意2.x以上的pytorch版本需要3.8及以上的python！</font></strong><br><img src="/img/20241026/4.png" width=800></li>
+</ol>
+<hr>
+<h1 id="遇到的问题及处理方式"><a href="#遇到的问题及处理方式" class="headerlink" title="遇到的问题及处理方式"></a>遇到的问题及处理方式</h1><ul>
+<li>由于网速不稳定的问题，conda安装的时候总是容易失败，然后就需要全部重新来过。下载的速度还很慢，经常卡在Solving Environment不动。<br><strong>换成pip</strong> 好很多！原因不知。而且<strong>pycharm在setting里快速安装package的时候也是使用pip安装</strong></li>
+<li>pycharm安装的时候只有版本号，下载的默认cpu版本，这是用不了cuda的。使用这段代码可以检查torch版本与cuda情况</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;torch version: <span class="subst">&#123;torch.__version__&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;cuda available: <span class="subst">&#123;torch.cuda.is_available()&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;cuda device count: <span class="subst">&#123;torch.cuda.device_count()&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(torch.version.cuda)</span><br></pre></td></tr></table></figure>
+<p>这个torch就是gpu版本的，需要有版本号+cuxxx。cuda也显示可用，这个就是ok的torch<br><br><img src="/img/20241026/5.png" width=300><br><br>如果是cpu版本，卸载，重新在<a target="_blank" rel="noopener" href="https://pytorch.org/get-started/previous-versions/">torch的官网</a>找cuda对应版本torch的GPU版本 <strong>(1.x版本后面有cu的)</strong><br>如果cuda版本高于torch老版本支持的最高cuda，就装老版本最高的看看能不能用吧，我这里还是能用的（thank god）<br><img src="/img/20241026/6.png" width=800></p>
+<ul>
+<li>上面这个官网的命令还是不行，直接怒下whl文件手动安装。下载链接：<a target="_blank" rel="noopener" href="https://download.pytorch.org/whl/cu124">https://download.pytorch.org/whl/cu124</a> （最后的后缀根据cuda版本更改）<br>下载需要的torch版本的whl文件，在文件目录下激活conda环境，输入<code>pip install torch-1.5.1+cu92-cp37-cp37m-win_amd64.whl</code>即可，我是在这一步才成功的T T<br>以后也<strong>推荐本地安装</strong>，少很多网络问题带来的麻烦</li>
+</ul>
+<hr>
+<h1 id="一个冷知识"><a href="#一个冷知识" class="headerlink" title="一个冷知识"></a>一个冷知识</h1><p>在conda里输<code>conda list</code> 能看到哪些包是conda命令装的，哪些是pip装的。因为conda的下载路径设置的清华源，所以tuna都是conda下载，而pypi则是pip下载<br>可以看到pip和conda下载的包都挺多，下载包<strong>下载不动的时候可以换一个命令再试，说不定就快起来了</strong>。<br>不过注意两者包的名字可能会不一样，比如conda是pytorch，而pip是torch<br><img src="/img/20241026/7.png" width=800></p>
+<hr>
+<p>第一篇博客 还比较菜www，排版啥的都不是很好</p>
+
+        <div id="aplayer-IyFEednk" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
+            <pre class="aplayer-lrc-content"></pre>
+        </div>
+        <script>
+          var ap = new APlayer({
+            element: document.getElementById("aplayer-IyFEednk"),
+            narrow: false,
+            autoplay: false,
+            showlrc: false,
+            music: {
+              title: "The One",
+              author: "The Chainsmokers",
+              url: "/music/The Chainsmokers - The One.mp3",
+              pic: "/img/20241026/1.png",
+              lrc: ""
+            }
+          });
+          window.aplayers || (window.aplayers = []);
+          window.aplayers.push(ap);
+        </script>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python/学习笔记//" class="article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-这是我的第一篇文章哦" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -439,15 +767,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,11 +811,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color5">动态规划</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hard</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>
