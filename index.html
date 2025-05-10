@@ -162,19 +162,125 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-到达最后一个房间的最少时间" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/数组的最小相等和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/07/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/">到达最后一个房间的最少时间</a>
+      <a class="article-title" href="/2025/05/10/%E7%AE%97%E6%B3%95/%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E7%9B%B8%E7%AD%89%E5%92%8C/">数组的最小相等和</a>
     </h1>
   
 
         
-        <a href="/2025/05/07/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/" class="archive-article-date">
+        <a href="/2025/05/10/%E7%AE%97%E6%B3%95/%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E7%9B%B8%E7%AD%89%E5%92%8C/" class="archive-article-date">
+  	<time datetime="2025-05-10T02:40:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="数组的最小相等和"><a href="#数组的最小相等和" class="headerlink" title="数组的最小相等和"></a><font color=orange>数组的最小相等和</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros/description">https://leetcode.cn/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros/description</a><br>给你两个由正整数和<code>0</code>组成的数组<code>nums1</code>和<code>nums2</code>。<br>你必须将两个数组中的 <strong>所有</strong> <code>0</code> 替换为 <strong>严格</strong> 正整数，并且满足两个数组中所有元素的和 <strong>相等</strong> 。<br>返回 <strong>最小</strong> 相等和 ，如果无法使两数组相等，则返回 <code>-1</code> 。<br><strong>示例1：</strong><br><strong>输入:</strong> nums1 &#x3D; [3,2,0,1,0], nums2 &#x3D; [6,5,0]<br><strong>输出:</strong> 12<br><strong>解释:</strong> 可以按下述方式替换数组中的 0 ：</p>
+<ul>
+<li>用 2 和 4 替换 nums1 中的两个 0 。得到 nums1 &#x3D; [3,2,2,1,4] 。</li>
+<li>用 1 替换 nums2 中的一个 0 。得到 nums2 &#x3D; [6,5,1] 。<br>两个数组的元素和相等，都等于 12 。可以证明这是可以获得的最小相等和。</li>
+</ul>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="自己的想法"><a href="#自己的想法" class="headerlink" title="自己的想法"></a>自己的想法</h4><p>这个题蛮简单的，显然把两个数组中的0都换成1后得到的是各自的最小数组。问题在于<strong>不能相等的判断</strong>（其实也很简单。。多一步）<br>如果两个数组<strong>都有0</strong>，他们都是可控的，<strong>肯定</strong>可以相等。如果只有一个数组有0，另一个数组和小于这个数组的最小和，那就不行</p>
+<ul>
+<li>Code:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minSum</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], nums2: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        sum1, sum2, cnt1, cnt2 = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums1:</span><br><span class="line">            sum1 += num</span><br><span class="line">            cnt1 += <span class="number">1</span> <span class="keyword">if</span> num == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums2:</span><br><span class="line">            sum2 += num</span><br><span class="line">            cnt2 += <span class="number">1</span> <span class="keyword">if</span> num == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="comment"># 一个数组比另一个数组和大且这另一个数组不能加</span></span><br><span class="line">        <span class="keyword">if</span> (sum1 + cnt1 &gt; sum2 <span class="keyword">and</span> cnt2 == <span class="number">0</span>) <span class="keyword">or</span> (sum2 + cnt2 &gt; sum1 <span class="keyword">and</span> cnt1 == <span class="number">0</span>):</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">max</span>(sum1 + cnt1, sum2 + cnt2)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="灵神的优雅code："><a href="#灵神的优雅code：" class="headerlink" title="灵神的优雅code："></a>灵神的优雅code：</h2><p>再记忆一下python可以<strong>用<code>not in</code>判断</strong>是否一个数组有某元素，不需要再来for了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minSum</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], nums2: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        s1 = <span class="built_in">sum</span>(<span class="built_in">max</span>(x, <span class="number">1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> nums1)</span><br><span class="line">        s2 = <span class="built_in">sum</span>(<span class="built_in">max</span>(x, <span class="number">1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> nums2)</span><br><span class="line">        <span class="keyword">if</span> s1 &lt; s2 <span class="keyword">and</span> <span class="number">0</span> <span class="keyword">not</span> <span class="keyword">in</span> nums1 <span class="keyword">or</span> \</span><br><span class="line">           s2 &lt; s1 <span class="keyword">and</span> <span class="number">0</span> <span class="keyword">not</span> <span class="keyword">in</span> nums2:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(s1, s2)</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">贪心</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/贪心//" class="article-tag-list-link color3">贪心</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/贪心/Medium//" class="article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/到达最后一个房间的最少时间" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/">到达最后一个房间的最少时间</a>
+    </h1>
+  
+
+        
+        <a href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/" class="archive-article-date">
   	<time datetime="2025-05-07T04:06:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-07</time>
 </a>
         
@@ -182,7 +288,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/">https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/</a><br>有一个地窖，地窖中有 <code>n x m</code> 个房间，它们呈网格状排布。</p>
+        <h1 id="到达最后一个房间的最少时间"><a href="#到达最后一个房间的最少时间" class="headerlink" title="到达最后一个房间的最少时间"></a><font color=orange>到达最后一个房间的最少时间</font></h1><p><strong>link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/">https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/</a><br>有一个地窖，地窖中有 <code>n x m</code> 个房间，它们呈网格状排布。</p>
 <p>给你一个大小为 <code>n x m</code> 的二维数组 <code>moveTime</code> ，其中 <code>moveTime[i][j]</code> 表示在这个时刻 <strong>以后</strong> 你才可以 <strong>开始</strong> 往这个房间 <strong>移动</strong> 。你在时刻 <code>t = 0</code> 时从房间 <code>(0, 0)</code> 出发，每次可以移动到 <strong>相邻</strong> 的一个房间。在 <strong>相邻</strong> 房间之间移动需要的时间为：第一次花费 1 秒，第二次花费 2 秒，第三次花费 1 秒，第四次花费 2 秒……如此 <strong>往复</strong> 。<br>请你返回到达房间 (n - 1, m - 1) 所需要的 <strong>最少</strong> 时间。<br>如果两个房间有一条公共边（可以是水平的也可以是竖直的），那么我们称这两个房间是 <strong>相邻</strong> 的。</p>
 <p><strong>示例1：</strong><br><strong>输入:</strong> moveTime &#x3D; [[0,4],[4,4]]<br><strong>输出:</strong> 7<br><strong>解释:</strong> 需要花费的最少时间为 7 秒。</p>
 <ul>
@@ -190,7 +296,7 @@
 <li>在时刻 t &#x3D;&#x3D; 5 ，从房间 (1, 0) 移动到房间 (1, 1) ，花费 2 秒。</li>
 </ul>
 <h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="当时的想法"><a href="#当时的想法" class="headerlink" title="当时的想法"></a>当时的想法</h4><p>想着用动态规划解决，只是距离由1变成了相邻的dp值和moveTime最大值而已。但是其实路径不只是往右和往下，也可以往上。那么这里dp就比较复杂了。所以是迪杰斯特拉</p>
-<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p>迪杰斯特拉方法：构建一个<strong>最小堆</strong>，每次选择堆中<strong>距离起点最近</strong>的节点，更新四个方向节点距离起点最小的距离值，如果有节点距离变小，则把该节点加入堆（所以是存在堆中重复节点的情况，不影响，就是步骤重复点）<br>以此类推，直到取出的节点是<strong>终点</strong>，此时的距离值便为最小值</p>
+<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p><strong>迪杰斯特拉方法：</strong>构建一个<strong>最小堆</strong>，每次选择堆中<strong>距离起点最近</strong>的节点，更新四个方向节点距离起点最小的距离值，如果有节点距离变小，则把该节点加入堆（所以是存在堆中重复节点的情况，不影响，就是步骤重复点）<br>以此类推，直到取出的节点是<strong>终点</strong>，此时的距离值便为最小值</p>
 <h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTimeToReach</span>(<span class="params">self, moveTime: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n, m = <span class="built_in">len</span>(moveTime), <span class="built_in">len</span>(moveTime[<span class="number">0</span>])</span><br><span class="line">        dis = [[inf] * m <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        dis[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        h = [(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)]</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            d, i, j = heappop(h)</span><br><span class="line">            <span class="keyword">if</span> i == n - <span class="number">1</span> <span class="keyword">and</span> j == m - <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> d</span><br><span class="line">            <span class="keyword">if</span> d &gt; dis[i][j]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            time = (i + j) % <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> x, y <span class="keyword">in</span> (i + <span class="number">1</span>, j), (i - <span class="number">1</span>, j), (i, j + <span class="number">1</span>), (i, j - <span class="number">1</span>):  <span class="comment"># 枚举周围四个格子</span></span><br><span class="line">                <span class="keyword">if</span> <span class="number">0</span> &lt;= x &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= y &lt; m:</span><br><span class="line">                    new_dis = <span class="built_in">max</span>(d, moveTime[x][y]) + time</span><br><span class="line">                    <span class="keyword">if</span> new_dis &lt; dis[x][y]:</span><br><span class="line">                        dis[x][y] = new_dis</span><br><span class="line">                        heappush(h, (new_dis, x, y))</span><br></pre></td></tr></table></figure>
       
 
@@ -208,7 +314,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">中等</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -232,7 +338,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/迪杰斯特拉算法/中等//" class="article-tag-list-link color3">中等</a>
+        			<a href="/categories/算法/迪杰斯特拉算法/Medium//" class="article-tag-list-link color2">Medium</a>
         		</li>
       		
 		</ul>
@@ -267,19 +373,19 @@
 
 
   
-    <article id="post-多米诺和托米诺平铺" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/多米诺和托米诺平铺" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/05/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/">多米诺和托米诺平铺</a>
+      <a class="article-title" href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/">多米诺和托米诺平铺</a>
     </h1>
   
 
         
-        <a href="/2025/05/05/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/" class="archive-article-date">
+        <a href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/" class="archive-article-date">
   	<time datetime="2025-05-05T03:08:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-05</time>
 </a>
         
@@ -287,7 +393,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a><font color=orange>分割等和子集</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/domino-and-tromino-tiling/description">https://leetcode.cn/problems/domino-and-tromino-tiling/description</a><br>有两种形状的瓷砖：一种是 <code>2 x 1</code> 的多米诺形，另一种是形如 “L” 的托米诺形。两种形状都可以旋转。<br><img src="/img/202505/05lc0.jpg"><br>给定整数 <code>n</code> ，返回可以平铺 <code>2 x n</code> 的面板的方法的数量。<strong>返回对 <code>10^9 + 7</code> 取模</strong> 的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
+        <h1 id="多米诺和托米诺平铺"><a href="#多米诺和托米诺平铺" class="headerlink" title="多米诺和托米诺平铺"></a><font color=orange>多米诺和托米诺平铺</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/domino-and-tromino-tiling/description">https://leetcode.cn/problems/domino-and-tromino-tiling/description</a><br>有两种形状的瓷砖：一种是 <code>2 x 1</code> 的多米诺形，另一种是形如 “L” 的托米诺形。两种形状都可以旋转。<br><img src="/img/202505/05lc0.jpg"><br>给定整数 <code>n</code> ，返回可以平铺 <code>2 x n</code> 的面板的方法的数量。<strong>返回对 <code>10^9 + 7</code> 取模</strong> 的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
 <p><strong>示例1：</strong><br><img src="/img/202505/05lc1.jpg"></p>
 <p><strong>输入:</strong> n &#x3D; 3<br><strong>输出:</strong> 5<br><strong>解释:</strong> 五种不同的方法如上所示。</p>
 <h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="自己当时的想法"><a href="#自己当时的想法" class="headerlink" title="自己当时的想法"></a>自己当时的想法</h4><p>显然是一个动态规划问题，假设<code>dp[i]</code>表示<code>2 x i</code>的问题答案。如果一个n的问题能够划分成为k和n-k的问题，那么：<code>dp[i] = dp[k] * dp[n - k]</code>，但是<code>dp[k]</code>和<code>dp[n-k]</code>也不好求，并且要遍历所有<code>1</code>到<code>n - 1</code>的数，而且其实会有重复，比如都是竖的，那么<code>i</code>取几得到的结果都会是一样的，存在重复，因此不能这样</p>
@@ -311,7 +417,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">中等</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -335,7 +441,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/动态规划/中等//" class="article-tag-list-link color3">中等</a>
+        			<a href="/categories/算法/动态规划/Medium//" class="article-tag-list-link color2">Medium</a>
         		</li>
       		
 		</ul>
@@ -370,19 +476,19 @@
 
 
   
-    <article id="post-TSPBaseline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Paper/TSPBaseline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/14/TSPBaseline/">TSPBaseline</a>
+      <a class="article-title" href="/2025/04/14/Paper/TSPBaseline/">TSPBaseline</a>
     </h1>
   
 
         
-        <a href="/2025/04/14/TSPBaseline/" class="archive-article-date">
+        <a href="/2025/04/14/Paper/TSPBaseline/" class="archive-article-date">
   	<time datetime="2025-04-14T08:19:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-14</time>
 </a>
         
@@ -443,19 +549,19 @@
 
 
   
-    <article id="post-科研进展记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-科研/科研进展记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/13/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/">科研进展记录</a>
+      <a class="article-title" href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/">科研进展记录</a>
     </h1>
   
 
         
-        <a href="/2025/04/13/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/" class="archive-article-date">
+        <a href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/" class="archive-article-date">
   	<time datetime="2025-04-13T06:54:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-13</time>
 </a>
         
@@ -465,7 +571,7 @@
       
         请输入密码查看内容
         
-          <a class="article-more-a" href="/2025/04/13/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/#more">more >></a>
+          <a class="article-more-a" href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/#more">more >></a>
         
       
 
@@ -515,19 +621,19 @@
 
 
   
-    <article id="post-统计对称整数的数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/统计对称整数的数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/12/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/">统计对称整数的数目</a>
+      <a class="article-title" href="/2025/04/12/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/">统计对称整数的数目</a>
     </h1>
   
 
         
-        <a href="/2025/04/12/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
+        <a href="/2025/04/12/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
   	<time datetime="2025-04-12T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-12</time>
 </a>
         
@@ -616,19 +722,19 @@
 
 
   
-    <article id="post-统计强大整数的数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/统计强大整数的数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/10/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/">统计强大整数的数目</a>
+      <a class="article-title" href="/2025/04/10/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/">统计强大整数的数目</a>
     </h1>
   
 
         
-        <a href="/2025/04/10/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
+        <a href="/2025/04/10/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
   	<time datetime="2025-04-10T13:10:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-10</time>
 </a>
         
@@ -726,19 +832,19 @@
 
 
   
-    <article id="post-DeepACO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Paper/DeepACO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/08/DeepACO/">DeepACO</a>
+      <a class="article-title" href="/2025/04/08/Paper/DeepACO/">DeepACO</a>
     </h1>
   
 
         
-        <a href="/2025/04/08/DeepACO/" class="archive-article-date">
+        <a href="/2025/04/08/Paper/DeepACO/" class="archive-article-date">
   	<time datetime="2025-04-08T02:07:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-08</time>
 </a>
         
@@ -831,19 +937,19 @@
 
 
   
-    <article id="post-分割等和子集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/分割等和子集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/07/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/">分割等和子集</a>
+      <a class="article-title" href="/2025/04/07/%E7%AE%97%E6%B3%95/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/">分割等和子集</a>
     </h1>
   
 
         
-        <a href="/2025/04/07/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" class="archive-article-date">
+        <a href="/2025/04/07/%E7%AE%97%E6%B3%95/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" class="archive-article-date">
   	<time datetime="2025-04-07T02:34:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-07</time>
 </a>
         
@@ -876,7 +982,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">中等</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
         		</li>
       		
 		</ul>
@@ -896,7 +1002,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DFS/中等//" class="article-tag-list-link color3">中等</a>
+        			<a href="/categories/算法/DFS/Medium//" class="article-tag-list-link color2">Medium</a>
         		</li>
       		
 		</ul>
@@ -931,19 +1037,19 @@
 
 
   
-    <article id="post-20250331随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-随笔/20250331随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/31/20250331%E9%9A%8F%E7%AC%94/">20250331随笔</a>
+      <a class="article-title" href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/">20250331随笔</a>
     </h1>
   
 
         
-        <a href="/2025/03/31/20250331%E9%9A%8F%E7%AC%94/" class="archive-article-date">
+        <a href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/" class="archive-article-date">
   	<time datetime="2025-03-31T09:55:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-31</time>
 </a>
         
@@ -953,79 +1059,7 @@
       
         请输入密码查看内容
         
-          <a class="article-more-a" href="/2025/03/31/20250331%E9%9A%8F%E7%AC%94/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-20250325随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/25/20250325%E9%9A%8F%E7%AC%94/">20250325随笔</a>
-    </h1>
-  
-
-        
-        <a href="/2025/03/25/20250325%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2025-03-25T03:42:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        请输入密码查看内容
-        
-          <a class="article-more-a" href="/2025/03/25/20250325%E9%9A%8F%E7%AC%94/#more">more >></a>
+          <a class="article-more-a" href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/#more">more >></a>
         
       
 
@@ -1193,7 +1227,7 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1202,6 +1236,30 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">paper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">启发式算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NCO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VRP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">进化算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1217,23 +1275,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">paper</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">进化算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">启发式算法</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">中等</a>
+                <a href="javascript:void(0)" class="js-tag color2">Medium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">迪杰斯特拉算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1241,27 +1291,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">贪心</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hard</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NCO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VRP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">迪杰斯特拉算法</a>
               </li>
             
             <div class="clearfix"></div>
