@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>到达最后一个房间的最少时间 | Hexo</title>
+  <title>统计对称整数的数目 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="到达最后一个房间的最少时间link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;find-minimum-time-to-reach-last-room-ii&#x2F;description&#x2F;有一个地窖，地窖中有 n x m 个房间，它们呈网格状排布。 给你一个大小为 n x m 的二维数组 moveTime ，其中 moveTime[i][j] 表示在这个时刻 以后 你才可以 开始 往这">
+  <meta name="description" content="统计对称整数的数目Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;count-symmetric-integers&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-11给你两个正整数low和high。对于一个由2 * n位数字组成的整数x，如果其前n位数字之和与后n位数字之和相等，则认为这个数字是一个对称整数。返回在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="到达最后一个房间的最少时间">
-<meta property="og:url" content="http://example.com/2025/05/07/%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/index.html">
+<meta property="og:title" content="统计对称整数的数目">
+<meta property="og:url" content="http://example.com/2025/04/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="到达最后一个房间的最少时间link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;find-minimum-time-to-reach-last-room-ii&#x2F;description&#x2F;有一个地窖，地窖中有 n x m 个房间，它们呈网格状排布。 给你一个大小为 n x m 的二维数组 moveTime ，其中 moveTime[i][j] 表示在这个时刻 以后 你才可以 开始 往这">
+<meta property="og:description" content="统计对称整数的数目Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;count-symmetric-integers&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-11给你两个正整数low和high。对于一个由2 * n位数字组成的整数x，如果其前n位数字之和与后n位数字之和相等，则认为这个数字是一个对称整数。返回在">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-05-07T04:06:16.000Z">
-<meta property="article:modified_time" content="2025-05-10T02:42:36.229Z">
+<meta property="article:published_time" content="2025-04-12T03:52:15.000Z">
+<meta property="article:modified_time" content="2025-05-10T02:42:32.799Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="Medium">
-<meta property="article:tag" content="迪杰斯特拉算法">
+<meta property="article:tag" content="Hard">
+<meta property="article:tag" content="DFS">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -167,36 +167,32 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-算法/到达最后一个房间的最少时间" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-算法/动态规划/DFS/统计对称整数的数目" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      到达最后一个房间的最少时间
+      统计对称整数的数目
     </h1>
   
 
         
-        <a href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/" class="archive-article-date">
-  	<time datetime="2025-05-07T04:06:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-07</time>
+        <a href="/2025/04/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
+  	<time datetime="2025-04-12T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="到达最后一个房间的最少时间"><a href="#到达最后一个房间的最少时间" class="headerlink" title="到达最后一个房间的最少时间"></a><font color=orange>到达最后一个房间的最少时间</font></h1><p><strong>link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/">https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/</a><br>有一个地窖，地窖中有 <code>n x m</code> 个房间，它们呈网格状排布。</p>
-<p>给你一个大小为 <code>n x m</code> 的二维数组 <code>moveTime</code> ，其中 <code>moveTime[i][j]</code> 表示在这个时刻 <strong>以后</strong> 你才可以 <strong>开始</strong> 往这个房间 <strong>移动</strong> 。你在时刻 <code>t = 0</code> 时从房间 <code>(0, 0)</code> 出发，每次可以移动到 <strong>相邻</strong> 的一个房间。在 <strong>相邻</strong> 房间之间移动需要的时间为：第一次花费 1 秒，第二次花费 2 秒，第三次花费 1 秒，第四次花费 2 秒……如此 <strong>往复</strong> 。<br>请你返回到达房间 (n - 1, m - 1) 所需要的 <strong>最少</strong> 时间。<br>如果两个房间有一条公共边（可以是水平的也可以是竖直的），那么我们称这两个房间是 <strong>相邻</strong> 的。</p>
-<p><strong>示例1：</strong><br><strong>输入:</strong> moveTime &#x3D; [[0,4],[4,4]]<br><strong>输出:</strong> 7<br><strong>解释:</strong> 需要花费的最少时间为 7 秒。</p>
+        <h1 id="统计对称整数的数目"><a href="#统计对称整数的数目" class="headerlink" title="统计对称整数的数目"></a><font color=red>统计对称整数的数目</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&envId=2025-04-11">https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&amp;envId=2025-04-11</a><br>给你两个正整数<code>low</code>和<code>high</code>。<br>对于一个由<code>2 * n</code>位数字组成的整数<code>x</code>，如果其前<code>n</code>位数字之和与后<code>n</code>位数字之和相等，则认为这个数字是一个对称整数。<br>返回在<code>[low, high]</code>范围内的<strong>对称整数的数目</strong>。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>low &#x3D; 1, high &#x3D; 100</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>9</font><br><strong>解释：</strong> 在 1 到 100 范围内共有 9 个对称整数：11、22、33、44、55、66、77、88 和 99 。<br><strong>提示：</strong></p>
 <ul>
-<li>在时刻 t &#x3D;&#x3D; 4 ，从房间 (0, 0) 移动到房间 (1, 0) ，花费 1 秒。</li>
-<li>在时刻 t &#x3D;&#x3D; 5 ，从房间 (1, 0) 移动到房间 (1, 1) ，花费 2 秒。</li>
+<li><strong>1 &lt;&#x3D; low &lt;&#x3D; high &lt;&#x3D; 10<sup>18</sup></strong></li>
 </ul>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="当时的想法"><a href="#当时的想法" class="headerlink" title="当时的想法"></a>当时的想法</h4><p>想着用动态规划解决，只是距离由1变成了相邻的dp值和moveTime最大值而已。但是其实路径不只是往右和往下，也可以往上。那么这里dp就比较复杂了。所以是迪杰斯特拉</p>
-<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p><strong>迪杰斯特拉方法：</strong>构建一个<strong>最小堆</strong>，每次选择堆中<strong>距离起点最近</strong>的节点，更新四个方向节点距离起点最小的距离值，如果有节点距离变小，则把该节点加入堆（所以是存在堆中重复节点的情况，不影响，就是步骤重复点）<br>以此类推，直到取出的节点是<strong>终点</strong>，此时的距离值便为最小值</p>
-<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTimeToReach</span>(<span class="params">self, moveTime: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n, m = <span class="built_in">len</span>(moveTime), <span class="built_in">len</span>(moveTime[<span class="number">0</span>])</span><br><span class="line">        dis = [[inf] * m <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        dis[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        h = [(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)]</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            d, i, j = heappop(h)</span><br><span class="line">            <span class="keyword">if</span> i == n - <span class="number">1</span> <span class="keyword">and</span> j == m - <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> d</span><br><span class="line">            <span class="keyword">if</span> d &gt; dis[i][j]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            time = (i + j) % <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> x, y <span class="keyword">in</span> (i + <span class="number">1</span>, j), (i - <span class="number">1</span>, j), (i, j + <span class="number">1</span>), (i, j - <span class="number">1</span>):  <span class="comment"># 枚举周围四个格子</span></span><br><span class="line">                <span class="keyword">if</span> <span class="number">0</span> &lt;= x &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= y &lt; m:</span><br><span class="line">                    new_dis = <span class="built_in">max</span>(d, moveTime[x][y]) + time</span><br><span class="line">                    <span class="keyword">if</span> new_dis &lt; dis[x][y]:</span><br><span class="line">                        dis[x][y] = new_dis</span><br><span class="line">                        heappush(h, (new_dis, x, y))</span><br></pre></td></tr></table></figure>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h3 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h3><p>与前一天<a href="./%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE.md">统计强大整数的数目</a>的类似.<br>假设<code>dfs(i, start, diff, limit_low, limit_high)</code>表示现在是第<code>i</code>位, 从<code>start</code>开始有数字, 前半部分与后半部分的差别是<code>diff</code>.<code>limit_low</code>, <code>limit_high</code>还是表示是否前面的数与<code>low/high</code>重合.推导过程可以结合前一个题解自行推理(如果第二次还不会再写&#x3D; &#x3D;懒了)</p>
+<h3 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countSymmetricIntegers</span>(<span class="params">self, low: <span class="built_in">int</span>, high: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        high = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(high)))  <span class="comment"># 避免在 dfs 中频繁调用 int()</span></span><br><span class="line">        n = <span class="built_in">len</span>(high)</span><br><span class="line">        low = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(low).zfill(n)))  <span class="comment"># 补前导零，和 high 对齐</span></span><br><span class="line">        </span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i: <span class="built_in">int</span>, start: <span class="built_in">int</span>, diff: <span class="built_in">int</span>, limit_low: <span class="built_in">bool</span>, limit_high: <span class="built_in">bool</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> diff == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            lo = low[i] <span class="keyword">if</span> limit_low <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            hi = high[i] <span class="keyword">if</span> limit_high <span class="keyword">else</span> <span class="number">9</span></span><br><span class="line">            <span class="comment"># 如果前面没有填数字，且剩余数位个数是奇数，那么当前数位不能填数字</span></span><br><span class="line">            <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> (n - i) % <span class="number">2</span>:</span><br><span class="line">                <span class="comment"># 如果必须填数字（lo &gt; 0），不合法，返回 0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> lo <span class="keyword">else</span> dfs(i + <span class="number">1</span>, start, diff, <span class="literal">True</span>, <span class="literal">False</span>)</span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            is_left = start &lt; <span class="number">0</span> <span class="keyword">or</span> i &lt; (start + n) // <span class="number">2</span></span><br><span class="line">            <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">range</span>(lo, hi + <span class="number">1</span>):</span><br><span class="line">                res += dfs(i + <span class="number">1</span>,</span><br><span class="line">                           i <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> d <span class="keyword">else</span> start,  <span class="comment"># 记录第一个填数字的位置</span></span><br><span class="line">                           diff + (d <span class="keyword">if</span> is_left <span class="keyword">else</span> -d),  <span class="comment"># 左半 + 右半 -</span></span><br><span class="line">                           limit_low <span class="keyword">and</span> d == lo,</span><br><span class="line">                           limit_high <span class="keyword">and</span> d == hi)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
       
 
       
@@ -234,11 +230,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">迪杰斯特拉算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFS</a>
         		</li>
       		
 		</ul>
@@ -254,11 +250,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/迪杰斯特拉算法//" class="article-tag-list-link color3">迪杰斯特拉算法</a>
+        			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/迪杰斯特拉算法/Medium//" class="article-tag-list-link color2">Medium</a>
+        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
         		</li>
       		
 		</ul>
@@ -313,7 +309,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/05/07/%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/04/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -327,18 +323,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2025/05/10/%E7%AE%97%E6%B3%95/%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E7%9B%B8%E7%AD%89%E5%92%8C/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          数组的最小相等和
+          科研进展记录
         
       </div>
     </a>
   
   
-    <a href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">多米诺和托米诺平铺</div>
+    <a href="/2025/04/10/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">统计强大整数的数目</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -485,23 +481,23 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color3">贪心</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hard</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">paper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">进化算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -517,11 +513,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">进化算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -533,11 +537,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Medium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Medium</a>
+                <a href="javascript:void(0)" class="js-tag color5">Easy</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -546,14 +554,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">动态规划</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">贪心</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hard</a>
               </li>
             
             <div class="clearfix"></div>

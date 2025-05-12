@@ -6,21 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>统计对称整数的数目 | Hexo</title>
+  <title>找出3位偶数 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="统计对称整数的数目Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;count-symmetric-integers&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-11给你两个正整数low和high。对于一个由2 * n位数字组成的整数x，如果其前n位数字之和与后n位数字之和相等，则认为这个数字是一个对称整数。返回在">
+  <meta name="description" content="找出3位偶数Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;finding-3-digit-even-numbers&#x2F;description给你一个整数数组 digits ，其中每个元素是一个数字（0 - 9）。数组中可能存在重复元素。你需要找出 所有 满足下述条件且 互不相同 的整数：  该整数由 digits 中的三个元素按 任意 顺序 依次连接 组成。 该整数不含 前导">
 <meta property="og:type" content="article">
-<meta property="og:title" content="统计对称整数的数目">
-<meta property="og:url" content="http://example.com/2025/04/12/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/index.html">
+<meta property="og:title" content="找出3位偶数">
+<meta property="og:url" content="http://example.com/2025/05/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E6%89%BE%E5%87%BA-3-%E4%BD%8D%E5%81%B6%E6%95%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="统计对称整数的数目Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;count-symmetric-integers&#x2F;description&#x2F;?envType&#x3D;daily-question&amp;envId&#x3D;2025-04-11给你两个正整数low和high。对于一个由2 * n位数字组成的整数x，如果其前n位数字之和与后n位数字之和相等，则认为这个数字是一个对称整数。返回在">
+<meta property="og:description" content="找出3位偶数Link: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;finding-3-digit-even-numbers&#x2F;description给你一个整数数组 digits ，其中每个元素是一个数字（0 - 9）。数组中可能存在重复元素。你需要找出 所有 满足下述条件且 互不相同 的整数：  该整数由 digits 中的三个元素按 任意 顺序 依次连接 组成。 该整数不含 前导">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2025-04-12T03:52:15.000Z">
-<meta property="article:modified_time" content="2025-05-10T02:42:32.799Z">
+<meta property="article:published_time" content="2025-05-12T03:29:33.000Z">
+<meta property="article:modified_time" content="2025-05-12T03:33:57.026Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="DFS">
-<meta property="article:tag" content="Hard">
+<meta property="article:tag" content="Easy">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -167,32 +167,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-算法/统计对称整数的数目" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-算法/动态规划/DFS/找出-3-位偶数" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      统计对称整数的数目
+      找出3位偶数
     </h1>
   
 
         
-        <a href="/2025/04/12/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2025-04-12T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-12</time>
+        <a href="/2025/05/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E6%89%BE%E5%87%BA-3-%E4%BD%8D%E5%81%B6%E6%95%B0/" class="archive-article-date">
+  	<time datetime="2025-05-12T03:29:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="统计对称整数的数目"><a href="#统计对称整数的数目" class="headerlink" title="统计对称整数的数目"></a><font color=red>统计对称整数的数目</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&envId=2025-04-11">https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&amp;envId=2025-04-11</a><br>给你两个正整数<code>low</code>和<code>high</code>。<br>对于一个由<code>2 * n</code>位数字组成的整数<code>x</code>，如果其前<code>n</code>位数字之和与后<code>n</code>位数字之和相等，则认为这个数字是一个对称整数。<br>返回在<code>[low, high]</code>范围内的<strong>对称整数的数目</strong>。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>low &#x3D; 1, high &#x3D; 100</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>9</font><br><strong>解释：</strong> 在 1 到 100 范围内共有 9 个对称整数：11、22、33、44、55、66、77、88 和 99 。<br><strong>提示：</strong></p>
+        <h1 id="找出3位偶数"><a href="#找出3位偶数" class="headerlink" title="找出3位偶数"></a><font color=green>找出3位偶数</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/finding-3-digit-even-numbers/description">https://leetcode.cn/problems/finding-3-digit-even-numbers/description</a><br>给你一个整数数组 <code>digits</code> ，其中每个元素是一个数字（<code>0 - 9</code>）。数组中可能存在重复元素。<br>你需要找出 <strong>所有</strong> 满足下述条件且 <strong>互不相同</strong> 的整数：</p>
 <ul>
-<li><strong>1 &lt;&#x3D; low &lt;&#x3D; high &lt;&#x3D; 10<sup>18</sup></strong></li>
+<li>该整数由 digits 中的三个元素按 <strong>任意</strong> 顺序 <strong>依次连接</strong> 组成。</li>
+<li>该整数不含 <strong>前导零</strong></li>
+<li>该整数是一个 <strong>偶数</strong><br>例如，给定的 <code>digits</code> 是 <code>[1, 2, 3]</code> ，整数 <code>132</code> 和 <code>312</code> 满足上面列出的全部条件。<br>将找出的所有互不相同的整数按 <strong>递增顺序</strong> 排列，并以数组形式返回。<br><strong>示例1：</strong><br><strong>输入：</strong> <code>digits = [2,1,3,0]</code><br><strong>输出：</strong> <code>[102,120,130,132,210,230,302,310,312,320]</code></li>
 </ul>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h3 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h3><p>与前一天<a href="./%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE.md">统计强大整数的数目</a>的类似.<br>假设<code>dfs(i, start, diff, limit_low, limit_high)</code>表示现在是第<code>i</code>位, 从<code>start</code>开始有数字, 前半部分与后半部分的差别是<code>diff</code>.<code>limit_low</code>, <code>limit_high</code>还是表示是否前面的数与<code>low/high</code>重合.推导过程可以结合前一个题解自行推理(如果第二次还不会再写&#x3D; &#x3D;懒了)</p>
-<h3 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countSymmetricIntegers</span>(<span class="params">self, low: <span class="built_in">int</span>, high: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        high = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(high)))  <span class="comment"># 避免在 dfs 中频繁调用 int()</span></span><br><span class="line">        n = <span class="built_in">len</span>(high)</span><br><span class="line">        low = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(low).zfill(n)))  <span class="comment"># 补前导零，和 high 对齐</span></span><br><span class="line">        </span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i: <span class="built_in">int</span>, start: <span class="built_in">int</span>, diff: <span class="built_in">int</span>, limit_low: <span class="built_in">bool</span>, limit_high: <span class="built_in">bool</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> diff == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            lo = low[i] <span class="keyword">if</span> limit_low <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            hi = high[i] <span class="keyword">if</span> limit_high <span class="keyword">else</span> <span class="number">9</span></span><br><span class="line">            <span class="comment"># 如果前面没有填数字，且剩余数位个数是奇数，那么当前数位不能填数字</span></span><br><span class="line">            <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> (n - i) % <span class="number">2</span>:</span><br><span class="line">                <span class="comment"># 如果必须填数字（lo &gt; 0），不合法，返回 0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> lo <span class="keyword">else</span> dfs(i + <span class="number">1</span>, start, diff, <span class="literal">True</span>, <span class="literal">False</span>)</span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            is_left = start &lt; <span class="number">0</span> <span class="keyword">or</span> i &lt; (start + n) // <span class="number">2</span></span><br><span class="line">            <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">range</span>(lo, hi + <span class="number">1</span>):</span><br><span class="line">                res += dfs(i + <span class="number">1</span>,</span><br><span class="line">                           i <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> d <span class="keyword">else</span> start,  <span class="comment"># 记录第一个填数字的位置</span></span><br><span class="line">                           diff + (d <span class="keyword">if</span> is_left <span class="keyword">else</span> -d),  <span class="comment"># 左半 + 右半 -</span></span><br><span class="line">                           limit_low <span class="keyword">and</span> d == lo,</span><br><span class="line">                           limit_high <span class="keyword">and</span> d == hi)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p>很明显的回溯，枚举每一位可能的值，返回其中的偶数（但是还是不太会，多练。。）</p>
+<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">findEvenNumbers</span>(<span class="params">self, digits: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        cnt = [<span class="number">0</span>] * <span class="number">10</span></span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> digits:</span><br><span class="line">            cnt[d] += <span class="number">1</span></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, x</span>):</span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">3</span>:</span><br><span class="line">                ans.append(x)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">for</span> d, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(cnt):</span><br><span class="line">                <span class="keyword">if</span> c &gt; <span class="number">0</span> <span class="keyword">and</span> (i == <span class="number">0</span> <span class="keyword">and</span> d &gt; <span class="number">0</span> <span class="keyword">or</span> i == <span class="number">1</span> <span class="keyword">or</span> i == <span class="number">2</span> <span class="keyword">and</span> d % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">                    cnt[d] -= <span class="number">1</span></span><br><span class="line">                    dfs(i + <span class="number">1</span>, x * <span class="number">10</span> + d)</span><br><span class="line">                    cnt[d] += <span class="number">1</span> <span class="comment"># 复原</span></span><br><span class="line">        dfs(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
       
 
       
@@ -234,7 +236,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Easy</a>
         		</li>
       		
 		</ul>
@@ -254,7 +256,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
+        			<a href="/categories/算法/DFS/Easy//" class="article-tag-list-link color5">Easy</a>
         		</li>
       		
 		</ul>
@@ -309,7 +311,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/04/12/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2025/05/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E6%89%BE%E5%87%BA-3-%E4%BD%8D%E5%81%B6%E6%95%B0/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -323,18 +325,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          科研进展记录
-        
-      </div>
-    </a>
   
-  
-    <a href="/2025/04/10/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">统计强大整数的数目</div>
+    <a href="/2025/05/11/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">图中边值的最大和</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -481,23 +474,23 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color3">贪心</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">Hard</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">paper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">进化算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -513,11 +506,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">进化算法</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,11 +530,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Medium</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DFS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Medium</a>
+                <a href="javascript:void(0)" class="js-tag color5">Easy</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -542,14 +547,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">动态规划</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">贪心</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Hard</a>
               </li>
             
             <div class="clearfix"></div>
