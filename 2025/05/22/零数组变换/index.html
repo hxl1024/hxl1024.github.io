@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>零数组变换 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="零数组变换 ILink: 零数组变换 II零数组变换 IIILink: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;zero-array-transformation-iii&#x2F;description&#x2F;给你一个长度为 n 的整数数组 nums 和一个二维数组 queries ，其中 queries[i] &#x3D; [li, ri] 。每一个 queries[i] 表示对于 nums 的以下操">
+  <meta name="description" content="零数组变换 ILink: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;zero-array-transformation-i&#x2F;description给定一个长度为 n 的整数数组 nums 和一个二维数组 queries，其中 queries[i] &#x3D; [li, ri]。对于每个查询 queries[i]：  在 nums 的下标范围 [li, ri] 内选择一个下标子集。 将选中的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="零数组变换">
 <meta property="og:url" content="http://example.com/2025/05/22/%E9%9B%B6%E6%95%B0%E7%BB%84%E5%8F%98%E6%8D%A2/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="零数组变换 ILink: 零数组变换 II零数组变换 IIILink: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;zero-array-transformation-iii&#x2F;description&#x2F;给你一个长度为 n 的整数数组 nums 和一个二维数组 queries ，其中 queries[i] &#x3D; [li, ri] 。每一个 queries[i] 表示对于 nums 的以下操">
+<meta property="og:description" content="零数组变换 ILink: https:&#x2F;&#x2F;leetcode.cn&#x2F;problems&#x2F;zero-array-transformation-i&#x2F;description给定一个长度为 n 的整数数组 nums 和一个二维数组 queries，其中 queries[i] &#x3D; [li, ri]。对于每个查询 queries[i]：  在 nums 的下标范围 [li, ri] 内选择一个下标子集。 将选中的">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2025-05-22T01:33:40.000Z">
-<meta property="article:modified_time" content="2025-05-22T01:53:45.138Z">
+<meta property="article:modified_time" content="2025-05-25T03:31:39.363Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="前缀和">
@@ -187,21 +187,40 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="零数组变换-I"><a href="#零数组变换-I" class="headerlink" title="零数组变换 I"></a><font color=orange>零数组变换 I</font></h1><p><strong>Link:</strong></p>
-<h1 id="零数组变换-II"><a href="#零数组变换-II" class="headerlink" title="零数组变换 II"></a><font color=orange>零数组变换 II</font></h1><h1 id="零数组变换-III"><a href="#零数组变换-III" class="headerlink" title="零数组变换 III"></a><font color=orange>零数组变换 III</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-iii/description/">https://leetcode.cn/problems/zero-array-transformation-iii/description/</a><br>给你一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code> ，其中 <code>queries[i] = [li, ri]</code> 。<br>每一个 <code>queries[i]</code> 表示对于 <code>nums</code> 的以下操作：</p>
+        <h1 id="零数组变换-I"><a href="#零数组变换-I" class="headerlink" title="零数组变换 I"></a><font color=orange>零数组变换 I</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-i/description">https://leetcode.cn/problems/zero-array-transformation-i/description</a><br>给定一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code>，其中 <code>queries[i] = [li, ri]</code>。<br>对于每个查询 <code>queries[i]</code>：</p>
+<ul>
+<li>在 <code>nums</code> 的下标范围 <code>[li, ri]</code> 内选择一个下标子集。</li>
+<li>将选中的每个下标对应的元素值减 1。</li>
+</ul>
+<p><strong>零数组</strong> 是指所有元素都等于 0 的数组。<br>如果在按顺序处理所有查询后，可以将 <code>nums</code> 转换为 <strong>零数组</strong> ，则返回 <code>true</code>，否则返回 <code>false</code>。<br><strong>示例1：</strong><br><strong>输入：</strong> <code>nums = [1,0,1], queries = [[0,2]]</code><br><strong>输出：</strong> <code>true</code><br><strong>解释：</strong> </p>
+<ul>
+<li><strong>对于 i &#x3D; 0：</strong><ul>
+<li>选择下标子集 <code>[0, 2]</code> 并将这些下标处的值减 1。</li>
+<li>数组将变为 <code>[0, 0, 0]</code>，这是一个零数组。</li>
+</ul>
+</li>
+</ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>前缀和，取一个长度为<code>n</code>的<code>rec</code>数组，将<code>queries</code>中<strong>左节点对应索引值加1，右节点再右边对应索引值减1</strong><br>取<code>sum_d</code>表示当前<strong>最多</strong>能够减小的数值，遍历<code>nums</code>，如果<code>sum_d</code>比当前<code>nums[i]</code>值小，说明该元素无法减为0，返回<code>False</code>。若遍历完，则返回<code>True</code></p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isZeroArray</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        cnt = [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> l,r <span class="keyword">in</span> queries:</span><br><span class="line">            cnt[l] += <span class="number">1</span></span><br><span class="line">            cnt[r + <span class="number">1</span>] -= <span class="number">1</span></span><br><span class="line">        rec = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            rec += cnt[i]</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; rec:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="零数组变换-II"><a href="#零数组变换-II" class="headerlink" title="零数组变换 II"></a><font color=orange>零数组变换 II</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-ii/solutions/2991505/liang-chong-fang-fa-er-fen-da-an-chai-fe-rcvg/">https://leetcode.cn/problems/zero-array-transformation-ii/solutions/2991505/liang-chong-fang-fa-er-fen-da-an-chai-fe-rcvg/</a><br>给你一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code>，其中 <code>queries[i] = [li, ri, vali]</code>。 每个 <code>queries[i]</code> 表示在 <code>nums</code> 上执行以下操作：<br>• 将 <code>nums</code> 中 <code>[li, ri]</code> 范围内的每个下标对应元素的值 <strong>最多</strong> 减少 $val_i$。<br>• 每个下标的减少的数值可以<strong>独立</strong>选择。<br><strong>零数组</strong> 是指所有元素都等于 0 的数组。<br>返回 <code>k</code> 可以取到的 <strong>最小非负</strong> 值，使得在 <strong>顺序</strong> 处理前 <code>k</code> 个查询后，<code>nums</code> 变成 <strong>零数组</strong>。如果不存在这样的 <code>k</code>，则返回 -1。</p>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>其实好像和上一题一样，只是索引值加不一样即可。But如果<strong>最多</strong>改成<strong>只能</strong>就不一样了</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minZeroArray</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        diff = [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        sum_d = k = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, (x, d) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(nums, diff)):</span><br><span class="line">            sum_d += d</span><br><span class="line">            <span class="keyword">while</span> k &lt; <span class="built_in">len</span>(queries) <span class="keyword">and</span> sum_d &lt; x:  <span class="comment"># 需要添加询问，把 x 减小</span></span><br><span class="line">                l, r, val = queries[k]</span><br><span class="line">                diff[l] += val</span><br><span class="line">                diff[r + <span class="number">1</span>] -= val</span><br><span class="line">                <span class="keyword">if</span> l &lt;= i &lt;= r:  <span class="comment"># x 在更新范围中</span></span><br><span class="line">                    sum_d += val</span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> sum_d &lt; x:  <span class="comment"># 无法更新</span></span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> k</span><br></pre></td></tr></table></figure>
+
+<h1 id="零数组变换-III"><a href="#零数组变换-III" class="headerlink" title="零数组变换 III"></a><font color=orange>零数组变换 III</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-iii/description/">https://leetcode.cn/problems/zero-array-transformation-iii/description/</a><br>给你一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code> ，其中 <code>queries[i] = [li, ri]</code> 。<br>每一个 <code>queries[i]</code> 表示对于 <code>nums</code> 的以下操作：</p>
 <ul>
 <li>将 <code>nums</code> 中下标在范围 <code>[li, ri]</code> 之间的每一个元素<strong>最多</strong>减少 <code>1</code> 。</li>
 <li>坐标范围内每一个元素减少的值相互 <strong>独立</strong> 。<br><strong>零数组</strong> 指的是一个数组里所有元素都等于 0 。<br>请你返回 <strong>最多</strong> 可以从<code>queries</code>中删除多少个元素，使得<code>queries</code> 中剩下的元素仍然能将 <code>nums</code> 变为一个 <strong>零数组</strong> 。如果无法将 <code>nums</code> 变为一个 <strong>零数组</strong> ，返回<code> -1</code> 。</li>
 </ul>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>贪心。我们想取的区间肯定越长越好，但是如何能够满足所有元素都变成0</p>
+<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>贪心。我们想取的区间肯定越长越好，但是如何能够满足所有元素都变成0</p>
 <ol>
 <li>先根据<strong>左节点大小</strong>对<code>queries</code>进行排序</li>
-<li>用<code>sum_d</code>表示<code>nums</code>当前元素最多可以减去几个一（即目前有几个区间包含了<code>nums</code>当前元素），<code>diff[i]</code>表示所选的区间右节点为<code>i - 1</code>的个数（即到<code>i</code>的时候<code>sum_d</code>需要减去<code>diff[i]</code>）。<code>sum_d</code>和diff数组初始值均为0</li>
+<li>用<code>sum_d</code>表示<code>nums</code>当前元素最多可以减去几个一（即目前有几个区间包含了<code>nums</code>当前元素），<code>diff[i]</code>表示所选的区间<strong>右节点</strong>为<code>i - 1</code>的个数（即到<code>i</code>的时候<code>sum_d</code>需要减去<code>diff[i]</code>）。<code>sum_d</code>和diff数组初始值均为0</li>
 <li>每个<code>nums</code>元素依次进行判断，将包含该节点的区间右节点推入最小堆中</li>
-<li>每次取出堆中最大值节点（所包含区间右节点最大）。将<code>sum_d</code>加1，并将<code>diff[区间右节点 + 1]</code>减1，表示选用了该区间。若堆中没有元素或最大右节点还比当前节点小，且<code>sum_d</code>小于<code>nums</code>当前元素，说明无法达到全零，返回-1</li>
+<li>每次取出堆中<strong>最大值</strong>节点（所包含区间右节点最大）。将<code>sum_d</code>加1，并将<code>diff[区间右节点 + 1]</code>减1，表示选用了该区间。若堆中没有元素或最大右节点还比当前节点小，且<code>sum_d</code>小于<code>nums</code>当前元素，说明无法达到全零，返回-1</li>
 <li>遍历完所有元素后，返回堆的大小，即为没有使用的区间数目</li>
 </ol>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxRemoval</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        queries.sort()</span><br><span class="line">        h, diff = [], [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        sum_d, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            sum_d += diff[i]</span><br><span class="line">            <span class="keyword">while</span> j &lt; <span class="built_in">len</span>(queries) <span class="keyword">and</span> queries[j][<span class="number">0</span>] &lt;= i:</span><br><span class="line">                heappush(h, -queries[j][<span class="number">1</span>])</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> sum_d &lt; x <span class="keyword">and</span> h <span class="keyword">and</span> -h[<span class="number">0</span>] &gt;= i:</span><br><span class="line">                sum_d += <span class="number">1</span></span><br><span class="line">                diff[-heappop(h) + <span class="number">1</span>] -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> sum_d &lt; x:</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(h)</span><br></pre></td></tr></table></figure>
+<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxRemoval</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        queries.sort()</span><br><span class="line">        h, diff = [], [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        sum_d, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            sum_d += diff[i]</span><br><span class="line">            <span class="keyword">while</span> j &lt; <span class="built_in">len</span>(queries) <span class="keyword">and</span> queries[j][<span class="number">0</span>] &lt;= i:</span><br><span class="line">                heappush(h, -queries[j][<span class="number">1</span>])</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> sum_d &lt; x <span class="keyword">and</span> h <span class="keyword">and</span> -h[<span class="number">0</span>] &gt;= i:</span><br><span class="line">                sum_d += <span class="number">1</span></span><br><span class="line">                diff[-heappop(h) + <span class="number">1</span>] -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> sum_d &lt; x:</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(h)</span><br></pre></td></tr></table></figure>
       
 
       
@@ -331,6 +350,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2025/05/26/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          移除相邻字符后字典序最小的字符串
+        
+      </div>
+    </a>
   
   
     <a href="/2025/05/13/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/" id="article-nav-older" class="article-nav-link-wrap">
@@ -557,11 +585,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+                <a href="javascript:void(0)" class="js-tag color1">Torch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">动态规划</a>
+                <a href="javascript:void(0)" class="js-tag color4">cmd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
               </li>
             
             <div class="clearfix"></div>
