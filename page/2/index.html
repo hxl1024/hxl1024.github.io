@@ -162,6 +162,214 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-算法/图 (树)/迪杰斯特拉算法/到达最后一个房间的最少时间" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%9B%BE%20(%E6%A0%91)/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/">到达最后一个房间的最少时间</a>
+    </h1>
+  
+
+        
+        <a href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%9B%BE%20(%E6%A0%91)/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/" class="archive-article-date">
+  	<time datetime="2025-05-07T04:06:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="到达最后一个房间的最少时间"><a href="#到达最后一个房间的最少时间" class="headerlink" title="到达最后一个房间的最少时间"></a><font color=orange>到达最后一个房间的最少时间</font></h1><p><strong>link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/">https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/</a><br>有一个地窖，地窖中有 <code>n x m</code> 个房间，它们呈网格状排布。</p>
+<p>给你一个大小为 <code>n x m</code> 的二维数组 <code>moveTime</code> ，其中 <code>moveTime[i][j]</code> 表示在这个时刻 <strong>以后</strong> 你才可以 <strong>开始</strong> 往这个房间 <strong>移动</strong> 。你在时刻 <code>t = 0</code> 时从房间 <code>(0, 0)</code> 出发，每次可以移动到 <strong>相邻</strong> 的一个房间。在 <strong>相邻</strong> 房间之间移动需要的时间为：第一次花费 1 秒，第二次花费 2 秒，第三次花费 1 秒，第四次花费 2 秒……如此 <strong>往复</strong> 。<br>请你返回到达房间 (n - 1, m - 1) 所需要的 <strong>最少</strong> 时间。<br>如果两个房间有一条公共边（可以是水平的也可以是竖直的），那么我们称这两个房间是 <strong>相邻</strong> 的。</p>
+<p><strong>示例1：</strong><br><strong>输入:</strong> moveTime &#x3D; [[0,4],[4,4]]<br><strong>输出:</strong> 7<br><strong>解释:</strong> 需要花费的最少时间为 7 秒。</p>
+<ul>
+<li>在时刻 t &#x3D;&#x3D; 4 ，从房间 (0, 0) 移动到房间 (1, 0) ，花费 1 秒。</li>
+<li>在时刻 t &#x3D;&#x3D; 5 ，从房间 (1, 0) 移动到房间 (1, 1) ，花费 2 秒。</li>
+</ul>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="当时的想法"><a href="#当时的想法" class="headerlink" title="当时的想法"></a>当时的想法</h4><p>想着用动态规划解决，只是距离由1变成了相邻的dp值和moveTime最大值而已。但是其实路径不只是往右和往下，也可以往上。那么这里dp就比较复杂了。所以是迪杰斯特拉</p>
+<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p><strong>迪杰斯特拉方法：</strong>构建一个<strong>最小堆</strong>，每次选择堆中<strong>距离起点最近</strong>的节点，更新四个方向节点距离起点最小的距离值，如果有节点距离变小，则把该节点加入堆（所以是存在堆中重复节点的情况，不影响，就是步骤重复点）<br>以此类推，直到取出的节点是<strong>终点</strong>，此时的距离值便为最小值</p>
+<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTimeToReach</span>(<span class="params">self, moveTime: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n, m = <span class="built_in">len</span>(moveTime), <span class="built_in">len</span>(moveTime[<span class="number">0</span>])</span><br><span class="line">        dis = [[inf] * m <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        dis[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        h = [(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)]</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            d, i, j = heappop(h)</span><br><span class="line">            <span class="keyword">if</span> i == n - <span class="number">1</span> <span class="keyword">and</span> j == m - <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> d</span><br><span class="line">            <span class="keyword">if</span> d &gt; dis[i][j]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            time = (i + j) % <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> x, y <span class="keyword">in</span> (i + <span class="number">1</span>, j), (i - <span class="number">1</span>, j), (i, j + <span class="number">1</span>), (i, j - <span class="number">1</span>):  <span class="comment"># 枚举周围四个格子</span></span><br><span class="line">                <span class="keyword">if</span> <span class="number">0</span> &lt;= x &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= y &lt; m:</span><br><span class="line">                    new_dis = <span class="built_in">max</span>(d, moveTime[x][y]) + time</span><br><span class="line">                    <span class="keyword">if</span> new_dis &lt; dis[x][y]:</span><br><span class="line">                        dis[x][y] = new_dis</span><br><span class="line">                        heappush(h, (new_dis, x, y))</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">迪杰斯特拉算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/迪杰斯特拉算法//" class="article-tag-list-link color3">迪杰斯特拉算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/迪杰斯特拉算法/Medium//" class="article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/动态规划/DP/多米诺和托米诺平铺" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/">多米诺和托米诺平铺</a>
+    </h1>
+  
+
+        
+        <a href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/" class="archive-article-date">
+  	<time datetime="2025-05-05T03:08:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="多米诺和托米诺平铺"><a href="#多米诺和托米诺平铺" class="headerlink" title="多米诺和托米诺平铺"></a><font color=orange>多米诺和托米诺平铺</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/domino-and-tromino-tiling/description">https://leetcode.cn/problems/domino-and-tromino-tiling/description</a><br>有两种形状的瓷砖：一种是 <code>2 x 1</code> 的多米诺形，另一种是形如 “L” 的托米诺形。两种形状都可以旋转。<br><img src="/img/202505/05lc0.jpg"><br>给定整数 <code>n</code> ，返回可以平铺 <code>2 x n</code> 的面板的方法的数量。<strong>返回对 <code>10^9 + 7</code> 取模</strong> 的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
+<p><strong>示例1：</strong><br><img src="/img/202505/05lc1.jpg"></p>
+<p><strong>输入:</strong> n &#x3D; 3<br><strong>输出:</strong> 5<br><strong>解释:</strong> 五种不同的方法如上所示。</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="自己当时的想法"><a href="#自己当时的想法" class="headerlink" title="自己当时的想法"></a>自己当时的想法</h4><p>显然是一个动态规划问题，假设<code>dp[i]</code>表示<code>2 x i</code>的问题答案。如果一个n的问题能够划分成为k和n-k的问题，那么：<code>dp[i] = dp[k] * dp[n - k]</code>，但是<code>dp[k]</code>和<code>dp[n-k]</code>也不好求，并且要遍历所有<code>1</code>到<code>n - 1</code>的数，而且其实会有重复，比如都是竖的，那么<code>i</code>取几得到的结果都会是一样的，存在重复，因此不能这样</p>
+<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><img src="/img/202505/05lc3.png">
+
+<p>划小一点分析，先看看<code>i</code>和<code>i - 1</code>的关系，如上图所示，会发现<code>i</code>和<code>i - 1</code>只能插入一个竖牌。同理<code>i</code>和<code>i - 2</code>只能插入两个横排（两个竖排就跟<code>i - 1</code>一样了，<strong>后面插入的要求不能再被竖分</strong>）<br>关键在于3及以后的，必须加入<code>L型</code>，3有2种，4有2种，5也是两种（如上图所示）。<br>5之后除了在3 &amp; 4的答案中间插入横杠之外，无法再得到其他不能分割的答案。因此3以后的都是可以插入两种方案。<br>所以递归式由上图所示：<br>$$ dp[i] &#x3D; dp[i - 1] + dp[i - 2] + 2 * (dp[i - 3] + … + dp[1] + 1) $$<br>$$ &#x3D; dp[i - 1] + (dp[i - 2] + dp[i - 3] + 2 * (dp[i - 4] + … + dp[1] + 1)) + dp[i - 3] $$<br>$$ &#x3D; dp[i - 1] + dp[i - 1] + dp[i - 3] &#x3D; 2 * dp[i - 1] + dp[i - 3] $$</p>
+<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">numTilings</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    MOD = <span class="number">1_000_000_007</span></span><br><span class="line">    dp = [<span class="number">0</span>] * <span class="number">1001</span></span><br><span class="line">    dp[<span class="number">0</span>] = dp[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    dp[<span class="number">2</span>] = <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, <span class="number">1001</span>):</span><br><span class="line">        dp[i] = (dp[i - <span class="number">1</span>] * <span class="number">2</span> + dp[i - <span class="number">3</span>]) % MOD</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DP//" class="article-tag-list-link color3">DP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DP/Medium//" class="article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Paper/TSPBaseline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -882,206 +1090,6 @@
 
 
   
-    <article id="post-Paper/Exact-methods-for-the-traveling-salesman-problem-with-drone" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/24/Paper/Exact-methods-for-the-traveling-salesman-problem-with-drone/">引用比较多的Truck-drone benchmark论文</a>
-    </h1>
-  
-
-        
-        <a href="/2025/03/24/Paper/Exact-methods-for-the-traveling-salesman-problem-with-drone/" class="archive-article-date">
-  	<time datetime="2025-03-24T02:54:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Dynamic-Programming-Approaches-for-the-Traveling-Salesman-Problem-with-Drone-Networks2018-Cite300"><a href="#Dynamic-Programming-Approaches-for-the-Traveling-Salesman-Problem-with-Drone-Networks2018-Cite300" class="headerlink" title="Dynamic Programming Approaches for the Traveling Salesman Problem with Drone(Networks2018 Cite300+)"></a>Dynamic Programming Approaches for the Traveling Salesman Problem with Drone(Networks2018 Cite300+)</h1><h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><h2 id="Novelty"><a href="#Novelty" class="headerlink" title="Novelty"></a>Novelty</h2><h2 id="Limitation"><a href="#Limitation" class="headerlink" title="Limitation"></a>Limitation</h2><h1 id="Exact-methods-for-the-traveling-salesman-problem-with-drone-Transportation-Science2021-Cite近200"><a href="#Exact-methods-for-the-traveling-salesman-problem-with-drone-Transportation-Science2021-Cite近200" class="headerlink" title="Exact methods for the traveling salesman problem with drone(Transportation Science2021 Cite近200)"></a>Exact methods for the traveling salesman problem with drone(Transportation Science2021 Cite近200)</h1><h2 id="Motivation-1"><a href="#Motivation-1" class="headerlink" title="Motivation"></a>Motivation</h2><h2 id="Method-1"><a href="#Method-1" class="headerlink" title="Method"></a>Method</h2><h2 id="Novelty-1"><a href="#Novelty-1" class="headerlink" title="Novelty"></a>Novelty</h2><ul>
-<li>提出了一种精确解TSP-D的方法</li>
-<li>提出了许多TSP-D变种问题并给出了解决方案</li>
-</ul>
-<h2 id="Limitation-1"><a href="#Limitation-1" class="headerlink" title="Limitation"></a>Limitation</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">启发式算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/paper//" class="article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/paper/启发式算法//" class="article-tag-list-link color1">启发式算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法/20250323周赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/23/%E7%AE%97%E6%B3%95/20250323%E5%91%A8%E8%B5%9B/">20250323周赛</a>
-    </h1>
-  
-
-        
-        <a href="/2025/03/23/%E7%AE%97%E6%B3%95/20250323%E5%91%A8%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2025-03-23T08:57:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="2-属性图"><a href="#2-属性图" class="headerlink" title="2. 属性图"></a><font color=orange>2. 属性图</font></h1><p><strong>链接：</strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/properties-graph/description/">https://leetcode.cn/problems/properties-graph/description/</a><br>给你一个二维整数数组<code>properties</code>，其维度为<code>n x m</code>，以及一个整数<code>k</code>。<br>定义一个函数<code>intersect(a, b)</code>，它返回数组<code>a</code>和<code>b</code>中<strong>共有的不同整数的数量</strong> 。<br>构造一个<strong>无向图</strong>，其中每个索引<code>i</code>对应 <code>properties[i]</code>。如果且仅当 <code>intersect(properties[i], properties[j]) &gt;= k</code>（其中 <code>i</code> 和 <code>j</code> 的范围为 <code>[0, n - 1]</code> 且 <code>i != j</code>），节点 <code>i</code> 和节点 <code>j</code> 之间有一条边。<br>返回结果图中 <strong>连通分量</strong> 的数量。<br><br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>properties &#x3D; [[1,2],[1,1],[3,4],[4,5],[5,6],[7,7]], k &#x3D; 1</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>3</font><br><strong>解释：</strong> 生成的图如下所示，有三个连通分量：<br><img src='/img/202503/23/leetcode0323_1.png'></p>
-<hr>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>暴力枚举所有 properties[i] 和 properties[j]，如果交集大小 ≥k，那么用并查集合并 i 和 j。<br>初始连通块个数 cc&#x3D;n，每成功合并一次，就把 cc 减一。</p>
-<div style="border: 1px solid #ddd; border-left: 5px solid #00BFFF; background-color: #E0FFFF; padding: 10px; font-size: 110%;">
-<b>Code:</b>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="comment"># 一开始有 n 个集合 &#123;0&#125;, &#123;1&#125;, ..., &#123;n-1&#125;</span></span><br><span class="line">        <span class="comment"># 集合 i 的代表元是自己</span></span><br><span class="line">        <span class="variable language_">self</span>._fa = <span class="built_in">list</span>(<span class="built_in">range</span>(n))  <span class="comment"># 代表元</span></span><br><span class="line">        <span class="variable language_">self</span>.cc = n  <span class="comment"># 连通块个数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回 x 所在集合的代表元</span></span><br><span class="line">    <span class="comment"># 同时做路径压缩，也就是把 x 所在集合中的所有元素的 fa 都改成代表元</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">self, x: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment"># 如果 fa[x] == x，则表示 x 是代表元</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>._fa[x] != x:</span><br><span class="line">            <span class="variable language_">self</span>._fa[x] = <span class="variable language_">self</span>.find(<span class="variable language_">self</span>._fa[x])  <span class="comment"># fa 改成代表元</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>._fa[x]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 把 from 所在集合合并到 to 所在集合中</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">self, from_: <span class="built_in">int</span>, to: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        x, y = <span class="variable language_">self</span>.find(from_), <span class="variable language_">self</span>.find(to)</span><br><span class="line">        <span class="keyword">if</span> x == y:  <span class="comment"># from 和 to 在同一个集合，不做合并</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="variable language_">self</span>._fa[x] = y  <span class="comment"># 合并集合。修改后就可以认为 from 和 to 在同一个集合了</span></span><br><span class="line">        <span class="variable language_">self</span>.cc -= <span class="number">1</span>  <span class="comment"># 合并后，连通块个数减少了 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numberOfComponents</span>(<span class="params">self, properties: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        sets = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">set</span>, properties))</span><br><span class="line">        uf = UnionFind(<span class="built_in">len</span>(properties))</span><br><span class="line">        <span class="keyword">for</span> i, a <span class="keyword">in</span> <span class="built_in">enumerate</span>(sets):</span><br><span class="line">            <span class="keyword">for</span> j, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(sets[:i]):</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(a &amp; b) &gt;= k:</span><br><span class="line">                    uf.merge(j, i)</span><br><span class="line">        <span class="keyword">return</span> uf.cc</span><br></pre></td></tr></table></figure>
-</div>
-
-<hr>
-<h1 id="3-酿造药水需要的最少总时间"><a href="#3-酿造药水需要的最少总时间" class="headerlink" title="3. 酿造药水需要的最少总时间"></a><font color=orange>3. 酿造药水需要的最少总时间</font></h1><p><strong>链接：</strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-minimum-amount-of-time-to-brew-potions/?slug=properties-graph&region=local_v2">https://leetcode.cn/problems/find-the-minimum-amount-of-time-to-brew-potions/?slug=properties-graph&amp;region=local_v2</a><br>给你两个长度分别为 <code>n</code> 和 <code>m</code> 的整数数组 <code>skill</code> 和 <code>mana</code> 。<br>在一个实验室里，有 <code>n</code> 个巫师，他们必须按顺序酿造 <code>m</code> 个药水。每个药水的法力值为 <code>mana[j]</code>，并且每个药水 <strong>必须</strong> 依次通过 <strong>所有</strong> 巫师处理，才能完成酿造。第 <code>i</code> 个巫师在第 <code>j</code> 个药水上处理需要的时间为 $time_{ij} &#x3D; skill[i] * mana[j]$。<br>由于酿造过程非常精细，药水在当前巫师完成工作后 <strong>必须</strong> 立即传递给下一个巫师并开始处理。这意味着时间必须保持 <strong>同步</strong>，确保每个巫师在药水到达时 <strong>马上</strong>开始工作。<br>返回酿造所有药水所需的 <strong>最短</strong> 总时间。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>skill &#x3D; [1,5,2,4], mana &#x3D; [5,1,4,2]</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>110</font><br><strong>解释：</strong><br><br><img src='/img/202503/23/leetcode2.png'><br>举个例子，为什么巫师 0 不能在时间 <code>t = 52</code> 前开始处理第 1 个药水，假设巫师们在时间 <code>t = 50</code> 开始准备第 1 个药水。时间 <code>t = 58</code> 时，巫师 2 已经完成了第 1 个药水的处理，但巫师 3 直到时间 <code>t = 60</code> 仍在处理第 0 个药水，无法马上开始处理第 1 个药水。</p>
-<hr>
-<h1 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h1><h2 id="正反两次扫描"><a href="#正反两次扫描" class="headerlink" title="正反两次扫描"></a>正反两次扫描</h2><p>假设$time_i$表示巫师<code>i</code>结束上一瓶药水的时间。现在在做第 2 瓶药水，则巫师<code>i</code>开始制药的时间为巫师<code>i-1</code>做完第 2 瓶药水和巫师<code>i</code>自己做完第 1 瓶药水时间的最大值：$max(time_i, time_{i-1})$。以<strong>示例一</strong>为例：<br><img src='/img/202503/23/lc3.png'><br>结束时间$time_i$这样更新：$$time_i&#x3D;max(time_i, time_{i-1}) + skill[i]*mana[k]$$同时，在做完一轮后，要根据最后一名巫师的时间<strong>倒退</strong>前面所有巫师<strong>正确的结束时间</strong>，以便开始下一轮.最终返回$time_i[-1]$</p>
-<div style="border: 1px solid #ddd; border-left: 5px solid #00BFFF; background-color: #E0FFFF; padding: 10px; font-size: 110%;">
-<b>Code:</b>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTime</span>(<span class="params">self, skill: <span class="type">List</span>[<span class="built_in">int</span>], mana: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(skill)</span><br><span class="line">        last_finish = [<span class="number">0</span>] * n  <span class="comment"># 第 i 名巫师完成上一瓶药水的时间</span></span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> mana:</span><br><span class="line">            <span class="comment"># 按题意模拟</span></span><br><span class="line">            sum_t = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> x, last <span class="keyword">in</span> <span class="built_in">zip</span>(skill, last_finish):</span><br><span class="line">                <span class="keyword">if</span> last &gt; sum_t: sum_t = last  <span class="comment"># 手写 max</span></span><br><span class="line">                sum_t += x * m</span><br><span class="line">            <span class="comment"># 倒推：如果酿造药水的过程中没有停顿，那么 last_finish[i] 应该是多少</span></span><br><span class="line">            last_finish[-<span class="number">1</span>] = sum_t</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">2</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                sum_t -= skill[i + <span class="number">1</span>] * m</span><br><span class="line">                last_finish[i] = sum_t</span><br><span class="line">        <span class="keyword">return</span> last_finish[-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-</div>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">并查集</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/leetcode//" class="article-tag-list-link color4">leetcode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1285,6 +1293,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tmux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">双指针</a>
               </li>
             
             <div class="clearfix"></div>
