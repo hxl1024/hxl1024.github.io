@@ -162,19 +162,132 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-移除相邻字符后字典序最小的字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-科研/tmux简单使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/26/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">移除相邻字符后字典序最小的字符串</a>
+      <a class="article-title" href="/2025/05/27/%E7%A7%91%E7%A0%94/tmux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">tmux简单使用</a>
     </h1>
   
 
         
-        <a href="/2025/05/26/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
+        <a href="/2025/05/27/%E7%A7%91%E7%A0%94/tmux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2025-05-27T12:32:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Tmux可以方便的在Linux中隔断进程，针对断网无法看到后续输出十分有效</p>
+<h2 id="会话（Session）"><a href="#会话（Session）" class="headerlink" title="会话（Session）"></a>会话（Session）</h2><p>一般用这个下面的五个命令就足以使用</p>
+<ul>
+<li><strong>创建新会话session：</strong> <code>tmux new -s session_name</code><br>创建完新会话之后便可以在里面执行一些cmd代码，断网后也不影响其输出</li>
+<li><strong>分离会话：</strong> <code>ctrl+b d</code></li>
+<li><strong>查看会话列表：</strong> <code>tmux ls</code> or <code>ctrl+b s</code></li>
+<li><strong>重命名当前会话：</strong> <code>ctrl+b $</code></li>
+<li><strong>重新进入会话：</strong> <code>tmux attach -t session_name</code></li>
+</ul>
+<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><ul>
+<li><strong>创建新窗口：</strong> <code>ctrl+b c</code></li>
+<li><strong>切换到上一窗口：</strong> <code>ctrl+b p</code></li>
+<li><strong>切换到下一窗口：</strong> <code>ctrl+b n</code></li>
+<li><strong>切换到指定编号窗口：</strong> <code>ctrl+b &lt;number&gt;</code></li>
+<li><strong>从列表中选择窗口，上下键进行选择：</strong> <code>ctrl+b w</code></li>
+</ul>
+<h2 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h2><ul>
+<li><strong>划分左右两个窗格：</strong> <code>ctrl+b %</code></li>
+<li><strong>划分上下两个窗格：</strong> <code>ctrl+b &quot;</code></li>
+<li><strong>光标切换到其他窗格：</strong> <code>ctrl+b &lt;arrow key&gt;</code></li>
+<li><strong>光标切换到上一窗格：</strong> <code>ctrl+b ;</code></li>
+<li><strong>光标切换到下一窗格：</strong> <code>ctrl+b o</code></li>
+<li><strong>关闭当前窗格：</strong> <code>ctrl+b x</code></li>
+<li><strong>将当前窗格拆为一个独立窗口：</strong> <code>ctrl+b !</code></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmd</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tmux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/cmd//" class="article-tag-list-link color4">cmd</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/cmd/tmux//" class="article-tag-list-link color5">tmux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/移除相邻字符后字典序最小的字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/05/26/%E7%AE%97%E6%B3%95/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">移除相邻字符后字典序最小的字符串</a>
+    </h1>
+  
+
+        
+        <a href="/2025/05/26/%E7%AE%97%E6%B3%95/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
   	<time datetime="2025-05-26T02:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-26</time>
 </a>
         
@@ -391,19 +504,19 @@
 
 
   
-    <article id="post-字符串转换后的长度-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/字符串转换后的长度-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/13/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/">字符串转换后的长度 II</a>
+      <a class="article-title" href="/2025/05/13/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/">字符串转换后的长度 II</a>
     </h1>
   
 
         
-        <a href="/2025/05/13/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/" class="archive-article-date">
+        <a href="/2025/05/13/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/" class="archive-article-date">
   	<time datetime="2025-05-13T01:56:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-13</time>
 </a>
         
@@ -598,19 +711,19 @@
 
 
   
-    <article id="post-图中边值的最大和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/图中边值的最大和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/11/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/">图中边值的最大和</a>
+      <a class="article-title" href="/2025/05/11/%E7%AE%97%E6%B3%95/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/">图中边值的最大和</a>
     </h1>
   
 
         
-        <a href="/2025/05/11/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" class="archive-article-date">
+        <a href="/2025/05/11/%E7%AE%97%E6%B3%95/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" class="archive-article-date">
   	<time datetime="2025-05-11T04:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-11</time>
 </a>
         
@@ -1106,78 +1219,6 @@
 
 
   
-    <article id="post-科研/科研进展记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/">科研进展记录</a>
-    </h1>
-  
-
-        
-        <a href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2025-04-13T06:54:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        请输入密码查看内容
-        
-          <a class="article-more-a" href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">生活</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1389,6 +1430,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MARL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">堆</a>
               </li>
             
             <div class="clearfix"></div>

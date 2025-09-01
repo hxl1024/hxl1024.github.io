@@ -162,6 +162,116 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-算法/堆 &amp; 栈/最大平均通过率" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/09/01/%E7%AE%97%E6%B3%95/%E5%A0%86%20&%20%E6%A0%88/%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E9%80%9A%E8%BF%87%E7%8E%87/">最大平均通过率</a>
+    </h1>
+  
+
+        
+        <a href="/2025/09/01/%E7%AE%97%E6%B3%95/%E5%A0%86%20&%20%E6%A0%88/%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E9%80%9A%E8%BF%87%E7%8E%87/" class="archive-article-date">
+  	<time datetime="2025-09-01T02:05:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="最大平均通过率"><a href="#最大平均通过率" class="headerlink" title="最大平均通过率"></a><font color=orange>最大平均通过率</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-average-pass-ratio">https://leetcode.cn/problems/maximum-average-pass-ratio</a><br>一所学校里有一些班级，每个班级里有一些学生，现在每个班都会进行一场期末考试。给你一个二维数组 <code>classes</code> ，其中 <code>classes[i] = [pass_i, total_i]</code> ，表示你提前知道了第 <code>i</code> 个班级总共有 <code>total_i</code> 个学生，其中只有 <code>pass_i</code> 个学生可以通过考试。给你一个整数 <code>extraStudents</code> ，表示额外有 <code>extraStudents</code> 个聪明的学生，他们 <strong>一定</strong> 能通过任何班级的期末考。你需要给这 <code>extraStudents</code> 个学生每人都安排一个班级，使得 <strong>所有</strong> 班级的 <strong>平均</strong> 通过率 <strong>最大</strong> 。<br>一个班级的 <strong>通过率</strong> 等于这个班级通过考试的学生人数除以这个班级的总人数。<strong>平均通过率</strong> 是所有班级的通过率之和除以班级数目。请你返回在安排这 <code>extraStudents</code> 个学生去对应班级后的 <strong>最大</strong> 平均通过率。与标准答案误差范围在 <code>10-5</code> 以内的结果都会视为正确结果。</p>
+<p><strong>示例1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>classes = [[1,2],[3,5],[2,2]], extraStudents = 2</code><br><strong>输出：</strong> <code>0.78333</code><br><strong>解释：</strong> 你可以将额外的两个学生都安排到第一个班级，平均通过率为 (3&#x2F;4 + 3&#x2F;5 + 2&#x2F;2) &#x2F; 3 &#x3D; 0.78333。</p>
+</blockquote>
+<p><strong>示例2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>classes = [[2,4],[3,9],[4,5],[2,10]], extraStudents = 4</code><br><strong>输出：</strong> <code>0.53485</code></p>
+</blockquote>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>以示例1为例，最开始分析是否给通过率最小的分学生就好，但是放在示例二不行。再分析是否给分母小的分会更好，在示例2中也不对。关键能弄懂示例2怎么得到的就对了！</p>
+<p>最原始的方法：一步步走，每次都判断加到哪个上面会让通过率加的最多（必须要算，没有办法），把这一个加上。<strong>找一个最小（大）的一般都用堆！！</strong></p>
+<p>对于每个班级的分子分母<code>a, b</code>，加上一个带来的增量是$\frac{a + 1}{b + 1} - \frac{a}{b} &#x3D; \frac{b - a}{b(b + 1)}$</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxAverageRatio</span>(<span class="params">self, classes: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], extraStudents: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">        <span class="comment"># 默认是最小堆，所以取负数作最大</span></span><br><span class="line">        h = [(((a - b) / (b * (b + <span class="number">1</span>))), a, b) <span class="keyword">for</span> a, b <span class="keyword">in</span> classes]</span><br><span class="line">        heapify(h)</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(extraStudents):</span><br><span class="line">            _, a, b = h[<span class="number">0</span>]</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">            heapreplace(h,  ((a - b) / (b * (b + <span class="number">1</span>)), a, b))</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(a / b <span class="keyword">for</span> _, a, b <span class="keyword">in</span> h) / <span class="built_in">len</span>(h)</span><br></pre></td></tr></table></figure>
+<p><strong>时间复杂度：O(n + extraStudents * logn)</strong><br><strong>空间复杂度：O(n)</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">堆</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/堆//" class="article-tag-list-link color2">堆</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/堆/Medium//" class="article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-算法/动态规划/DFS/24点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -199,7 +309,7 @@
 <li>将数组中这两个数合并，更新为新结果，以<code>3 + 5</code>为例，去掉后面的5，将前面的3变成<code>8</code>，得到新数组<code>[8, 3, 5]</code></li>
 <li>继续重复上述三个步骤直到剩余一个数为止，判断该数字是否为24，是的话返回True。如果枚举都没有就返回False</li>
 </ul>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">EPS = <span class="number">1e-9</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">judgePoint24</span>(<span class="params">self, cards: <span class="type">List</span>[<span class="type">Union</span>[<span class="built_in">int</span>, <span class="built_in">float</span>]]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(cards)</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">abs</span>(cards[<span class="number">0</span>] - <span class="number">24</span>) &lt; EPS</span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(cards):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i + <span class="number">1</span>, n):</span><br><span class="line">                y = cards[j]</span><br><span class="line">                candidates = [x + y, x - y, y - x, x * y]</span><br><span class="line">                <span class="comment"># 防止分母为0</span></span><br><span class="line">                <span class="keyword">if</span> x &gt; EPS:</span><br><span class="line">                    candidates.append(y / x)</span><br><span class="line">                <span class="keyword">if</span> y &gt; EPS:</span><br><span class="line">                    candidates.append(x / y)</span><br><span class="line">                <span class="comment"># 去后面的数，把前面的数改为合并后的值</span></span><br><span class="line">                new_cards = cards[:j] + cards[j + <span class="number">1</span>:]</span><br><span class="line">                <span class="keyword">for</span> item <span class="keyword">in</span> candidates:</span><br><span class="line">                    new_cards[i] = item</span><br><span class="line">                    <span class="keyword">if</span> <span class="variable language_">self</span>.judgePoint24(new_cards):</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">EPS = <span class="number">1e-9</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">judgePoint24</span>(<span class="params">self, cards: <span class="type">List</span>[<span class="type">Union</span>[<span class="built_in">int</span>, <span class="built_in">float</span>]]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(cards)</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">abs</span>(cards[<span class="number">0</span>] - <span class="number">24</span>) &lt; EPS</span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(cards):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i + <span class="number">1</span>, n):</span><br><span class="line">                y = cards[j]</span><br><span class="line">                candidates = [x + y, x - y, y - x, x * y]</span><br><span class="line">                <span class="comment"># 防止分母为0</span></span><br><span class="line">                <span class="keyword">if</span> x &gt; EPS:</span><br><span class="line">                    candidates.append(y / x)</span><br><span class="line">                <span class="keyword">if</span> y &gt; EPS:</span><br><span class="line">                    candidates.append(x / y)</span><br><span class="line">                <span class="comment"># 去掉取得对子中在后面的数，把前面的数改为合并后的值</span></span><br><span class="line">                new_cards = cards[:j] + cards[j + <span class="number">1</span>:]</span><br><span class="line">                <span class="keyword">for</span> item <span class="keyword">in</span> candidates:</span><br><span class="line">                    new_cards[i] = item</span><br><span class="line">                    <span class="keyword">if</span> <span class="variable language_">self</span>.judgePoint24(new_cards):</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
       
 
       
@@ -388,19 +498,19 @@
 
 
   
-    <article id="post-统计特殊三元组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/统计特殊三元组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/06/16/%E7%BB%9F%E8%AE%A1%E7%89%B9%E6%AE%8A%E4%B8%89%E5%85%83%E7%BB%84/">统计特殊三元组</a>
+      <a class="article-title" href="/2025/06/16/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E7%89%B9%E6%AE%8A%E4%B8%89%E5%85%83%E7%BB%84/">统计特殊三元组</a>
     </h1>
   
 
         
-        <a href="/2025/06/16/%E7%BB%9F%E8%AE%A1%E7%89%B9%E6%AE%8A%E4%B8%89%E5%85%83%E7%BB%84/" class="archive-article-date">
+        <a href="/2025/06/16/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E7%89%B9%E6%AE%8A%E4%B8%89%E5%85%83%E7%BB%84/" class="archive-article-date">
   	<time datetime="2025-06-16T03:07:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-16</time>
 </a>
         
@@ -677,19 +787,19 @@
 
 
   
-    <article id="post-RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Paper/RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/06/04/RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS/">RETHINKING LIGHT DECODER-BASED SOLVERS FOR VEHICLE ROUTING PROBLEMS</a>
+      <a class="article-title" href="/2025/06/04/Paper/RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS/">RETHINKING LIGHT DECODER-BASED SOLVERS FOR VEHICLE ROUTING PROBLEMS</a>
     </h1>
   
 
         
-        <a href="/2025/06/04/RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS/" class="archive-article-date">
+        <a href="/2025/06/04/Paper/RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS/" class="archive-article-date">
   	<time datetime="2025-06-04T08:17:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-04</time>
 </a>
         
@@ -1086,119 +1196,6 @@
 
 
   
-    <article id="post-科研/tmux简单使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/27/%E7%A7%91%E7%A0%94/tmux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">tmux简单使用</a>
-    </h1>
-  
-
-        
-        <a href="/2025/05/27/%E7%A7%91%E7%A0%94/tmux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2025-05-27T12:32:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Tmux可以方便的在Linux中隔断进程，针对断网无法看到后续输出十分有效</p>
-<h2 id="会话（Session）"><a href="#会话（Session）" class="headerlink" title="会话（Session）"></a>会话（Session）</h2><p>一般用这个下面的五个命令就足以使用</p>
-<ul>
-<li><strong>创建新会话session：</strong> <code>tmux new -s session_name</code><br>创建完新会话之后便可以在里面执行一些cmd代码，断网后也不影响其输出</li>
-<li><strong>分离会话：</strong> <code>ctrl+b d</code></li>
-<li><strong>查看会话列表：</strong> <code>tmux ls</code> or <code>ctrl+b s</code></li>
-<li><strong>重命名当前会话：</strong> <code>ctrl+b $</code></li>
-<li><strong>重新进入会话：</strong> <code>tmux attach -t session_name</code></li>
-</ul>
-<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><ul>
-<li><strong>创建新窗口：</strong> <code>ctrl+b c</code></li>
-<li><strong>切换到上一窗口：</strong> <code>ctrl+b p</code></li>
-<li><strong>切换到下一窗口：</strong> <code>ctrl+b n</code></li>
-<li><strong>切换到指定编号窗口：</strong> <code>ctrl+b &lt;number&gt;</code></li>
-<li><strong>从列表中选择窗口，上下键进行选择：</strong> <code>ctrl+b w</code></li>
-</ul>
-<h2 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h2><ul>
-<li><strong>划分左右两个窗格：</strong> <code>ctrl+b %</code></li>
-<li><strong>划分上下两个窗格：</strong> <code>ctrl+b &quot;</code></li>
-<li><strong>光标切换到其他窗格：</strong> <code>ctrl+b &lt;arrow key&gt;</code></li>
-<li><strong>光标切换到上一窗格：</strong> <code>ctrl+b ;</code></li>
-<li><strong>光标切换到下一窗格：</strong> <code>ctrl+b o</code></li>
-<li><strong>关闭当前窗格：</strong> <code>ctrl+b x</code></li>
-<li><strong>将当前窗格拆为一个独立窗口：</strong> <code>ctrl+b !</code></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmd</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tmux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/cmd//" class="article-tag-list-link color4">cmd</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/cmd/tmux//" class="article-tag-list-link color5">tmux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1410,6 +1407,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MARL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">堆</a>
               </li>
             
             <div class="clearfix"></div>
