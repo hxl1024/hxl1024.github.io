@@ -32,9 +32,7 @@
 
   
 
-<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" class="aplayer-style-marker">
-<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js" class="aplayer-script-marker"></script>
-</head>
+<meta name="generator" content="Hexo 7.3.0"></head>
 
 <body>
   <div id="container" q-class="show:isCtnShow">
@@ -164,74 +162,36 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-科研/Torch环境配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/图 (树)/迪杰斯特拉算法/到达最后一个房间的最少时间" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/10/26/%E7%A7%91%E7%A0%94/Torch%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">Torch环境配置</a>
+      <a class="article-title" href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%9B%BE%20(%E6%A0%91)/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/">到达最后一个房间的最少时间</a>
     </h1>
   
 
         
-        <a href="/2024/10/26/%E7%A7%91%E7%A0%94/Torch%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  	<time datetime="2024-10-26T15:56:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-10-26</time>
+        <a href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%9B%BE%20(%E6%A0%91)/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/" class="archive-article-date">
+  	<time datetime="2025-05-07T04:06:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Torch环境配置"><a href="#Torch环境配置" class="headerlink" title="Torch环境配置"></a>Torch环境配置</h1><p>师姐给了一个RBG的论文代码，发现跑不动，找了半天发现是py文件运行错了<br><strong>以后一定要认准README的提示</strong><br>换了正确的py文件后发现出现了这个问题：<br><img src="/img/20241026/1.png"><br>搜索发现是<strong>Python版本的问题</strong>，3.8及以上有这个问题，换成3.7就好了，但是创建了新的conda环境，要重新装torch。<br>然鹅我python3.8环境的pytorch是2.x版本，这刚好tm的3.7及以下用不了（只能用1.x）<br>然后碰到了好多问题：</p>
-<ol>
-<li>torch下载过慢</li>
-<li>Pycharm中下载的torch默认是CPU版本</li>
-<li>cmd使用pip下载torch版本找不到</li>
-</ol>
-<p>于是打算记录下大概的流程吧（其实非常简单）</p>
-<hr>
-<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><ol>
-<li>检查cuda是否是安装了的，在cmd里输入<code>ncvv -V</code>。如果说未知指令就有问题，要重装cuda和cuDNN<br>安装流程可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40647372/article/details/134940429">CUDA保姆级安装教程</a><br>正常的显示应该是这样的:<br><img src="/img/20241026/2.png"></li>
-<li>安装好后就是torch的问题了，首先要在torch官网查看cuda对应的torch版本。<br>在cmd里输入<code>nvidia-smi</code>，输入完后在这里查看cuda版本，比如我的这台电脑cuda版本是12.2<img src="/img/20241026/3.png"></li>
-<li>在<a target="_blank" rel="noopener" href="https://pytorch.org/">torch官网</a>查看对应的torch版本, 一般是<strong>向下兼容</strong>。比如我的cuda是12.2但是这里没有，就用12.4<br><strong>However！注意上面的Note，需要3.9版本及以上的Python</strong> 这几乎不太可能hhh 所以一般是点紫框去下pervious version<br><strong><font color=red>注意2.x以上的pytorch版本需要3.8及以上的python！</font></strong><br><img src="/img/20241026/4.png" width=800></li>
-</ol>
-<hr>
-<h1 id="遇到的问题及处理方式"><a href="#遇到的问题及处理方式" class="headerlink" title="遇到的问题及处理方式"></a>遇到的问题及处理方式</h1><ul>
-<li>由于网速不稳定的问题，conda安装的时候总是容易失败，然后就需要全部重新来过。下载的速度还很慢，经常卡在Solving Environment不动。<br><strong>换成pip</strong> 好很多！原因不知。而且<strong>pycharm在setting里快速安装package的时候也是使用pip安装</strong></li>
-<li>pycharm安装的时候只有版本号，下载的默认cpu版本，这是用不了cuda的。使用这段代码可以检查torch版本与cuda情况</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;torch version: <span class="subst">&#123;torch.__version__&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;cuda available: <span class="subst">&#123;torch.cuda.is_available()&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&#x27;cuda device count: <span class="subst">&#123;torch.cuda.device_count()&#125;</span>&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(torch.version.cuda)</span><br></pre></td></tr></table></figure>
-<p>这个torch就是gpu版本的，需要有版本号+cuxxx。cuda也显示可用，这个就是ok的torch<br><br><img src="/img/20241026/5.png" width=300><br><br>如果是cpu版本，卸载，重新在<a target="_blank" rel="noopener" href="https://pytorch.org/get-started/previous-versions/">torch的官网</a>找cuda对应版本torch的GPU版本 <strong>(1.x版本后面有cu的)</strong><br>如果cuda版本高于torch老版本支持的最高cuda，就装老版本最高的看看能不能用吧，我这里还是能用的（thank god）<br><img src="/img/20241026/6.png" width=800></p>
+        <h1 id="到达最后一个房间的最少时间"><a href="#到达最后一个房间的最少时间" class="headerlink" title="到达最后一个房间的最少时间"></a><font color=orange>到达最后一个房间的最少时间</font></h1><p><strong>link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/">https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/</a><br>有一个地窖，地窖中有 <code>n x m</code> 个房间，它们呈网格状排布。</p>
+<p>给你一个大小为 <code>n x m</code> 的二维数组 <code>moveTime</code> ，其中 <code>moveTime[i][j]</code> 表示在这个时刻 <strong>以后</strong> 你才可以 <strong>开始</strong> 往这个房间 <strong>移动</strong> 。你在时刻 <code>t = 0</code> 时从房间 <code>(0, 0)</code> 出发，每次可以移动到 <strong>相邻</strong> 的一个房间。在 <strong>相邻</strong> 房间之间移动需要的时间为：第一次花费 1 秒，第二次花费 2 秒，第三次花费 1 秒，第四次花费 2 秒……如此 <strong>往复</strong> 。<br>请你返回到达房间 (n - 1, m - 1) 所需要的 <strong>最少</strong> 时间。<br>如果两个房间有一条公共边（可以是水平的也可以是竖直的），那么我们称这两个房间是 <strong>相邻</strong> 的。</p>
+<p><strong>示例1：</strong><br><strong>输入:</strong> moveTime &#x3D; [[0,4],[4,4]]<br><strong>输出:</strong> 7<br><strong>解释:</strong> 需要花费的最少时间为 7 秒。</p>
 <ul>
-<li>上面这个官网的命令还是不行，直接怒下whl文件手动安装。下载链接：<a target="_blank" rel="noopener" href="https://download.pytorch.org/whl/cu124">https://download.pytorch.org/whl/cu124</a> （最后的后缀根据cuda版本更改）<br>下载需要的torch版本的whl文件，在文件目录下激活conda环境，输入<code>pip install torch-1.5.1+cu92-cp37-cp37m-win_amd64.whl</code>即可，我是在这一步才成功的T T<br>以后也<strong>推荐本地安装</strong>，少很多网络问题带来的麻烦</li>
+<li>在时刻 t &#x3D;&#x3D; 4 ，从房间 (0, 0) 移动到房间 (1, 0) ，花费 1 秒。</li>
+<li>在时刻 t &#x3D;&#x3D; 5 ，从房间 (1, 0) 移动到房间 (1, 1) ，花费 2 秒。</li>
 </ul>
-<hr>
-<h1 id="一个冷知识"><a href="#一个冷知识" class="headerlink" title="一个冷知识"></a>一个冷知识</h1><p>在conda里输<code>conda list</code> 能看到哪些包是conda命令装的，哪些是pip装的。因为conda的下载路径设置的清华源，所以tuna都是conda下载，而pypi则是pip下载<br>可以看到pip和conda下载的包都挺多，下载包<strong>下载不动的时候可以换一个命令再试，说不定就快起来了</strong>。<br>不过注意两者包的名字可能会不一样，比如conda是pytorch，而pip是torch<br><img src="/img/20241026/7.png" width=800></p>
-<hr>
-<p>第一篇博客 还比较菜www，排版啥的都不是很好</p>
-
-        <div id="aplayer-FfIgAHWS" class="aplayer aplayer-tag-marker" style="margin-bottom: 20px;">
-            <pre class="aplayer-lrc-content"></pre>
-        </div>
-        <script>
-          var ap = new APlayer({
-            element: document.getElementById("aplayer-FfIgAHWS"),
-            narrow: false,
-            autoplay: false,
-            showlrc: false,
-            music: {
-              title: "The One",
-              author: "The Chainsmokers",
-              url: "/music/The Chainsmokers - The One.mp3",
-              pic: "/img/20241026/1.png",
-              lrc: ""
-            }
-          });
-          window.aplayers || (window.aplayers = []);
-          window.aplayers.push(ap);
-        </script>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="当时的想法"><a href="#当时的想法" class="headerlink" title="当时的想法"></a>当时的想法</h4><p>想着用动态规划解决，只是距离由1变成了相邻的dp值和moveTime最大值而已。但是其实路径不只是往右和往下，也可以往上。那么这里dp就比较复杂了。所以是迪杰斯特拉</p>
+<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p><strong>迪杰斯特拉方法：</strong>构建一个<strong>最小堆</strong>，每次选择堆中<strong>距离起点最近</strong>的节点，更新四个方向节点距离起点最小的距离值，如果有节点距离变小，则把该节点加入堆（所以是存在堆中重复节点的情况，不影响，就是步骤重复点）<br>以此类推，直到取出的节点是<strong>终点</strong>，此时的距离值便为最小值</p>
+<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTimeToReach</span>(<span class="params">self, moveTime: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n, m = <span class="built_in">len</span>(moveTime), <span class="built_in">len</span>(moveTime[<span class="number">0</span>])</span><br><span class="line">        dis = [[inf] * m <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        dis[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        h = [(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)]</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            d, i, j = heappop(h)</span><br><span class="line">            <span class="keyword">if</span> i == n - <span class="number">1</span> <span class="keyword">and</span> j == m - <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> d</span><br><span class="line">            <span class="keyword">if</span> d &gt; dis[i][j]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            time = (i + j) % <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> x, y <span class="keyword">in</span> (i + <span class="number">1</span>, j), (i - <span class="number">1</span>, j), (i, j + <span class="number">1</span>), (i, j - <span class="number">1</span>):  <span class="comment"># 枚举周围四个格子</span></span><br><span class="line">                <span class="keyword">if</span> <span class="number">0</span> &lt;= x &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= y &lt; m:</span><br><span class="line">                    new_dis = <span class="built_in">max</span>(d, moveTime[x][y]) + time</span><br><span class="line">                    <span class="keyword">if</span> new_dis &lt; dis[x][y]:</span><br><span class="line">                        dis[x][y] = new_dis</span><br><span class="line">                        heappush(h, (new_dis, x, y))</span><br></pre></td></tr></table></figure>
       
 
       
@@ -244,11 +204,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Torch</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">迪杰斯特拉算法</a>
         		</li>
       		
 		</ul>
@@ -260,11 +224,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Python/Torch//" class="article-tag-list-link color1">Torch</a>
+        			<a href="/categories/算法/迪杰斯特拉算法//" class="article-tag-list-link color3">迪杰斯特拉算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/迪杰斯特拉算法/Medium//" class="article-tag-list-link color2">Medium</a>
         		</li>
       		
 		</ul>
@@ -299,39 +267,222 @@
 
 
   
-    <article id="post-Paper/hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/动态规划/DP/多米诺和托米诺平铺" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2024/07/09/Paper/hello-world/">Hello World</a>
+      <a class="article-title" href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/">多米诺和托米诺平铺</a>
     </h1>
   
 
         
-        <a href="/2024/07/09/Paper/hello-world/" class="archive-article-date">
-  	<time datetime="2024-07-09T10:10:46.126Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-07-09</time>
+        <a href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/" class="archive-article-date">
+  	<time datetime="2025-05-05T03:08:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <h1 id="多米诺和托米诺平铺"><a href="#多米诺和托米诺平铺" class="headerlink" title="多米诺和托米诺平铺"></a><font color=orange>多米诺和托米诺平铺</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/domino-and-tromino-tiling/description">https://leetcode.cn/problems/domino-and-tromino-tiling/description</a><br>有两种形状的瓷砖：一种是 <code>2 x 1</code> 的多米诺形，另一种是形如 “L” 的托米诺形。两种形状都可以旋转。<br><img src="/img/202505/05lc0.jpg"><br>给定整数 <code>n</code> ，返回可以平铺 <code>2 x n</code> 的面板的方法的数量。<strong>返回对 <code>10^9 + 7</code> 取模</strong> 的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
+<p><strong>示例1：</strong><br><img src="/img/202505/05lc1.jpg"></p>
+<p><strong>输入:</strong> n &#x3D; 3<br><strong>输出:</strong> 5<br><strong>解释:</strong> 五种不同的方法如上所示。</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="自己当时的想法"><a href="#自己当时的想法" class="headerlink" title="自己当时的想法"></a>自己当时的想法</h4><p>显然是一个动态规划问题，假设<code>dp[i]</code>表示<code>2 x i</code>的问题答案。如果一个n的问题能够划分成为k和n-k的问题，那么：<code>dp[i] = dp[k] * dp[n - k]</code>，但是<code>dp[k]</code>和<code>dp[n-k]</code>也不好求，并且要遍历所有<code>1</code>到<code>n - 1</code>的数，而且其实会有重复，比如都是竖的，那么<code>i</code>取几得到的结果都会是一样的，存在重复，因此不能这样</p>
+<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><img src="/img/202505/05lc3.png">
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>划小一点分析，先看看<code>i</code>和<code>i - 1</code>的关系，如上图所示，会发现<code>i</code>和<code>i - 1</code>只能插入一个竖牌。同理<code>i</code>和<code>i - 2</code>只能插入两个横排（两个竖排就跟<code>i - 1</code>一样了，<strong>后面插入的要求不能再被竖分</strong>）<br>关键在于3及以后的，必须加入<code>L型</code>，3有2种，4有2种，5也是两种（如上图所示）。<br>5之后除了在3 &amp; 4的答案中间插入横杠之外，无法再得到其他不能分割的答案。因此3以后的都是可以插入两种方案。<br>所以递归式由上图所示：<br>$$ dp[i] &#x3D; dp[i - 1] + dp[i - 2] + 2 * (dp[i - 3] + … + dp[1] + 1) $$<br>$$ &#x3D; dp[i - 1] + (dp[i - 2] + dp[i - 3] + 2 * (dp[i - 4] + … + dp[1] + 1)) + dp[i - 3] $$<br>$$ &#x3D; dp[i - 1] + dp[i - 1] + dp[i - 3] &#x3D; 2 * dp[i - 1] + dp[i - 3] $$</p>
+<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">numTilings</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    MOD = <span class="number">1_000_000_007</span></span><br><span class="line">    dp = [<span class="number">0</span>] * <span class="number">1001</span></span><br><span class="line">    dp[<span class="number">0</span>] = dp[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    dp[<span class="number">2</span>] = <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, <span class="number">1001</span>):</span><br><span class="line">        dp[i] = (dp[i - <span class="number">1</span>] * <span class="number">2</span> + dp[i - <span class="number">3</span>]) % MOD</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br></pre></td></tr></table></figure>
+      
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DP//" class="article-tag-list-link color3">DP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DP/Medium//" class="article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Paper/TSPBaseline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/04/14/Paper/TSPBaseline/">TSPBaseline</a>
+    </h1>
+  
+
+        
+        <a href="/2025/04/14/Paper/TSPBaseline/" class="archive-article-date">
+  	<time datetime="2025-04-14T08:19:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="启发式方法汇总"><a href="#启发式方法汇总" class="headerlink" title="启发式方法汇总"></a>启发式方法汇总</h1><h2 id="2-opt-N-opt"><a href="#2-opt-N-opt" class="headerlink" title="2-opt(N-opt)"></a>2-opt(N-opt)</h2><h2 id="禁忌领域搜索ALNS"><a href="#禁忌领域搜索ALNS" class="headerlink" title="禁忌领域搜索ALNS"></a>禁忌领域搜索ALNS</h2><h2 id="粒子群算法PSO"><a href="#粒子群算法PSO" class="headerlink" title="粒子群算法PSO"></a>粒子群算法PSO</h2><h1 id="NCO-Baseline汇总"><a href="#NCO-Baseline汇总" class="headerlink" title="NCO Baseline汇总"></a>NCO Baseline汇总</h1><h2 id="AM"><a href="#AM" class="headerlink" title="AM"></a>AM</h2><h2 id="POMO-2020-nips"><a href="#POMO-2020-nips" class="headerlink" title="POMO (2020 nips)"></a>POMO (2020 nips)</h2><p><strong>Link：</strong> <a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2020/hash/f231f2107df69eab0a3862d50018a9b2-Abstract.html">https://proceedings.neurips.cc/paper/2020/hash/f231f2107df69eab0a3862d50018a9b2-Abstract.html</a></p>
+<ol>
+<li><p>将一个例子中每个节点都设置为初始的action，增加了solution多样性，容易跳出局部解。</p>
+<figure>
+  <img src="/img/202505/26pomo0.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">POMO示例图，初始选点由单一变为多样化，instance的每个节点均作为初始点进行选择</figcaption>
+</figure>
+</li>
+<li><p>因为初始点是多样的，这样的缺点就在于节点数<code>N</code>值<strong>不可以过大</strong>，否则会使显存爆炸。因此在推理阶段有一个数据增强的小Trick，将同一个图输入进行如转置等变换（即最优解是保持不变的），作为多个输入</p>
+<figure>
+  <img src="/img/202505/26pomo1.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">推理阶段进行数据集的增强</figcaption>
+</figure></li>
+</ol>
+<h2 id="ATT-GCN-MCTS"><a href="#ATT-GCN-MCTS" class="headerlink" title="ATT-GCN+MCTS"></a>ATT-GCN+MCTS</h2><p><strong>ATT-GCN（Attention-based GCN）：</strong> 先在小规模 TSP 上通过监督学习训练一个图卷积网络（GCN），该模型会生成 Heuristics Heatmap（热图）——即每条边成为最佳路径一部分的可能性热度图。</p>
+<p><strong>分而治之：</strong> 为了适应大规模 TSP，该方法会将大图拆分成多个与训练规模一致的小子图，分别预测热图，再将这些子图的热图汇总，生成完整图的热图表示。</p>
+<p><strong>MCTS（蒙特卡洛树搜索）：</strong> 热图作为启发引导，用 MCTS 搜索接近最优的路径。例如，更高热度的边会被优先考虑，从而大幅缩小搜索空间。</p>
+<p><span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>子图生成方法</b></span></p>
+<ul>
+<li><strong>初始化覆盖计数器：</strong><br>为每个顶点 i∈Vi∈V 和每条边 (i,j)∈E(i,j)∈E 初始化一个计数器 Oi​ 和 Oij​，初始值为 0。</li>
+<li><strong>选择聚类中心：</strong><br>在每一轮采样中，选择当前覆盖次数 Oi​ 最小的顶点作为聚类中心（若有多个则随机选择一个）。</li>
+<li><strong>提取子图：</strong><br>使用 k-近邻算法（k-nearest neighbors） 从该聚类中心出发，选取最近的 m−1 个顶点，形成一个包含 m 个顶点的子图 G′。</li>
+<li><strong>更新覆盖次数：</strong><br>对于子图 G′ 中的每个顶点 i 和每条边 (i,j)，将其对应的计数器 Oi 和 Oij​ 加 1。</li>
+<li><strong>重复采样：</strong><br>重复上述过程，直到所有顶点的覆盖次数 Oi​ 都达到一个预设的下限 ω（即每个顶点至少被采样 ω 次）。</li>
+</ul>
+<p><span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>热图的合并</b></span><br>求和取平均（分母是该条边被覆盖的次数，不是子图个数）</p>
+<figure>
+  <img src="/img/202509/04ATTGCN_MCTS0.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">ATT-GCN+MCTS流程</figcaption>
+</figure>
+
+
+<h2 id="H-TSP-2023-AAAI"><a href="#H-TSP-2023-AAAI" class="headerlink" title="H-TSP(2023 AAAI)"></a>H-TSP(2023 AAAI)</h2><p><strong>Link: <a target="_blank" rel="noopener" href="https://ojs.aaai.org/index.php/AAAI/article/view/26120/25892">https://ojs.aaai.org/index.php/AAAI/article/view/26120/25892</a></strong><br>最核心的contribution在<strong>使用分治解决Large scale TSP问题，解决速度非常快且能解决很大规模的问题</strong>。它将构建TSP解的过程分成了两阶段：</p>
+<ul>
+<li><strong>上层策略：</strong> 从所有未访问节点中选择一个小子集（实验中最多选取 200 个节点）。</li>
+<li><strong>下层策略：</strong> 对选中的节点进行路径规划，并将结果合并至已有的部分路径（最初仅含出发点和depot）</li>
+</ul>
+<p><span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>上层策略</b></span> 在upper-level，$[0, 1]^2$的graph会被划分为HxW个网格，同时节点还会被分成多个簇（划分方式多种，可以用k-means等）。每个节点的的二维特征会拓展为11维，除了自身坐标外，还有它离最近格子中心还有簇中心的偏移值。在路径上路径前一个节点和后一个节点的坐标，是否已被访问。如果还没有被访问，说明还没在路径上，那么路径前一个节点和后一个节点的坐标会用0填充。<br>之后，这些节点特征会传入一个线性层融合成C维的embedding，然后使用max operation作为grid的特征（这里的max operation具体是指一个网格里面可能有很多个节点，得到多个C维的特征，在每一维上都取最大的那一个值，最终得到一个融合的C维特征）。再通过CNN得到graph embedding，将graph embdding传入线性层得到下一个sub_problem的预测中心$Coord_{pred}$。<br>得到预测中心$Coord_{pred}$后，流程如下图所示，会选择<strong>离$Coord_{pred}$最近的未被访问过的节点$v_c$和离$v_c$最近的被访问过的节点$v_b$<strong>。先从$v_c$开始，选距离它最近的K个节点中没被访问过的，这些节点再从离他们最近的K个里选（就是</strong>一个BFS过程</strong>）。直到没有叶节点扩展或到了最大数量为止。之后再从$v_b$开始，依次选择它<strong>路径上前后的节点</strong>直到节点数达到subLength。这个<strong>路径的左端点和右端点也作为新路径的两个端点</strong>。</p>
+<figure>
+  <img src="/img/202509/03HTSP0.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">sub-problem generation流程</figcaption>
+</figure>
+<span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>下层策略</b></span> 这个比较简单，传统AM即可，但是由于起点和终点确定，上下文的embedding会加上起点和终点的node embedding：
+<figure>
+  <img src="/img/202509/03HTSP1.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">
+</figure>
+<span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>训练方式</b></span>
+
+<ul>
+<li><p><strong>Upper-level使用PPO Loss + Value Loss + Entropy Loss</strong><br>其中，PPO Loss部分的reward是<strong>合并后路径长度与之前路径长度的差的负值（希望合并后差的越少越好，甚至合并后更少就更好，这时reward为正）</strong>。Value loss用于调整critic的策略，entropy loss用于鼓励探索不同的action</p>
+<figure>
+<img src="/img/202509/04HTSP0.png" alt="图片描述">
+<figcaption style="font-size: 14px; color: #888; text-align:center">upper-level的Loss函数</figcaption>
+</figure>
+</li>
+<li><p><strong>Lower-level使用经典的REINFORCE</strong>，可以参考AM</p>
+</li>
+</ul>
+<h2 id="DIFUSCO-2023-nips"><a href="#DIFUSCO-2023-nips" class="headerlink" title="DIFUSCO (2023 nips)"></a>DIFUSCO (2023 nips)</h2><p><strong>Link：</strong> <a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/0ba520d93c3df592c83a611961314c98-Abstract-Conference.html">https://proceedings.neurips.cc/paper_files/paper/2023/hash/0ba520d93c3df592c83a611961314c98-Abstract-Conference.html</a><br>参考DIFFUSION思路，将其应用到TSP和MIS问题上。<br>**首先介绍一下DIFFUSION:**（推荐看<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19EVUzrEF4">https://www.bilibili.com/video/BV19EVUzrEF4</a> ）<br>如下图所示，Diffusion主要的流程是，对于一个图片，先加噪N次，再通过模型进行降噪得到原始的图片。训练完成后，对于有噪声的图片，能够很好的进行降噪。<br><font color=red>Diffusion像雕刻家，初始是一个粗糙的石头，根据期望（clean graph，又或者可以是prompt生成的embeddings）不断打磨降噪得到一个高质量的作品</font></p>
+<figure>
+  <img src="/img/202509/02Difussion1.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">Diffusion主要流程</figcaption>
+</figure>
+
+<h4 id="Diffusion的Training"><a href="#Diffusion的Training" class="headerlink" title="Diffusion的Training"></a>Diffusion的Training</h4><p>如下图所示，对于一个干净的图，给它加上噪声（以Uniform分布为例，t次），次数越大噪声最大，得到一个含噪声的图。<br>在训练阶段，会随机挑选一个中间过程的噪声图，根据原始图（应该是graph embedding）和时间步t来进行噪声的预测。并根据ground truth的噪声进行梯度下降。</p>
+<figure>
+  <img src="/img/202509/02Difussion2.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">Diffusion训练流程</figcaption>
+</figure>
+
+<p><span style="background-color: #ffeb3b; padding: 2px 6px; border-radius: 3px;"><font color=red><b>回到DIFUSCO</b></font></span>，这里也是给一个杂乱无章的充满线的图慢慢去噪，最终得到一个feasible的solution</p>
+<h3 id="1-Noise"><a href="#1-Noise" class="headerlink" title="1. Noise"></a>1. Noise</h3><p><span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>Input:</b></span>问题实例(s)，一组二维坐标节点，如<code>s = &#123;coordinates: [(x1, y1), (x2, y2), ..., (xN, yN)]&#125;</code>以及对应的solution <code>x</code>，这是一个二进制向量，$x_i$表示第$i$条边是否被选中。<br>这个实例会被建模成一个全连接图，其中节点代表城市，边的权重代表城市间的欧几里得距离。对于大规模问题（如TSP-10000），会使用图稀疏化技术，只保留每个节点到其最近k个邻居的边，以降低计算复杂度。<br><span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>加噪过程:</b></span>从 <code>t=0</code> 开始，逐步向 <code>x_0</code> 添加噪声，持续 <code>T</code> 步（例如1000步）。</p>
+<ul>
+<li><strong>对于离散扩散（Bernoulli噪声）：</strong><ul>
+<li>在每一步 <code>t</code>，根据一个转移概率矩阵 <code>Q_t</code> 对 <code>x_&#123;t-1&#125;</code> 进行扰动。</li>
+<li><code>Q_t</code> 类似于 <code>[[1-β_t, β_t], [β_t, 1-β_t]]</code>，其中 <code>β_t</code> 是预定义的噪声率。</li>
+<li>这个过程可以理解为：在每一步，每个本为1的边有 <code>β_t</code> 的概率被翻转为0（被丢弃），每个本为0的边有 <code>β_t</code> 的概率被翻转为1（被错误添加）。</li>
+<li>经过足够多步（T很大）的加噪后，<code>x_T</code> 会变成一个几乎均匀的随机二进制向量，包含的信息与原始解 <code>x_0</code> 无关。</li>
+</ul>
+</li>
+<li><strong>对于连续扩散（Gaussian噪声）：</strong><ul>
+<li>首先将二进制的 <code>x_0</code> 从 <code>&#123;0,1&#125;</code> 缩放映射到 <code>&#123;-1, 1&#125;</code> 空间，得到 <code>ˆx_0</code>。</li>
+<li>在每一步 <code>t</code>，向 <code>ˆx_&#123;t-1&#125;</code> 添加高斯噪声：<code>ˆx_t = √(1-β_t) * ˆx_&#123;t-1&#125; + √(β_t) * ε</code>，其中 <code>ε ~ N(0, I)</code>。</li>
+<li>最终，<code>ˆx_T</code> 会近似服从标准高斯分布 <code>N(0, I)</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-Denoise"><a href="#2-Denoise" class="headerlink" title="2. Denoise"></a>2. Denoise</h3><ul>
+<li><h4 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h4>使用AGNN将问题实例<code>s</code>与噪声图、去噪步<code>t</code>进行融合编码</li>
+<li><h4 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h4>将edge embedding传入decoder（噪声图不传，因为编码器），Decoder较为简单，是一个简单的2层MLP或甚至一个线性层，后接一个激活函数。<br>与传统Diffusion不同的是，<strong>这里降噪不是直接得到最终结果，因为无法保证最终结果能满足问题约束</strong>。Decoder的输出是<strong>一个热力图</strong>（通过激活函数后得到），表示每个边被选择的概率，之后再通过MCTS方法得到<code>feasible solution</code>。<br><strong>（Optional）</strong> 可以再通过2-opt后处理进行进一步的优化。</li>
+</ul>
+<h3 id="3-Generate-Solution"><a href="#3-Generate-Solution" class="headerlink" title="3. Generate Solution"></a>3. Generate Solution</h3><p>使用蒙特卡洛树搜索MCTS来进行solution的生成</p>
 
       
 
@@ -340,6 +491,668 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NCO</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VRP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/NCO//" class="article-tag-list-link color4">NCO</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/NCO/VRP//" class="article-tag-list-link color4">VRP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-科研/科研进展记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/">科研进展记录</a>
+    </h1>
+  
+
+        
+        <a href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2025-04-13T06:54:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        请输入密码查看内容
+        
+          <a class="article-more-a" href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">生活</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/动态规划/DFS/统计对称整数的数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/04/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/">统计对称整数的数目</a>
+    </h1>
+  
+
+        
+        <a href="/2025/04/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
+  	<time datetime="2025-04-12T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="统计对称整数的数目"><a href="#统计对称整数的数目" class="headerlink" title="统计对称整数的数目"></a><font color=red>统计对称整数的数目</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&envId=2025-04-11">https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&amp;envId=2025-04-11</a><br>给你两个正整数<code>low</code>和<code>high</code>。<br>对于一个由<code>2 * n</code>位数字组成的整数<code>x</code>，如果其前<code>n</code>位数字之和与后<code>n</code>位数字之和相等，则认为这个数字是一个对称整数。<br>返回在<code>[low, high]</code>范围内的<strong>对称整数的数目</strong>。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>low &#x3D; 1, high &#x3D; 100</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>9</font><br><strong>解释：</strong> 在 1 到 100 范围内共有 9 个对称整数：11、22、33、44、55、66、77、88 和 99 。<br><strong>提示：</strong></p>
+<ul>
+<li><strong>1 &lt;&#x3D; low &lt;&#x3D; high &lt;&#x3D; 10<sup>18</sup></strong></li>
+</ul>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h3 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h3><p>与前一天<a href="./%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE.md">统计强大整数的数目</a>的类似.<br>假设<code>dfs(i, start, diff, limit_low, limit_high)</code>表示现在是第<code>i</code>位, 从<code>start</code>开始有数字, 前半部分与后半部分的差别是<code>diff</code>.<code>limit_low</code>, <code>limit_high</code>还是表示是否前面的数与<code>low/high</code>重合.推导过程可以结合前一个题解自行推理(如果第二次还不会再写&#x3D; &#x3D;懒了)</p>
+<h3 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countSymmetricIntegers</span>(<span class="params">self, low: <span class="built_in">int</span>, high: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        high = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(high)))  <span class="comment"># 避免在 dfs 中频繁调用 int()</span></span><br><span class="line">        n = <span class="built_in">len</span>(high)</span><br><span class="line">        low = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(low).zfill(n)))  <span class="comment"># 补前导零，和 high 对齐</span></span><br><span class="line">        </span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i: <span class="built_in">int</span>, start: <span class="built_in">int</span>, diff: <span class="built_in">int</span>, limit_low: <span class="built_in">bool</span>, limit_high: <span class="built_in">bool</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> diff == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            lo = low[i] <span class="keyword">if</span> limit_low <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            hi = high[i] <span class="keyword">if</span> limit_high <span class="keyword">else</span> <span class="number">9</span></span><br><span class="line">            <span class="comment"># 如果前面没有填数字，且剩余数位个数是奇数，那么当前数位不能填数字</span></span><br><span class="line">            <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> (n - i) % <span class="number">2</span>:</span><br><span class="line">                <span class="comment"># 如果必须填数字（lo &gt; 0），不合法，返回 0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> lo <span class="keyword">else</span> dfs(i + <span class="number">1</span>, start, diff, <span class="literal">True</span>, <span class="literal">False</span>)</span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            is_left = start &lt; <span class="number">0</span> <span class="keyword">or</span> i &lt; (start + n) // <span class="number">2</span></span><br><span class="line">            <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">range</span>(lo, hi + <span class="number">1</span>):</span><br><span class="line">                res += dfs(i + <span class="number">1</span>,</span><br><span class="line">                           i <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> d <span class="keyword">else</span> start,  <span class="comment"># 记录第一个填数字的位置</span></span><br><span class="line">                           diff + (d <span class="keyword">if</span> is_left <span class="keyword">else</span> -d),  <span class="comment"># 左半 + 右半 -</span></span><br><span class="line">                           limit_low <span class="keyword">and</span> d == lo,</span><br><span class="line">                           limit_high <span class="keyword">and</span> d == hi)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/动态规划/DFS/统计强大整数的数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/04/10/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/">统计强大整数的数目</a>
+    </h1>
+  
+
+        
+        <a href="/2025/04/10/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
+  	<time datetime="2025-04-10T13:10:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="统计强大整数的数目"><a href="#统计强大整数的数目" class="headerlink" title="统计强大整数的数目"></a><font color=red>统计强大整数的数目</font></h1><p><strong>Link：</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/?envType=daily-question&envId=2025-04-10">https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/?envType=daily-question&amp;envId=2025-04-10</a><br>给你三个整数<code>start</code>，<code>finish</code>和<code>limit</code>。同时给你一个下标从 <strong>0</strong> 开始的字符串 <code>s</code> ，表示一个 <strong>正</strong> 整数。<br>如果一个<strong>正</strong>整数 <code>x</code>末尾部分是<code>s</code>（换句话说，<code>s</code>是<code>x</code>的后缀），且<code>x</code>中的每个数位至多是 <code>limit</code> ，那么我们称 <code>x</code> 是 <strong>强大的</strong> 。<br>请你返回区间 <code>[start..finish]</code> 内强大整数的 <strong>总数目</strong> 。<br>如果一个字符串 <code>x</code> 是 <code>y</code> 中某个下标开始（包括 <strong>0</strong> ），到下标为 <code>y.length - 1</code> 结束的子字符串，那么我们称 <code>x</code> 是<code>y</code> 的一个后缀。比方说，<code>25</code> 是<code>5125</code> 的一个后缀，但不是 <code>512</code> 的后缀。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>start &#x3D; 1, finish &#x3D; 6000, limit &#x3D; 4, s &#x3D; “124”</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>5</font><br><strong>解释：</strong> 区间 [1..6000] 内的强大数字为 124 ，1124 ，2124 ，3124 和 4124 。这些整数的各个数位都 &lt;&#x3D; 4 且 “124” 是它们的后缀。注意 5124 不是强大整数，因为第一个数位 5 大于 4。<br>这个区间内总共只有这 5 个强大整数。<br><br><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= start &lt;= finish &lt;= 1015</code></li>
+<li><code>1 &lt;= limit &lt;= 9</code></li>
+<li><code>1 &lt;= s.length &lt;= floor(log10(finish)) + 1</code></li>
+<li><code>s</code> 数位中每个数字都小于等于 <code>limit</code> 。</li>
+<li><code>s</code> 不包含任何前导<code>0</code>。<br></li>
+</ul>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>有点像位运算。</p>
+<h3 id="1-分析："><a href="#1-分析：" class="headerlink" title="1. 分析："></a>1. 分析：</h3><ul>
+<li>假设<code>dfs(i, low_limit, high_limit)</code>表示<strong>前<code>i</code>位确定</strong>，后缀为<code>s</code>的可能字符串数目。<code>low_limit</code>表示<strong>前<code>i - 1</code>位数字与<code>start</code>前<code>i</code>位重合</strong>，那么第<code>i</code>位也受到<code>start[i]</code>的约束（不能低于<code>start[i]</code>，否则会低于<code>start</code>）。同理<code>high_limit</code>表示<strong>前<code>i - 1</code>位数字与<code>finish</code>前<code>i</code>位重合</strong>，那么第<code>i</code>位也受到<code>finish[i]</code>的约束（不能高于<code>finish[i]</code>）<br><strong>结束条件：</strong></li>
+<li>后缀强制为<code>s</code>，如果得到的数字<strong>高于<code>high</code>或低于<code>start</code>，返回<code>0</code></strong></li>
+<li><code>i == n</code>时返回<code>1</code></li>
+</ul>
+<h3 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code:"></a>2. Code:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numberOfPowerfulInt</span>(<span class="params">self, start: <span class="built_in">int</span>, finish: <span class="built_in">int</span>, limit: <span class="built_in">int</span>, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        high = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(finish)))</span><br><span class="line">        n = <span class="built_in">len</span>(high)</span><br><span class="line">        low = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(start).zfill(n)))</span><br><span class="line">        <span class="comment"># 除去后缀s的位数</span></span><br><span class="line">        diff = n - <span class="built_in">len</span>(s)</span><br><span class="line"></span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, limit_low, limit_high</span>):</span><br><span class="line">            <span class="comment"># 枚举到最后一位了</span></span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">            <span class="comment"># 第 i 个数位可以从 lo 枚举到 hi</span></span><br><span class="line">            lo = low[i] <span class="keyword">if</span> limit_low <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            hi = high[i] <span class="keyword">if</span> limit_high <span class="keyword">else</span> <span class="number">9</span></span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> i &lt; diff:</span><br><span class="line">                <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">range</span>(lo, <span class="built_in">min</span>(hi, limit) + <span class="number">1</span>):</span><br><span class="line">                    res += dfs(i + <span class="number">1</span>, limit_low <span class="keyword">and</span> d == lo, limit_high <span class="keyword">and</span> d == hi)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                x = <span class="built_in">int</span>(s[i - diff])</span><br><span class="line">                <span class="keyword">if</span> lo &lt;= x &lt;= hi:</span><br><span class="line">                    res = dfs(i + <span class="number">1</span>, limit_low <span class="keyword">and</span> x == lo, limit_high <span class="keyword">and</span> x == hi)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Paper/2023/DeepACO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/04/08/Paper/2023/DeepACO/">DeepACO</a>
+    </h1>
+  
+
+        
+        <a href="/2025/04/08/Paper/2023/DeepACO/" class="archive-article-date">
+  	<time datetime="2025-04-08T02:07:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><ul>
+<li>传统ACO需要专家先验知识,这种启发性信息增大人工成本,本论文主要就使用神经网络代替先验知识作为启发性信息,通过自我学习不断调整即可</li>
+</ul>
+<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><p>还是比较非常的Easy<br>整体框架如下图所示,传统ACO的概率是<strong>信息素浓度乘以专家先验知识(例如TSP是路径长度)<strong>得到,而DeepACO的先验知识部分通过</strong>learner来学习得到</strong><br><img src="/img/202504/DeepACO1.png" width=800 height=400></p>
+<h1 id="Novelty"><a href="#Novelty" class="headerlink" title="Novelty"></a>Novelty</h1><h1 id="Code-implementation"><a href="#Code-implementation" class="headerlink" title="Code implementation"></a>Code implementation</h1><h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><img src="/img/202504/DeepACOTrain.png" width=750 height=600>
+
+<h2 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h2><img src="/img/202504/DeepACOInfer.png" width=600 height=400>
+
+<h2 id="Net"><a href="#Net" class="headerlink" title="Net"></a>Net</h2><img src="/img/202504/DeepACONet.png" width=750 height=600>
+
+<h1 id="最后放一些之前没怎么接触过的Code介绍"><a href="#最后放一些之前没怎么接触过的Code介绍" class="headerlink" title="最后放一些之前没怎么接触过的Code介绍"></a>最后放一些之前没怎么接触过的Code介绍</h1><h2 id="1-getattr方法"><a href="#1-getattr方法" class="headerlink" title="1. getattr方法"></a>1. getattr方法</h2><p>调用已有函数的另一种方法,如<code>self.act_fn = getattr(F, &#39;silu&#39;)</code>表示self.act_fn是silu激活函数,与<code>self.act_fn = F.silu()</code>是一样的效果</p>
+<h2 id="2-torch-geometric-nn库"><a href="#2-torch-geometric-nn库" class="headerlink" title="2. torch_geometric.nn库"></a>2. torch_geometric.nn库</h2><p>torch_geometric.nn库是GNN的库,有很多GNN相关的方法.例如这里有用到<code>self.agg_fn = getattr(gnn, f&#39;global_mean_pool&#39;)</code>.表示agg_fn是gnn库中的<strong>global_mean_pool方法</strong>:</p>
+<h3 id="global-mean-pool方法"><a href="#global-mean-pool方法" class="headerlink" title="global_mean_pool方法"></a>global_mean_pool方法</h3><p>函数原型<code>torch_geometric.nn.global_mean_pool(x, batch)</code><br><code>x</code>是<strong>节点特征矩阵</strong>,形状为<code>[N, F]</code>,<code>N</code>为节点数,<code>F</code>为节点的特征数(维度)<br><code>batch</code>是一个长度为<code>N</code>的一维向量，表示每个节点属于哪个图，用于“分组”池化操作。值的范围为 <code>[0, B-1]</code>，<code>B</code> 是图的个数<br><strong>示例代码</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch_geometric.nn <span class="keyword">import</span> global_mean_pool</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设有6个节点，每个节点有3维特征</span></span><br><span class="line">x = torch.tensor([</span><br><span class="line">    [<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>],</span><br><span class="line">    [<span class="number">4.</span>, <span class="number">5.</span>, <span class="number">6.</span>],</span><br><span class="line">    [<span class="number">7.</span>, <span class="number">8.</span>, <span class="number">9.</span>],</span><br><span class="line">    [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>],</span><br><span class="line">    [<span class="number">2.</span>, <span class="number">2.</span>, <span class="number">2.</span>],</span><br><span class="line">    [<span class="number">3.</span>, <span class="number">3.</span>, <span class="number">3.</span>]</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># batch 表示节点属于哪个图：前3个属于图0，后3个属于图1</span></span><br><span class="line">batch = torch.tensor([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">pooled = global_mean_pool(x, batch)</span><br><span class="line"><span class="built_in">print</span>(pooled)</span><br></pre></td></tr></table></figure>
+<p>输出为：<br><code>tensor([[4.0000, 5.0000, 6.0000], [2.0000, 2.0000, 2.0000]])</code><br>说明：<br>    图0中，节点平均特征为 (1+4+7)&#x2F;3 &#x3D; 4，(2+5+8)&#x2F;3 &#x3D; 5，(3+6+9)&#x2F;3 &#x3D; 6<br>    图1中，节点平均特征为 (1+2+3)&#x2F;3 &#x3D; 2，每个维度同理</p>
+<h3 id="GNN的Data"><a href="#GNN的Data" class="headerlink" title="GNN的Data"></a>GNN的Data</h3><p>GNN中的data除了节点feature之外,还有边和边特征的记录,Data原型:<br><code>Data(x=node_feature, edge_index=edge_index, edge_attr=edge_attr)</code><br>注意其中edge_index的形状为<code>[2, N]</code>.表示有<code>N条边</code>,以及边所连接的点索引</p>
+<h2 id="3-torch"><a href="#3-torch" class="headerlink" title="3. torch"></a>3. torch</h2><p><code>torch.topk(distances, k=k_sparse, dim=1, largest=False)</code>选取最小的k个元素<br><code>torch.repeat_interleave(tensor, repeats=k_sparse)</code>重复<code>tensor k_sparse</code>次<br><code>torch.flatten(input, start_dim=0, end_dim=-1)</code>将指定维度范围内的所有元素展平为一维。展平后的张量保持原始张量的顺序。也可以选择展平的维度范围</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">进化算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/paper//" class="article-tag-list-link color1">paper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/paper/进化算法//" class="article-tag-list-link color5">进化算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/动态规划/DFS/分割等和子集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/04/07/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/">分割等和子集</a>
+    </h1>
+  
+
+        
+        <a href="/2025/04/07/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" class="archive-article-date">
+  	<time datetime="2025-04-07T02:34:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a><font color=orange>分割等和子集</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&envId=2025-04-07">https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&amp;envId=2025-04-07</a><br>给你一个 <strong>只包含正整数</strong> 的 <strong>非空</strong> 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>nums &#x3D; [1, 5, 11, 5]</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>true</font><br><strong>解释：</strong> 数组可以分割成[1, 5, 5]和[11]<br></p>
+<hr>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="一、分析"><a href="#一、分析" class="headerlink" title="一、分析"></a>一、分析</h2><p>假设nums元素和为s，满足题目的前提是<strong>s为偶数</strong>。原题目变为找一个<strong>和为s&#x2F;2的子集</strong>，可以使用dfs进行记忆化搜索</p>
+<h2 id="二、流程"><a href="#二、流程" class="headerlink" title="二、流程"></a>二、流程</h2><p>从后往前递推，假设dfs(i, j)表示的是在[0, i]索引下是否能够找到和为j的子集。那么递推规则如下：<br><code>dfs(i, j) = dfs(i - 1, j - nums[i]) or dfs(i - 1, j)</code><br>如果选择<code>nums[i]</code>加入子集，那么<code>dfs(i, j) = dfs(i - 1, j - nums[i])</code>，不选择则是<code>dfs(i - 1, j)</code><br>边界即当<code>i &lt; 0</code>或者<code>j &lt; 0</code>时，RETURN False，说明没有满足的子集；当<code>j == 0</code>时，说明找到满足的子集，返回True</p>
+<h2 id="三、Code"><a href="#三、Code" class="headerlink" title="三、Code"></a>三、Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">canPartition</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, j</span>):</span><br><span class="line">            <span class="keyword">if</span> j == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> j &lt; <span class="number">0</span> <span class="keyword">or</span> i &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">return</span> dfs(i-<span class="number">1</span>, j - nums[i]) <span class="keyword">or</span> dfs(i -<span class="number">1</span>, j)</span><br><span class="line">        s = <span class="built_in">sum</span>(nums)</span><br><span class="line">        <span class="keyword">return</span> s % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">and</span> dfs(<span class="built_in">len</span>(nums) - <span class="number">1</span>, s // <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS/Medium//" class="article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-随笔/20250331随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/">20250331随笔</a>
+    </h1>
+  
+
+        
+        <a href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/" class="archive-article-date">
+  	<time datetime="2025-03-31T09:55:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        请输入密码查看内容
+        
+          <a class="article-more-a" href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-随笔/20250325随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/03/25/%E9%9A%8F%E7%AC%94/20250325%E9%9A%8F%E7%AC%94/">20250325随笔</a>
+    </h1>
+  
+
+        
+        <a href="/2025/03/25/%E9%9A%8F%E7%AC%94/20250325%E9%9A%8F%E7%AC%94/" class="archive-article-date">
+  	<time datetime="2025-03-25T03:42:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        请输入密码查看内容
+        
+          <a class="article-more-a" href="/2025/03/25/%E9%9A%8F%E7%AC%94/20250325%E9%9A%8F%E7%AC%94/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -372,7 +1185,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 
@@ -488,6 +1301,54 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NCO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">nips</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2025</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2021</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2024</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RVRP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cmd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VRP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Torch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
@@ -497,6 +1358,22 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hard</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rl4co</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -512,6 +1389,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2023</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">paper</a>
               </li>
              
@@ -520,23 +1405,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NCO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VRP</a>
+                <a href="javascript:void(0)" class="js-tag color5">MARL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,11 +1413,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">堆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">迪杰斯特拉算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">双指针</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">枚举</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -560,31 +1433,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Torch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cmd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">双指针</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MARL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">堆</a>
+                <a href="javascript:void(0)" class="js-tag color3">迪杰斯特拉算法</a>
               </li>
             
             <div class="clearfix"></div>

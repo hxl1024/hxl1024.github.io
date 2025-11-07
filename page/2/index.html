@@ -162,52 +162,43 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-科研/tmux简单使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Paper/2024/PolyNet" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/27/%E7%A7%91%E7%A0%94/tmux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">tmux简单使用</a>
+      <a class="article-title" href="/2025/09/05/Paper/2024/PolyNet/">PolyNet</a>
     </h1>
   
 
         
-        <a href="/2025/05/27/%E7%A7%91%E7%A0%94/tmux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2025-05-27T12:32:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-27</time>
+        <a href="/2025/09/05/Paper/2024/PolyNet/" class="archive-article-date">
+  	<time datetime="2025-09-05T02:56:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Tmux可以方便的在Linux中隔断进程，针对断网无法看到后续输出十分有效</p>
-<h2 id="会话（Session）"><a href="#会话（Session）" class="headerlink" title="会话（Session）"></a>会话（Session）</h2><p>一般用这个下面的五个命令就足以使用</p>
-<ul>
-<li><strong>创建新会话session：</strong> <code>tmux new -s session_name</code><br>创建完新会话之后便可以在里面执行一些cmd代码，断网后也不影响其输出</li>
-<li><strong>分离会话：</strong> <code>ctrl+b d</code></li>
-<li><strong>查看会话列表：</strong> <code>tmux ls</code> or <code>ctrl+b s</code></li>
-<li><strong>重命名当前会话：</strong> <code>ctrl+b $</code></li>
-<li><strong>重新进入会话：</strong> <code>tmux attach -t session_name</code></li>
-</ul>
-<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><ul>
-<li><strong>创建新窗口：</strong> <code>ctrl+b c</code></li>
-<li><strong>切换到上一窗口：</strong> <code>ctrl+b p</code></li>
-<li><strong>切换到下一窗口：</strong> <code>ctrl+b n</code></li>
-<li><strong>切换到指定编号窗口：</strong> <code>ctrl+b &lt;number&gt;</code></li>
-<li><strong>从列表中选择窗口，上下键进行选择：</strong> <code>ctrl+b w</code></li>
-</ul>
-<h2 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h2><ul>
-<li><strong>划分左右两个窗格：</strong> <code>ctrl+b %</code></li>
-<li><strong>划分上下两个窗格：</strong> <code>ctrl+b &quot;</code></li>
-<li><strong>光标切换到其他窗格：</strong> <code>ctrl+b &lt;arrow key&gt;</code></li>
-<li><strong>光标切换到上一窗格：</strong> <code>ctrl+b ;</code></li>
-<li><strong>光标切换到下一窗格：</strong> <code>ctrl+b o</code></li>
-<li><strong>关闭当前窗格：</strong> <code>ctrl+b x</code></li>
-<li><strong>将当前窗格拆为一个独立窗口：</strong> <code>ctrl+b !</code></li>
-</ul>
+        <h1 id="PolyNet-ICLR-2024"><a href="#PolyNet-ICLR-2024" class="headerlink" title="PolyNet (ICLR 2024)"></a><font color=red>PolyNet (ICLR 2024)</font></h1><p>这篇论文的优点在于简单易懂，而且还比较新。可能是又新又好，很有意思，可以考虑作为一个未来的Baseline。</p>
+<p><span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>PolyNet流程</b></span></p>
+<figure>
+  <img src="/img/202509/05PolyNet0.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">PolyNet solution生成过程</figcaption>
+</figure>
 
+<ul>
+<li>与传统POMO或SymNCO不同的是，PolyNet不是手动设置不同起始点或变换坐标进行数据的增强，而是通过一个策略向量让机器自己学习不一样的分布情况，获得针对性的策略。</li>
+<li>达成这个作用的解释点在于对每个实例采样 K 个解后，<strong>仅基于最优解 τ 更新模型权重</strong>，可以理解为：只奖励最好的那组其实只是会让那一组根据那一个数据进行学习，其他组不会对这个数据进行学习，因为有比他更好的了。同理，其他组也会有一些特定的数据是更好的，大家各自在各自最好的数据上进行学习，最终达成多样化，也达到了更好的效果。</li>
+</ul>
+<p><span style="background-color: #ccdff5f6; padding: 4px 12px; border-radius: 16px;"><b>Decoder结构</b></span></p>
+<p>Decoder部分加入了一个Bit vector的处理，还是很简单易懂的</p>
+<figure>
+  <img src="/img/202509/05PolyNet1.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">Decoder结构</figcaption>
+</figure>
       
 
       
@@ -220,11 +211,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmd</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NCO</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tmux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VRP</a>
         		</li>
       		
 		</ul>
@@ -236,11 +227,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/cmd//" class="article-tag-list-link color4">cmd</a>
+        			<a href="/categories/NCO//" class="article-tag-list-link color4">NCO</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/cmd/tmux//" class="article-tag-list-link color5">tmux</a>
+        			<a href="/categories/NCO/VRP//" class="article-tag-list-link color4">VRP</a>
         		</li>
       		
 		</ul>
@@ -275,34 +266,45 @@
 
 
   
-    <article id="post-算法/移除相邻字符后字典序最小的字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/枚举/得到整数零需要执行的最少操作数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/26/%E7%AE%97%E6%B3%95/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">移除相邻字符后字典序最小的字符串</a>
+      <a class="article-title" href="/2025/09/05/%E7%AE%97%E6%B3%95/%E6%9E%9A%E4%B8%BE/%E5%BE%97%E5%88%B0%E6%95%B4%E6%95%B0%E9%9B%B6%E9%9C%80%E8%A6%81%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%95%B0/">得到整数零需要执行的最少操作数</a>
     </h1>
   
 
         
-        <a href="/2025/05/26/%E7%AE%97%E6%B3%95/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
-  	<time datetime="2025-05-26T02:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-26</time>
+        <a href="/2025/09/05/%E7%AE%97%E6%B3%95/%E6%9E%9A%E4%B8%BE/%E5%BE%97%E5%88%B0%E6%95%B4%E6%95%B0%E9%9B%B6%E9%9C%80%E8%A6%81%E6%89%A7%E8%A1%8C%E7%9A%84%E6%9C%80%E5%B0%91%E6%93%8D%E4%BD%9C%E6%95%B0/" class="archive-article-date">
+  	<time datetime="2025-09-05T02:19:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="移除相邻字符后字典序最小的字符串"><a href="#移除相邻字符后字典序最小的字符串" class="headerlink" title="移除相邻字符后字典序最小的字符串"></a><font color=red>移除相邻字符后字典序最小的字符串</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lexicographically-smallest-string-after-adjacent-removals/description/">https://leetcode.cn/problems/lexicographically-smallest-string-after-adjacent-removals/description/</a><br>给你一个由小写英文字母组成的字符串 <code>s</code>。<br>你可以进行以下操作任意次（包括零次）：</p>
-<ul>
-<li>移除字符串中 <strong>任意</strong> 一对 <strong>相邻</strong> 字符，这两个字符在字母表中是 <strong>连续</strong> 的，无论顺序如何（例如，<code>&#39;a&#39;</code> 和 <code>&#39;b&#39;</code>，或者 <code>&#39;b&#39;</code> 和 <code>&#39;a&#39;</code>）。</li>
-<li>将剩余字符左移以填补空隙。<br>返回经过最优操作后可以获得的 <strong>字典序最小</strong> 的字符串。<br>当且仅当在第一个不同的位置上，字符串 <code>a</code> 的字母在字母表中出现的位置早于字符串 <code>b</code> 的字母，则认为字符串 <code>a</code> 的 <strong>字典序小于</strong> 字符串 <code>b</code>，。<br>如果 <code>min(a.length, b.length)</code> 个字符都相同，则较短的字符串字典序更小。<br><strong>注意：</strong> 字母表被视为循环的，因此 <code>&#39;a&#39;</code> 和 <code>&#39;z&#39;</code> 也视为连续。<blockquote>
-<p><strong>示例1：</strong><br><strong>输入：</strong> <code>s = &quot;abc&quot;</code><br><strong>输出：</strong> <code>&quot;a&quot;</code><br><strong>解释：</strong> 从字符串中移除 “bc”，剩下 “a”。是字典序最小的字符串</p>
+        <h1 id="得到整数零需要执行的最少操作数"><a href="#得到整数零需要执行的最少操作数" class="headerlink" title="得到整数零需要执行的最少操作数"></a><font color=orange>得到整数零需要执行的最少操作数</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-operations-to-make-the-integer-zero">https://leetcode.cn/problems/minimum-operations-to-make-the-integer-zero</a></p>
+<p>给你两个整数：<code>num1</code> 和 <code>num2</code> 。<br>在一步操作中，你需要从范围 <code>[0, 60]</code> 中选出一个整数 <code>i</code> ，并从 <code>num1</code> 减去 $2^i + num2$ 。<br>请你计算，要想使 <code>num1</code> 等于 <code>0</code> 需要执行的最少操作数，并以整数形式返回。<br>如果无法使 <code>num1</code> 等于 <code>0</code> ，返回 <code>-1</code> 。</p>
+<p><strong>示例1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>num1 = 3, num2 = -2</code><br><strong>输出：</strong> <code>3</code><br><strong>解释：</strong> 可以执行下述步骤使 3 等于 0 ：<br>选择 i &#x3D; 2 ，并从 3 减去 22 + (-2) ，num1 &#x3D; 3 - (4 + (-2)) &#x3D; 1 。<br>选择 i &#x3D; 2 ，并从 1 减去 22 + (-2) ，num1 &#x3D; 1 - (4 + (-2)) &#x3D; -1 。<br>选择 i &#x3D; 0 ，并从 -1 减去 20 + (-2) ，num1 &#x3D; (-1) - (1 + (-2)) &#x3D; 0 。<br>可以证明 3 是需要执行的最少操作数。</p>
 </blockquote>
-</li>
+<p><strong>示例2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>num1 = 5, num2 = 74</code><br><strong>输出：</strong> <code>-1</code></p>
+</blockquote>
+<p><strong>提示：</strong><br>$1 &lt;&#x3D; num1 &lt;&#x3D; 10^9$<br>$-10^9 &lt;&#x3D; num2 &lt;&#x3D; 10^9$</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>每次都减去<code>num2</code>, 等价于能否找到<code>k</code>，使得$num1 - num2 * k$能够成为<strong>k个2的幂次之和</strong>。</li>
+<li>枚举每一个<code>k</code>，判断<code>k</code>是否在$num1 - num2 * k$<strong>最大和最小</strong>的二的幂次和之间。如果<code>k</code>在之间则可以做到，例如<code>9 = 8 + 1</code>，自然可以拆成 <code>9 = 4 + 4 + 1</code></li>
+<li>接下来讨论$num1 - num2 * k$的上下界，上界很容易想到是$num1 - num2 * k$本身（全是1相加得到）。下界即是<strong>考虑$num1 - num2 * k$在二进制表示下的位数</strong>，例如<code>9 = 8 + 1</code>，最小有两个二的幂次相加，二进制也是<code>1001</code>，两位<code>1</code></li>
 </ul>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">makeTheIntegerZero</span>(<span class="params">self, num1: <span class="built_in">int</span>, num2: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> count(<span class="number">1</span>):</span><br><span class="line">            x = num1 - num2 * k</span><br><span class="line">            <span class="keyword">if</span> k &gt; x:</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> k &gt;= x.bit_count():</span><br><span class="line">                <span class="keyword">return</span> k</span><br></pre></td></tr></table></figure>
+
+<p>没有想到code如此简单, 因为<code>num1</code>的上限是<code>1e9</code>，<code>k</code>最多枚举到<code>36</code>便会结束</p>
 
       
 
@@ -320,7 +322,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">枚举</a>
         		</li>
       		
 		</ul>
@@ -336,11 +338,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DP//" class="article-tag-list-link color3">DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DP/Hard//" class="article-tag-list-link color5">Hard</a>
+        			<a href="/categories/算法/枚举//" class="article-tag-list-link color3">枚举</a>
         		</li>
       		
 		</ul>
@@ -375,60 +373,505 @@
 
 
   
-    <article id="post-算法/前缀和/零数组变换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-科研/rl4co" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/22/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E5%92%8C/%E9%9B%B6%E6%95%B0%E7%BB%84%E5%8F%98%E6%8D%A2/">零数组变换</a>
+      <a class="article-title" href="/2025/09/02/%E7%A7%91%E7%A0%94/rl4co/">rl4co框架</a>
     </h1>
   
 
         
-        <a href="/2025/05/22/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E5%92%8C/%E9%9B%B6%E6%95%B0%E7%BB%84%E5%8F%98%E6%8D%A2/" class="archive-article-date">
-  	<time datetime="2025-05-22T01:33:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-22</time>
+        <a href="/2025/09/02/%E7%A7%91%E7%A0%94/rl4co/" class="archive-article-date">
+  	<time datetime="2025-09-02T07:52:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-02</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="零数组变换-I"><a href="#零数组变换-I" class="headerlink" title="零数组变换 I"></a><font color=orange>零数组变换 I</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-i/description">https://leetcode.cn/problems/zero-array-transformation-i/description</a><br>给定一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code>，其中 <code>queries[i] = [li, ri]</code>。<br>对于每个查询 <code>queries[i]</code>：</p>
-<ul>
-<li>在 <code>nums</code> 的下标范围 <code>[li, ri]</code> 内选择一个下标子集。</li>
-<li>将选中的每个下标对应的元素值减 1。</li>
-</ul>
-<p><strong>零数组</strong> 是指所有元素都等于 0 的数组。<br>如果在按顺序处理所有查询后，可以将 <code>nums</code> 转换为 <strong>零数组</strong> ，则返回 <code>true</code>，否则返回 <code>false</code>。<br><strong>示例1：</strong><br><strong>输入：</strong> <code>nums = [1,0,1], queries = [[0,2]]</code><br><strong>输出：</strong> <code>true</code><br><strong>解释：</strong> </p>
-<ul>
-<li><strong>对于 i &#x3D; 0：</strong><ul>
-<li>选择下标子集 <code>[0, 2]</code> 并将这些下标处的值减 1。</li>
-<li>数组将变为 <code>[0, 0, 0]</code>，这是一个零数组。</li>
-</ul>
-</li>
-</ul>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>前缀和，取一个长度为<code>n</code>的<code>rec</code>数组，将<code>queries</code>中<strong>左节点对应索引值加1，右节点再右边对应索引值减1</strong><br>取<code>sum_d</code>表示当前<strong>最多</strong>能够减小的数值，遍历<code>nums</code>，如果<code>sum_d</code>比当前<code>nums[i]</code>值小，说明该元素无法减为0，返回<code>False</code>。若遍历完，则返回<code>True</code></p>
-<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isZeroArray</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        cnt = [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> l,r <span class="keyword">in</span> queries:</span><br><span class="line">            cnt[l] += <span class="number">1</span></span><br><span class="line">            cnt[r + <span class="number">1</span>] -= <span class="number">1</span></span><br><span class="line">        rec = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            rec += cnt[i]</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; rec:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+        <h1 id="Torch-lightning框架"><a href="#Torch-lightning框架" class="headerlink" title="Torch.lightning框架"></a><span style="background-color: #ccdff5f6; padding: 8px 16px; border-radius: 2px;">Torch.lightning框架</span></h1><p>其实就是把Model封装了一下，少些十几行代码？</p>
+<h1 id="TorchRL框架"><a href="#TorchRL框架" class="headerlink" title="TorchRL框架"></a><span style="background-color: #ccdff5f6; padding: 8px 16px; border-radius: 2px;">TorchRL框架</span></h1><h1 id="RL4CO框架"><a href="#RL4CO框架" class="headerlink" title="RL4CO框架"></a><span style="background-color: #ccdff5f6; padding: 8px 16px; border-radius: 2px;">RL4CO框架</span></h1><p><strong>Github link：<a target="_blank" rel="noopener" href="https://github.com/ai4co/rl4co/">https://github.com/ai4co/rl4co/</a><br>Tutorial link：<a target="_blank" rel="noopener" href="https://rl4co.ai4co.org/examples/1-quickstart/">https://rl4co.ai4co.org/examples/1-quickstart/</a></strong><br>这是一个用于CO的RL框架，这个框架里面整理了很多即插即用的模型，减少了适配的时间开销，所以决定还是要学一学.</p>
+<p><strong>下载：</strong><code>pip install rl4co</code></p>
+<h2 id="A-simple-example-to-start-quickly"><a href="#A-simple-example-to-start-quickly" class="headerlink" title="A simple example to start quickly"></a><span style="background-color: #bdf3c2f6; padding: 8px 16px; border-radius: 16px;">A simple example to start quickly</span></h2><p>总体代码如下，后面会分解进行介绍</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> rl4co.envs <span class="keyword">import</span> TSPEnv</span><br><span class="line"><span class="keyword">from</span> rl4co.models <span class="keyword">import</span> AttentionModelPolicy, REINFORCE</span><br><span class="line"><span class="keyword">from</span> rl4co.utils.trainer <span class="keyword">import</span> RL4COTrainer</span><br><span class="line"></span><br><span class="line"><span class="comment"># RL4CO env based on TorchRL</span></span><br><span class="line">env = TSPEnv(generator_params=&#123;<span class="string">&#x27;num_loc&#x27;</span>: <span class="number">50</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Policy: neural network, in this case with encoder-decoder architecture</span></span><br><span class="line">policy = AttentionModelPolicy(env_name=env.name, </span><br><span class="line">                              embed_dim=<span class="number">128</span>,</span><br><span class="line">                              num_encoder_layers=<span class="number">3</span>,</span><br><span class="line">                              num_heads=<span class="number">8</span>,</span><br><span class="line">                            )</span><br><span class="line"></span><br><span class="line"><span class="comment"># RL Model: REINFORCE and greedy rollout baseline</span></span><br><span class="line">model = REINFORCE(env, </span><br><span class="line">                    policy,</span><br><span class="line">                    baseline=<span class="string">&quot;rollout&quot;</span>,</span><br><span class="line">                    batch_size=<span class="number">512</span>,</span><br><span class="line">                    train_data_size=<span class="number">100_000</span>,</span><br><span class="line">                    val_data_size=<span class="number">10_000</span>,</span><br><span class="line">                    optimizer_kwargs=&#123;<span class="string">&quot;lr&quot;</span>: <span class="number">1e-4</span>&#125;,</span><br><span class="line">                    ) </span><br><span class="line"></span><br><span class="line"><span class="comment"># Greedy rollouts over untrained policy</span></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line">td_init = env.reset(batch_size=[<span class="number">3</span>]).to(device)</span><br><span class="line">policy = policy.to(device)</span><br><span class="line">out = policy(td_init.clone(), phase=<span class="string">&quot;test&quot;</span>, decode_type=<span class="string">&quot;greedy&quot;</span>, return_actions=<span class="literal">True</span>)</span><br><span class="line">actions_untrained = out[<span class="string">&#x27;actions&#x27;</span>].cpu().detach()</span><br><span class="line">rewards_untrained = out[<span class="string">&#x27;reward&#x27;</span>].cpu().detach()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Problem <span class="subst">&#123;i+<span class="number">1</span>&#125;</span> | Cost: <span class="subst">&#123;-rewards_untrained[i]:<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    env.render(td_init[i], actions_untrained[i])</span><br><span class="line"></span><br><span class="line">trainer = RL4COTrainer(</span><br><span class="line">    max_epochs=<span class="number">3</span>,</span><br><span class="line">    accelerator=<span class="string">&quot;gpu&quot;</span>,</span><br><span class="line">    devices=<span class="number">1</span>,</span><br><span class="line">    logger=<span class="literal">None</span>,</span><br><span class="line">)</span><br><span class="line">trainer.fit(model)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Greedy rollouts over trained model (same states as previous plot)</span></span><br><span class="line">policy = model.policy.to(device)</span><br><span class="line">out = policy(td_init.clone(), phase=<span class="string">&quot;test&quot;</span>, decode_type=<span class="string">&quot;greedy&quot;</span>, return_actions=<span class="literal">True</span>)</span><br><span class="line">actions_trained = out[<span class="string">&#x27;actions&#x27;</span>].cpu().detach()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plotting</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">for</span> i, td <span class="keyword">in</span> <span class="built_in">enumerate</span>(td_init):</span><br><span class="line">    fig, axs = plt.subplots(<span class="number">1</span>,<span class="number">2</span>, figsize=(<span class="number">11</span>,<span class="number">5</span>))</span><br><span class="line">    env.render(td, actions_untrained[i], ax=axs[<span class="number">0</span>]) </span><br><span class="line">    env.render(td, actions_trained[i], ax=axs[<span class="number">1</span>])</span><br><span class="line">    axs[<span class="number">0</span>].set_title(<span class="string">f&quot;Untrained | Cost = <span class="subst">&#123;-rewards_untrained[i].item():<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    axs[<span class="number">1</span>].set_title(<span class="string">r&quot;Trained $\pi_\theta$&quot;</span> + <span class="string">f&quot;| Cost = <span class="subst">&#123;-out[<span class="string">&#x27;reward&#x27;</span>][i].item():<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Optionally, save the checkpoint for later use (e.g. in tutorials/4-search-methods.ipynb)</span></span><br><span class="line">trainer.save_checkpoint(<span class="string">&quot;tsp-quickstart.ckpt&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<h1 id="零数组变换-II"><a href="#零数组变换-II" class="headerlink" title="零数组变换 II"></a><font color=orange>零数组变换 II</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-ii/solutions/2991505/liang-chong-fang-fa-er-fen-da-an-chai-fe-rcvg/">https://leetcode.cn/problems/zero-array-transformation-ii/solutions/2991505/liang-chong-fang-fa-er-fen-da-an-chai-fe-rcvg/</a><br>给你一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code>，其中 <code>queries[i] = [li, ri, vali]</code>。 每个 <code>queries[i]</code> 表示在 <code>nums</code> 上执行以下操作：<br>• 将 <code>nums</code> 中 <code>[li, ri]</code> 范围内的每个下标对应元素的值 <strong>最多</strong> 减少 $val_i$。<br>• 每个下标的减少的数值可以<strong>独立</strong>选择。<br><strong>零数组</strong> 是指所有元素都等于 0 的数组。<br>返回 <code>k</code> 可以取到的 <strong>最小非负</strong> 值，使得在 <strong>顺序</strong> 处理前 <code>k</code> 个查询后，<code>nums</code> 变成 <strong>零数组</strong>。如果不存在这样的 <code>k</code>，则返回 -1。</p>
-<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>其实好像和上一题一样，只是索引值加不一样即可。But如果<strong>最多</strong>改成<strong>只能</strong>就不一样了</p>
-<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minZeroArray</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        diff = [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        sum_d = k = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, (x, d) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(nums, diff)):</span><br><span class="line">            sum_d += d</span><br><span class="line">            <span class="keyword">while</span> k &lt; <span class="built_in">len</span>(queries) <span class="keyword">and</span> sum_d &lt; x:  <span class="comment"># 需要添加询问，把 x 减小</span></span><br><span class="line">                l, r, val = queries[k]</span><br><span class="line">                diff[l] += val</span><br><span class="line">                diff[r + <span class="number">1</span>] -= val</span><br><span class="line">                <span class="keyword">if</span> l &lt;= i &lt;= r:  <span class="comment"># x 在更新范围中</span></span><br><span class="line">                    sum_d += val</span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> sum_d &lt; x:  <span class="comment"># 无法更新</span></span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> k</span><br></pre></td></tr></table></figure>
-
-<h1 id="零数组变换-III"><a href="#零数组变换-III" class="headerlink" title="零数组变换 III"></a><font color=orange>零数组变换 III</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-iii/description/">https://leetcode.cn/problems/zero-array-transformation-iii/description/</a><br>给你一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code> ，其中 <code>queries[i] = [li, ri]</code> 。<br>每一个 <code>queries[i]</code> 表示对于 <code>nums</code> 的以下操作：</p>
+<h2 id="分解介绍"><a href="#分解介绍" class="headerlink" title="分解介绍"></a><span style="background-color: #bdf3c2f6; padding: 8px 16px; border-radius: 16px;">分解介绍</span></h2><p><strong>1. Environment, Policy and Model</strong><br>在上面的例子中，所用的是RL4CO库中封装好的环境env、policy（neural network）以及RL model(定义训练方式)。目前所支持的env, policy和model可以参考<a target="_blank" rel="noopener" href="https://rl4co.ai4co.org/docs/content/api/envs/base/%E3%80%82">https://rl4co.ai4co.org/docs/content/api/envs/base/。</a><br><font color=orange></p>
 <ul>
-<li>将 <code>nums</code> 中下标在范围 <code>[li, ri]</code> 之间的每一个元素<strong>最多</strong>减少 <code>1</code> 。</li>
-<li>坐标范围内每一个元素减少的值相互 <strong>独立</strong> 。<br><strong>零数组</strong> 指的是一个数组里所有元素都等于 0 。<br>请你返回 <strong>最多</strong> 可以从<code>queries</code>中删除多少个元素，使得<code>queries</code> 中剩下的元素仍然能将 <code>nums</code> 变为一个 <strong>零数组</strong> 。如果无法将 <code>nums</code> 变为一个 <strong>零数组</strong> ，返回<code> -1</code> 。</li>
+<li>对于routing problem，目前能直接调用的setup有TSP, ATSP, CVRP, MTSP, OP, PDP, PCTSP, SPCTSP和MTVRP。其他的setup可以通过自定义完成（少了baseline适配，也更方便啦）</li>
+<li>对于policy.</li>
+<li>对于RL model部分，目前支持的有REINFORCE, PPO和A2C</font><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># RL4CO env based on TorchRL</span></span><br><span class="line">env = TSPEnv(generator_params=&#123;<span class="string">&#x27;num_loc&#x27;</span>: <span class="number">50</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Policy: neural network, in this case with encoder-decoder architecture</span></span><br><span class="line">policy = AttentionModelPolicy(env_name=env.name, </span><br><span class="line">                              embed_dim=<span class="number">128</span>,</span><br><span class="line">                              num_encoder_layers=<span class="number">3</span>,</span><br><span class="line">                              num_heads=<span class="number">8</span>,</span><br><span class="line">                            )</span><br><span class="line"></span><br><span class="line"><span class="comment"># RL Model: REINFORCE and greedy rollout baseline</span></span><br><span class="line">model = REINFORCE(env, </span><br><span class="line">                    policy,</span><br><span class="line">                    baseline=<span class="string">&quot;rollout&quot;</span>,</span><br><span class="line">                    batch_size=<span class="number">512</span>,</span><br><span class="line">                    train_data_size=<span class="number">100_000</span>,</span><br><span class="line">                    val_data_size=<span class="number">10_000</span>,</span><br><span class="line">                    optimizer_kwargs=&#123;<span class="string">&quot;lr&quot;</span>: <span class="number">1e-4</span>&#125;,</span><br><span class="line">                    ) </span><br></pre></td></tr></table></figure>
+<strong>2. Test greedy rollout with untrained model and plot</strong><br>完整的rollout过程，从env.reset开始获取初始图，通过policy类的forward得到action，同时通过env.render渲染进行可视化。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Greedy rollouts over untrained policy</span></span><br><span class="line">device = torch.device(<span class="string">&quot;cuda&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span>)</span><br><span class="line">td_init = env.reset(batch_size=[<span class="number">3</span>]).to(device)</span><br><span class="line">policy = policy.to(device)</span><br><span class="line">out = policy(td_init.clone(), phase=<span class="string">&quot;test&quot;</span>, decode_type=<span class="string">&quot;greedy&quot;</span>, return_actions=<span class="literal">True</span>)</span><br><span class="line">actions_untrained = out[<span class="string">&#x27;actions&#x27;</span>].cpu().detach()</span><br><span class="line">rewards_untrained = out[<span class="string">&#x27;reward&#x27;</span>].cpu().detach()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Problem <span class="subst">&#123;i+<span class="number">1</span>&#125;</span> | Cost: <span class="subst">&#123;-rewards_untrained[i]:<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    env.render(td_init[i], actions_untrained[i])</span><br></pre></td></tr></table></figure>
+运行完上面的代码后，会出现下图所示的输出：<figure>
+<img src="/img/202509/02rl4co0.png" alt="图片描述">
+<figcaption style="font-size: 14px; color: #888; text-align:center">Untrained模型推理结果</figcaption>
+</figure></li>
 </ul>
-<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>贪心。我们想取的区间肯定越长越好，但是如何能够满足所有元素都变成0</p>
-<ol>
-<li>先根据<strong>左节点大小</strong>对<code>queries</code>进行排序</li>
-<li>用<code>sum_d</code>表示<code>nums</code>当前元素最多可以减去几个一（即目前有几个区间包含了<code>nums</code>当前元素），<code>diff[i]</code>表示所选的区间<strong>右节点</strong>为<code>i - 1</code>的个数（即到<code>i</code>的时候<code>sum_d</code>需要减去<code>diff[i]</code>）。<code>sum_d</code>和diff数组初始值均为0</li>
-<li>每个<code>nums</code>元素依次进行判断，将包含该节点的区间右节点推入最小堆中</li>
-<li>每次取出堆中<strong>最大值</strong>节点（所包含区间右节点最大）。将<code>sum_d</code>加1，并将<code>diff[区间右节点 + 1]</code>减1，表示选用了该区间。若堆中没有元素或最大右节点还比当前节点小，且<code>sum_d</code>小于<code>nums</code>当前元素，说明无法达到全零，返回-1</li>
-<li>遍历完所有元素后，返回堆的大小，即为没有使用的区间数目</li>
-</ol>
-<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxRemoval</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        queries.sort()</span><br><span class="line">        h, diff = [], [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        sum_d, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            sum_d += diff[i]</span><br><span class="line">            <span class="keyword">while</span> j &lt; <span class="built_in">len</span>(queries) <span class="keyword">and</span> queries[j][<span class="number">0</span>] &lt;= i:</span><br><span class="line">                heappush(h, -queries[j][<span class="number">1</span>])</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> sum_d &lt; x <span class="keyword">and</span> h <span class="keyword">and</span> -h[<span class="number">0</span>] &gt;= i:</span><br><span class="line">                sum_d += <span class="number">1</span></span><br><span class="line">                diff[-heappop(h) + <span class="number">1</span>] -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> sum_d &lt; x:</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(h)</span><br></pre></td></tr></table></figure>
+<p><strong>3. Trainer and Training</strong><br>跟torch.lightning的使用方法差不多，注意这里<strong>fit函数输入的是RL model</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">trainer = RL4COTrainer(</span><br><span class="line">    max_epochs=<span class="number">3</span>,</span><br><span class="line">    accelerator=<span class="string">&quot;gpu&quot;</span>,</span><br><span class="line">    devices=<span class="number">1</span>,</span><br><span class="line">    logger=<span class="literal">None</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">trainer.fit(model)</span><br></pre></td></tr></table></figure>
+
+<p><strong>4. Testing</strong><br>跟上述一样，用训练后的model再推理一次，发现效果好了很多</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Greedy rollouts over trained model (same states as previous plot)</span></span><br><span class="line">policy = model.policy.to(device)</span><br><span class="line">out = policy(td_init.clone(), phase=<span class="string">&quot;test&quot;</span>, decode_type=<span class="string">&quot;greedy&quot;</span>, return_actions=<span class="literal">True</span>)</span><br><span class="line">actions_trained = out[<span class="string">&#x27;actions&#x27;</span>].cpu().detach()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plotting</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">for</span> i, td <span class="keyword">in</span> <span class="built_in">enumerate</span>(td_init):</span><br><span class="line">    fig, axs = plt.subplots(<span class="number">1</span>,<span class="number">2</span>, figsize=(<span class="number">11</span>,<span class="number">5</span>))</span><br><span class="line">    env.render(td, actions_untrained[i], ax=axs[<span class="number">0</span>]) </span><br><span class="line">    env.render(td, actions_trained[i], ax=axs[<span class="number">1</span>])</span><br><span class="line">    axs[<span class="number">0</span>].set_title(<span class="string">f&quot;Untrained | Cost = <span class="subst">&#123;-rewards_untrained[i].item():<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br><span class="line">    axs[<span class="number">1</span>].set_title(<span class="string">r&quot;Trained $\pi_\theta$&quot;</span> + <span class="string">f&quot;| Cost = <span class="subst">&#123;-out[<span class="string">&#x27;reward&#x27;</span>][i].item():<span class="number">.3</span>f&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure>
+  <img src="/img/202509/02rl4co1.png" alt="图片描述">
+  <figcaption style="font-size: 14px; color: #888; text-align:center">Untrained模型与Train 3轮的model推理结果对比</figcaption>
+</figure>
+
+<h2 id="自定义环境：以TSP为例"><a href="#自定义环境：以TSP为例" class="headerlink" title="自定义环境：以TSP为例"></a><span style="background-color: #bdf3c2f6; padding: 8px 16px; border-radius: 16px;">自定义环境：以TSP为例</span></h2><p>自定义环境参考了TorchRL库。在自定义环境中，必须要重写6个方法，选择重写2个重要的方法：</p>
+<ul>
+<li>必须重写：Data generator、Reset、Environment Action Specs、Step、Reward function、Render function</li>
+<li>选择重写：Mask function、Check solution validity</li>
+</ul>
+<p><span style="background-color: #fdd1d1f6; padding: 8px 16px; border-radius: 2px;"><b>Data generator</b></span></p>
+<p>这部分用于生成初始数据，包括坐标节点和特征（如demand、prize等等）。注意这里用torch生成，并放在TensorDict当中，返回TensorDict</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TSPGenerator</span>(<span class="title class_ inherited__">Generator</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        num_loc: <span class="built_in">int</span> = <span class="number">20</span>,</span></span><br><span class="line"><span class="params">        min_loc: <span class="built_in">float</span> = <span class="number">0.0</span>,</span></span><br><span class="line"><span class="params">        max_loc: <span class="built_in">float</span> = <span class="number">1.0</span>,</span></span><br><span class="line"><span class="params">    </span>):</span><br><span class="line">        <span class="variable language_">self</span>.num_loc = num_loc</span><br><span class="line">        <span class="variable language_">self</span>.min_loc = min_loc</span><br><span class="line">        <span class="variable language_">self</span>.max_loc = max_loc</span><br><span class="line">        <span class="variable language_">self</span>.loc_sampler = torch.distributions.Uniform(</span><br><span class="line">            low=min_loc, high=max_loc</span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_generate</span>(<span class="params">self, batch_size</span>) -&gt; TensorDict:</span><br><span class="line">        <span class="comment"># Sample locations</span></span><br><span class="line">        locs = <span class="variable language_">self</span>.loc_sampler.sample((*batch_size, <span class="variable language_">self</span>.num_loc, <span class="number">2</span>))</span><br><span class="line">        <span class="keyword">return</span> TensorDict(&#123;<span class="string">&quot;locs&quot;</span>: locs&#125;, batch_size=batch_size)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># Test generator</span></span><br><span class="line">generator = TSPGenerator(num_loc=<span class="number">20</span>)</span><br><span class="line">locs = generator(<span class="number">32</span>)</span><br><span class="line"><span class="built_in">print</span>(locs[<span class="string">&quot;locs&quot;</span>].shape)</span><br></pre></td></tr></table></figure>
+
+<p><span style="background-color: #fdd1d1f6; padding: 8px 16px; border-radius: 2px;"><b>Reset</b></span></p>
+<p>Reset方法对环境进行初始化，要设置agent初始位置，第一个节点，当前节点，action_mask, batch_size, reward等变量。同样是放在TensorDict中返回</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_reset</span>(<span class="params">self, td: <span class="type">Optional</span>[TensorDict] = <span class="literal">None</span>, batch_size=<span class="literal">None</span></span>) -&gt; TensorDict:</span><br><span class="line">    <span class="comment"># Initialize locations</span></span><br><span class="line">    init_locs = td[<span class="string">&quot;locs&quot;</span>] <span class="keyword">if</span> td <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="literal">None</span></span><br><span class="line">    <span class="keyword">if</span> batch_size <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        batch_size = <span class="variable language_">self</span>.batch_size <span class="keyword">if</span> init_locs <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">else</span> init_locs.shape[:-<span class="number">2</span>]</span><br><span class="line">    device = init_locs.device <span class="keyword">if</span> init_locs <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="variable language_">self</span>.device</span><br><span class="line">    <span class="variable language_">self</span>.to(device)</span><br><span class="line">    <span class="keyword">if</span> init_locs <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        init_locs = <span class="variable language_">self</span>.generate_data(batch_size=batch_size).to(device)[<span class="string">&quot;locs&quot;</span>]</span><br><span class="line">    batch_size = [batch_size] <span class="keyword">if</span> <span class="built_in">isinstance</span>(batch_size, <span class="built_in">int</span>) <span class="keyword">else</span> batch_size</span><br><span class="line"></span><br><span class="line">    <span class="comment"># We do not enforce loading from self for flexibility</span></span><br><span class="line">    num_loc = init_locs.shape[-<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Other variables</span></span><br><span class="line">    current_node = torch.zeros((batch_size), dtype=torch.int64, device=device)</span><br><span class="line">    available = torch.ones(</span><br><span class="line">        (*batch_size, num_loc), dtype=torch.<span class="built_in">bool</span>, device=device</span><br><span class="line">    )  <span class="comment"># 1 means not visited, i.e. action is allowed</span></span><br><span class="line">    i = torch.zeros((*batch_size, <span class="number">1</span>), dtype=torch.int64, device=device)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TensorDict(</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;locs&quot;</span>: init_locs,</span><br><span class="line">            <span class="string">&quot;first_node&quot;</span>: current_node,</span><br><span class="line">            <span class="string">&quot;current_node&quot;</span>: current_node,</span><br><span class="line">            <span class="string">&quot;i&quot;</span>: i,</span><br><span class="line">            <span class="string">&quot;action_mask&quot;</span>: available,</span><br><span class="line">            <span class="string">&quot;reward&quot;</span>: torch.zeros((*batch_size, <span class="number">1</span>), dtype=torch.float32),</span><br><span class="line">        &#125;,</span><br><span class="line">        batch_size=batch_size,</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<p><span style="background-color: #fdd1d1f6; padding: 8px 16px; border-radius: 2px;"><b>Env Action Specs</b></span></p>
+<p>类似于TorchRL中的spec体系，生成的是环境的 observation&#x2F;action&#x2F;reward&#x2F;done的规格说明 (specification)。例如这里定义locs的取值范围在[min_loc, max_loc]间，形状为[num_loc, 2]，类型为torch.float32. 以此类推，Unbounded表示这个变量的取值不受限制<br><font color=orange><b>暂时没有看出用处在哪。。</b></font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_make_spec</span>(<span class="params">self, generator</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Make the observation and action specs from the parameters&quot;&quot;&quot;</span></span><br><span class="line">    <span class="variable language_">self</span>.observation_spec = Composite(</span><br><span class="line">        locs=Bounded(</span><br><span class="line">            low=<span class="variable language_">self</span>.generator.min_loc,</span><br><span class="line">            high=<span class="variable language_">self</span>.generator.max_loc,</span><br><span class="line">            shape=(<span class="variable language_">self</span>.generator.num_loc, <span class="number">2</span>),</span><br><span class="line">            dtype=torch.float32,</span><br><span class="line">        ),</span><br><span class="line">        first_node=Unbounded(</span><br><span class="line">            shape=(<span class="number">1</span>),</span><br><span class="line">            dtype=torch.int64,</span><br><span class="line">        ),</span><br><span class="line">        current_node=Unbounded(</span><br><span class="line">            shape=(<span class="number">1</span>),</span><br><span class="line">            dtype=torch.int64,</span><br><span class="line">        ),</span><br><span class="line">        i=Unbounded(</span><br><span class="line">            shape=(<span class="number">1</span>),</span><br><span class="line">            dtype=torch.int64,</span><br><span class="line">        ),</span><br><span class="line">        action_mask=Unbounded(</span><br><span class="line">            shape=(<span class="variable language_">self</span>.generator.num_loc),</span><br><span class="line">            dtype=torch.<span class="built_in">bool</span>,</span><br><span class="line">        ),</span><br><span class="line">        shape=(),</span><br><span class="line">    )</span><br><span class="line">    <span class="variable language_">self</span>.action_spec = Bounded(</span><br><span class="line">        shape=(<span class="number">1</span>,),</span><br><span class="line">        dtype=torch.int64,</span><br><span class="line">        low=<span class="number">0</span>,</span><br><span class="line">        high=<span class="variable language_">self</span>.generator.num_loc,</span><br><span class="line">    )</span><br><span class="line">    <span class="variable language_">self</span>.reward_spec = Unbounded(shape=(<span class="number">1</span>,))</span><br><span class="line">    <span class="variable language_">self</span>.done_spec = Unbounded(shape=(<span class="number">1</span>,), dtype=torch.<span class="built_in">bool</span>)</span><br></pre></td></tr></table></figure>
+
+<p><span style="background-color: #fdd1d1f6; padding: 8px 16px; border-radius: 2px;"><b>Step</b></span></p>
+<p>根据<code>td[&quot;action&quot;]</code>来进行环境的更新，包括<code>first_node, available, done</code>等，并反过来更新<code>td</code>中的变量。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">_step</span>(<span class="params">self, td: TensorDict</span>) -&gt; TensorDict:</span><br><span class="line">    current_node = td[<span class="string">&quot;action&quot;</span>]</span><br><span class="line">    first_node = current_node <span class="keyword">if</span> td[<span class="string">&quot;i&quot;</span>].<span class="built_in">all</span>() == <span class="number">0</span> <span class="keyword">else</span> td[<span class="string">&quot;first_node&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Set not visited to 0 (i.e., we visited the node)</span></span><br><span class="line">    <span class="comment"># Note: we may also use a separate function for obtaining the mask for more flexibility</span></span><br><span class="line">    available = td[<span class="string">&quot;action_mask&quot;</span>].scatter(</span><br><span class="line">        -<span class="number">1</span>, current_node.unsqueeze(-<span class="number">1</span>).expand_as(td[<span class="string">&quot;action_mask&quot;</span>]), <span class="number">0</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># We are done there are no unvisited locations</span></span><br><span class="line">    done = torch.<span class="built_in">sum</span>(available, dim=-<span class="number">1</span>) == <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># The reward is calculated outside via get_reward for efficiency, so we set it to 0 here</span></span><br><span class="line">    reward = torch.zeros_like(done)</span><br><span class="line"></span><br><span class="line">    td.update(</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;first_node&quot;</span>: first_node,</span><br><span class="line">            <span class="string">&quot;current_node&quot;</span>: current_node,</span><br><span class="line">            <span class="string">&quot;i&quot;</span>: td[<span class="string">&quot;i&quot;</span>] + <span class="number">1</span>,</span><br><span class="line">            <span class="string">&quot;action_mask&quot;</span>: available,</span><br><span class="line">            <span class="string">&quot;reward&quot;</span>: reward,</span><br><span class="line">            <span class="string">&quot;done&quot;</span>: done,</span><br><span class="line">        &#125;,</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> td</span><br></pre></td></tr></table></figure>
+
+<p><span style="background-color: #fdd1d1f6; padding: 8px 16px; border-radius: 2px;"><b>Reward function</b></span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">返回设定的reward，例如这里是返回整个tour length的负值</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">_get_reward</span>(<span class="params">self, td, actions</span>) -&gt; TensorDict:</span><br><span class="line">    <span class="comment"># Sanity check if enabled</span></span><br><span class="line">    <span class="keyword">if</span> <span class="variable language_">self</span>.check_solution:</span><br><span class="line">        <span class="variable language_">self</span>.check_solution_validity(td, actions)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Gather locations in order of tour and return distance between them (i.e., -reward)</span></span><br><span class="line">    locs_ordered = gather_by_index(td[<span class="string">&quot;locs&quot;</span>], actions)</span><br><span class="line">    <span class="keyword">return</span> -get_tour_length(locs_ordered)</span><br></pre></td></tr></table></figure>
+
+<p><span style="background-color: #fdd1d1f6; padding: 8px 16px; border-radius: 2px;"><b>Render</b></span></p>
+<p>根据<code>actions</code>和<code>locs</code>进行可视化操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">render</span>(<span class="params">self, td, actions=<span class="literal">None</span>, ax=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">    <span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ax <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># Create a plot of the nodes</span></span><br><span class="line">        _, ax = plt.subplots()</span><br><span class="line"></span><br><span class="line">    td = td.detach().cpu()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> actions <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        actions = td.get(<span class="string">&quot;action&quot;</span>, <span class="literal">None</span>)</span><br><span class="line">    <span class="comment"># if batch_size greater than 0 , we need to select the first batch element</span></span><br><span class="line">    <span class="keyword">if</span> td.batch_size != torch.Size([]):</span><br><span class="line">        td = td[<span class="number">0</span>]</span><br><span class="line">        actions = actions[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    locs = td[<span class="string">&quot;locs&quot;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># gather locs in order of action if available</span></span><br><span class="line">    <span class="keyword">if</span> actions <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;No action in TensorDict, rendering unsorted locs&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        actions = actions.detach().cpu()</span><br><span class="line">        locs = gather_by_index(locs, actions, dim=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Cat the first node to the end to complete the tour</span></span><br><span class="line">    locs = torch.cat((locs, locs[<span class="number">0</span>:<span class="number">1</span>]))</span><br><span class="line">    x, y = locs[:, <span class="number">0</span>], locs[:, <span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Plot the visited nodes</span></span><br><span class="line">    ax.scatter(x, y, color=<span class="string">&quot;tab:blue&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Add arrows between visited nodes as a quiver plot</span></span><br><span class="line">    dx, dy = np.diff(x), np.diff(y)</span><br><span class="line">    <span class="comment"># 批量画箭头</span></span><br><span class="line">    ax.quiver(</span><br><span class="line">        x[:-<span class="number">1</span>], y[:-<span class="number">1</span>], dx, dy, scale_units=<span class="string">&quot;xy&quot;</span>, angles=<span class="string">&quot;xy&quot;</span>, scale=<span class="number">1</span>, color=<span class="string">&quot;k&quot;</span></span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Setup limits and show</span></span><br><span class="line">    ax.set_xlim(-<span class="number">0.05</span>, <span class="number">1.05</span>)</span><br><span class="line">    ax.set_ylim(-<span class="number">0.05</span>, <span class="number">1.05</span>)</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">NCO</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">rl4co</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/NCO//" class="article-tag-list-link color4">NCO</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/堆 &amp; 栈/最大平均通过率" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/09/01/%E7%AE%97%E6%B3%95/%E5%A0%86%20&%20%E6%A0%88/%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E9%80%9A%E8%BF%87%E7%8E%87/">最大平均通过率</a>
+    </h1>
+  
+
+        
+        <a href="/2025/09/01/%E7%AE%97%E6%B3%95/%E5%A0%86%20&%20%E6%A0%88/%E6%9C%80%E5%A4%A7%E5%B9%B3%E5%9D%87%E9%80%9A%E8%BF%87%E7%8E%87/" class="archive-article-date">
+  	<time datetime="2025-09-01T02:05:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="最大平均通过率"><a href="#最大平均通过率" class="headerlink" title="最大平均通过率"></a><font color=orange>最大平均通过率</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-average-pass-ratio">https://leetcode.cn/problems/maximum-average-pass-ratio</a><br>一所学校里有一些班级，每个班级里有一些学生，现在每个班都会进行一场期末考试。给你一个二维数组 <code>classes</code> ，其中 <code>classes[i] = [pass_i, total_i]</code> ，表示你提前知道了第 <code>i</code> 个班级总共有 <code>total_i</code> 个学生，其中只有 <code>pass_i</code> 个学生可以通过考试。给你一个整数 <code>extraStudents</code> ，表示额外有 <code>extraStudents</code> 个聪明的学生，他们 <strong>一定</strong> 能通过任何班级的期末考。你需要给这 <code>extraStudents</code> 个学生每人都安排一个班级，使得 <strong>所有</strong> 班级的 <strong>平均</strong> 通过率 <strong>最大</strong> 。<br>一个班级的 <strong>通过率</strong> 等于这个班级通过考试的学生人数除以这个班级的总人数。<strong>平均通过率</strong> 是所有班级的通过率之和除以班级数目。请你返回在安排这 <code>extraStudents</code> 个学生去对应班级后的 <strong>最大</strong> 平均通过率。与标准答案误差范围在 <code>10-5</code> 以内的结果都会视为正确结果。</p>
+<p><strong>示例1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>classes = [[1,2],[3,5],[2,2]], extraStudents = 2</code><br><strong>输出：</strong> <code>0.78333</code><br><strong>解释：</strong> 你可以将额外的两个学生都安排到第一个班级，平均通过率为 (3&#x2F;4 + 3&#x2F;5 + 2&#x2F;2) &#x2F; 3 &#x3D; 0.78333。</p>
+</blockquote>
+<p><strong>示例2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>classes = [[2,4],[3,9],[4,5],[2,10]], extraStudents = 4</code><br><strong>输出：</strong> <code>0.53485</code></p>
+</blockquote>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>以示例1为例，最开始分析是否给通过率最小的分学生就好，但是放在示例二不行。再分析是否给分母小的分会更好，在示例2中也不对。关键能弄懂示例2怎么得到的就对了！</p>
+<p>最原始的方法：一步步走，每次都判断加到哪个上面会让通过率加的最多（必须要算，没有办法），把这一个加上。<strong>找一个最小（大）的一般都用堆！！</strong></p>
+<p>对于每个班级的分子分母<code>a, b</code>，加上一个带来的增量是$\frac{a + 1}{b + 1} - \frac{a}{b} &#x3D; \frac{b - a}{b(b + 1)}$</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxAverageRatio</span>(<span class="params">self, classes: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], extraStudents: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">        <span class="comment"># 默认是最小堆，所以取负数作最大</span></span><br><span class="line">        h = [(((a - b) / (b * (b + <span class="number">1</span>))), a, b) <span class="keyword">for</span> a, b <span class="keyword">in</span> classes]</span><br><span class="line">        heapify(h)</span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(extraStudents):</span><br><span class="line">            _, a, b = h[<span class="number">0</span>]</span><br><span class="line">            a += <span class="number">1</span></span><br><span class="line">            b += <span class="number">1</span></span><br><span class="line">            heapreplace(h,  ((a - b) / (b * (b + <span class="number">1</span>)), a, b))</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">sum</span>(a / b <span class="keyword">for</span> _, a, b <span class="keyword">in</span> h) / <span class="built_in">len</span>(h)</span><br></pre></td></tr></table></figure>
+<p><strong>时间复杂度：O(n + extraStudents * logn)</strong><br><strong>空间复杂度：O(n)</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">堆</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/堆//" class="article-tag-list-link color2">堆</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/堆/Medium//" class="article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/动态规划/DFS/24点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/08/18/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/24%E7%82%B9/">24点</a>
+    </h1>
+  
+
+        
+        <a href="/2025/08/18/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/24%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2025-08-18T03:40:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="24点游戏"><a href="#24点游戏" class="headerlink" title="24点游戏"></a><font color=red>24点游戏</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/24-game/description">https://leetcode.cn/problems/24-game/description</a><br>给定一个长度为4的整数数组 <code>cards</code> 。你有 4 张卡片，每张卡片上都包含一个范围在 <code>[1,9]</code> 的数字。您应该使用运算符 <code>[&#39;+&#39;, &#39;-&#39;, &#39;*&#39;, &#39;/&#39;]</code> 和括号 <code>&#39;(&#39;</code> 和 <code>&#39;)&#39;</code> 将这些卡片上的数字排列成数学表达式，以获得值24。</p>
+<p>你须遵守以下规则:</p>
+<ul>
+<li>除法运算符 <code>&#39;/&#39;</code> 表示实数除法，而不是整数除法。例如， <code>4 /(1 - 2 / 3)= 4 /(1 / 3)= 12</code> 。</li>
+<li>每个运算都在两个数字之间。特别是，不能使用 <code>“-”</code> 作为一元运算符。例如，如果<code>cards</code> &#x3D;<code>[1,1,1,1]</code> ，则表达式 <code>“-1 -1 -1 -1”</code> 是 <strong>不允许</strong> 的。</li>
+<li>你不能把数字串在一起。例如，如果<code>cards</code> &#x3D;<code>[1,2,1,2]</code> ，则表达式 <code>“12 + 12”</code> 无效。</li>
+</ul>
+<p>如果可以得到这样的表达式，其计算结果为 <code>24</code> ，则返回 <code>true</code> ，否则返回 <code>false</code> 。</p>
+<p><strong>示例 1：</strong><br><strong>输入:</strong> <code>cards = [4, 1, 8, 7]</code><br><strong>输出:</strong> <code>true</code><br><strong>解释:</strong> <code>(8 - 4) * (7 - 1) = 24</code></p>
+<p><strong>示例 2：</strong><br><strong>输入:</strong> <code>cards = [1, 2, 1, 2]</code><br><strong>输出:</strong> <code>false</code></p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>找不到任何能够简便判断的方法，甚至给我四张牌我也不能很好分辨出能否凑到24点hhh。所以只能枚举，以<code>[3, 5, 3, 5]</code>为例，流程如下</p>
+<ul>
+<li>每次选择一对数<code>x, y</code>，如<code>[3, 5]</code></li>
+<li>枚举这对数可能的所有六种计算结果<code>x + y, x - y, y - x, x * y, x / y, y / x</code></li>
+<li>将数组中这两个数合并，更新为新结果，以<code>3 + 5</code>为例，去掉后面的5，将前面的3变成<code>8</code>，得到新数组<code>[8, 3, 5]</code></li>
+<li>继续重复上述三个步骤直到剩余一个数为止，判断该数字是否为24，是的话返回True。如果枚举都没有就返回False</li>
+</ul>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">EPS = <span class="number">1e-9</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">judgePoint24</span>(<span class="params">self, cards: <span class="type">List</span>[<span class="type">Union</span>[<span class="built_in">int</span>, <span class="built_in">float</span>]]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(cards)</span><br><span class="line">        <span class="keyword">if</span> n == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">abs</span>(cards[<span class="number">0</span>] - <span class="number">24</span>) &lt; EPS</span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(cards):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(i + <span class="number">1</span>, n):</span><br><span class="line">                y = cards[j]</span><br><span class="line">                candidates = [x + y, x - y, y - x, x * y]</span><br><span class="line">                <span class="comment"># 防止分母为0</span></span><br><span class="line">                <span class="keyword">if</span> x &gt; EPS:</span><br><span class="line">                    candidates.append(y / x)</span><br><span class="line">                <span class="keyword">if</span> y &gt; EPS:</span><br><span class="line">                    candidates.append(x / y)</span><br><span class="line">                <span class="comment"># 去掉取得对子中在后面的数，把前面的数改为合并后的值</span></span><br><span class="line">                new_cards = cards[:j] + cards[j + <span class="number">1</span>:]</span><br><span class="line">                <span class="keyword">for</span> item <span class="keyword">in</span> candidates:</span><br><span class="line">                    new_cards[i] = item</span><br><span class="line">                    <span class="keyword">if</span> <span class="variable language_">self</span>.judgePoint24(new_cards):</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Paper/2025/parco" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/07/09/Paper/2025/parco/">parco</a>
+    </h1>
+  
+
+        
+        <a href="/2025/07/09/Paper/2025/parco/" class="archive-article-date">
+  	<time datetime="2025-07-09T01:48:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Parco"><a href="#Parco" class="headerlink" title="Parco"></a><font color=red>Parco</font></h1><h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><p>这里以HCVRP为例（异构车队车辆路径规划问题Heterogeneous Fleet Capacitated Vehicle Routing Problem）。parco的整体框架由下图所示<br><img src="/img/202507/09parco0.png"></p>
+<h3 id="parco的流程框架："><a href="#parco的流程框架：" class="headerlink" title="parco的流程框架："></a>parco的流程框架：</h3><h4 id="1-Graph-Features"><a href="#1-Graph-Features" class="headerlink" title="1 Graph Features"></a>1 Graph Features</h4><ul>
+<li>Agent Features：<code>loc, capacity, speed</code></li>
+<li>Node Features: <code>loc, demand</code></li>
+</ul>
+<h4 id="2-Encoder"><a href="#2-Encoder" class="headerlink" title="2 Encoder"></a>2 Encoder</h4><h5 id="Init-Embedding（该部分在hcvrp-py的HCVRPInitEmbedding中）"><a href="#Init-Embedding（该部分在hcvrp-py的HCVRPInitEmbedding中）" class="headerlink" title="Init Embedding（该部分在hcvrp.py的HCVRPInitEmbedding中）"></a>Init Embedding（该部分在hcvrp.py的HCVRPInitEmbedding中）</h5><p><strong>(1) 仓库坐标特征</strong></p>
+<ul>
+<li>通过一个Linear层得到<code>depots_embedding</code></li>
+<li>将该特征输入pos_encoder得到<code>pos_embedding</code></li>
+<li>进行一次线性投影<code>pos_embedding = self.alpha * self.pos_embedding_proj(pos_embedding)</code></li>
+<li>最终<code>depot_embedding = depots_embedding + pos_embedding</code></li>
+</ul>
+<p><strong>(2) agent_embedding</strong></p>
+<ul>
+<li>通过一个Linear层得到<code>agents_embedding</code></li>
+<li>初始agent feats是depot_embedding与agents_embedding的concat </li>
+<li>一次线性投影<code>depot_agents_embedding = self.init_embed_depot_agents(depot_agents_feats)</code></li>
+</ul>
+<p><strong>(3) client_embedding</strong></p>
+<ul>
+<li>一次线性层<code>clients_embedding = self.init_embed_clients(clients_feats)</code></li>
+</ul>
+<p>将agent_embedding和client_embedding进行concat传入Encoder Layers</p>
+<h5 id="Encoder-Layer"><a href="#Encoder-Layer" class="headerlink" title="Encoder Layer"></a>Encoder Layer</h5><p>基础的transformer架构，如下图所示（使用了RL4CO的attention库）<br><img src="/img/202507/09parco1.png"></p>
+<p>整个Encoder返回Encoder Layer的输出h及初始Init Embedding得到的concat（即Encoder Layer的输入）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VRP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MARL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MARL//" class="article-tag-list-link color5">MARL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/MARL/VRP//" class="article-tag-list-link color4">VRP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/统计特殊三元组" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/06/16/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E7%89%B9%E6%AE%8A%E4%B8%89%E5%85%83%E7%BB%84/">统计特殊三元组</a>
+    </h1>
+  
+
+        
+        <a href="/2025/06/16/%E7%AE%97%E6%B3%95/%E7%BB%9F%E8%AE%A1%E7%89%B9%E6%AE%8A%E4%B8%89%E5%85%83%E7%BB%84/" class="archive-article-date">
+  	<time datetime="2025-06-16T03:07:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>给你一个整数数组 nums。</p>
+<p>特殊三元组 定义为满足以下条件的下标三元组 (i, j, k)：</p>
+<p>0 &lt;&#x3D; i &lt; j &lt; k &lt; n，其中 n &#x3D; nums.length<br>nums[i] &#x3D;&#x3D; nums[j] * 2<br>nums[k] &#x3D;&#x3D; nums[j] * 2<br>返回数组中 特殊三元组 的总数。</p>
+<p>由于答案可能非常大，请返回结果对 109 + 7 取余数后的值。</p>
+
       
 
       
@@ -456,25 +899,6 @@
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/前缀和//" class="article-tag-list-link color4">前缀和</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/前缀和/Medium//" class="article-tag-list-link color2">Medium</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -504,35 +928,62 @@
 
 
   
-    <article id="post-算法/字符串转换后的长度-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/动态规划/DFS/字典序排数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/13/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/">字符串转换后的长度 II</a>
+      <a class="article-title" href="/2025/06/09/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E5%AD%97%E5%85%B8%E5%BA%8F%E6%8E%92%E6%95%B0/">字典序排数</a>
     </h1>
   
 
         
-        <a href="/2025/05/13/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/" class="archive-article-date">
-  	<time datetime="2025-05-13T01:56:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-13</time>
+        <a href="/2025/06/09/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E5%AD%97%E5%85%B8%E5%BA%8F%E6%8E%92%E6%95%B0/" class="archive-article-date">
+  	<time datetime="2025-06-09T01:30:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="字符串转换后的长度-II"><a href="#字符串转换后的长度-II" class="headerlink" title="字符串转换后的长度 II"></a><font color=red>字符串转换后的长度 II</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/total-characters-in-string-after-transformations-ii/description/">https://leetcode.cn/problems/total-characters-in-string-after-transformations-ii/description/</a><br>给你一个由小写英文字母组成的字符串 <code>s</code>，一个整数 <code>t</code> 表示要执行的 <strong>转换</strong> 次数，以及一个长度为 26 的数组 <code>nums</code>。每次 <strong>转换</strong> 需要根据以下规则替换字符串 <code>s</code> 中的每个字符：</p>
-<ul>
-<li>将 <code>s[i]</code> 替换为字母表中后续的 <code>nums[s[i] - &#39;a&#39;]</code> 个连续字符。例如，如果 <code>s[i] = &#39;a&#39;</code> 且 <code>nums[0] = 3</code>，则字符 <code>&#39;a&#39;</code> 转换为它后面的 3 个连续字符，结果为 <code>&quot;bcd&quot;</code>。</li>
-<li>如果转换超过了 <code>&#39;z&#39;</code>，则 <strong>回绕</strong> 到字母表的开头。例如，如果 <code>s[i] = &#39;y&#39;</code> 且 <code>nums[24] = 3</code>，则字符 <code>&#39;y&#39;</code> 转换为它后面的 3 个连续字符，结果为 <code>&quot;zab&quot;</code>。<br>返回 <strong>恰好</strong> 执行 <code>t</code> 次转换后得到的字符串的 <strong>长度</strong>。<br>由于答案可能非常大，返回其对 $10^9 + 7$ 取余的结果。<blockquote>
-<p><strong>示例1：</strong><br><strong>输入：</strong> <code>s = &quot;abcyy&quot;, t = 2, nums = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2]</code><br><strong>输出：</strong> <code>7</code><br><strong>解释：</strong> 第一次转换后的字符串为: <code>&quot;bcdzz&quot;</code>，第二次转换后的字符串为: <code>&quot;cdeabab&quot;</code>，长度为7</p>
+        <h1 id="多米诺和托米诺平铺"><a href="#多米诺和托米诺平铺" class="headerlink" title="多米诺和托米诺平铺"></a><font color=orange>多米诺和托米诺平铺</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lexicographical-numbers/">https://leetcode.cn/problems/lexicographical-numbers/</a><br>给你一个整数 <code>n</code> ，按字典序返回范围 <code>[1, n]</code> 内所有整数。<br>你必须设计一个时间复杂度为 <code>O(n)</code> 且使用 <code>O(1)</code> 额外空间的算法</p>
+<p><strong>示例1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> n &#x3D; 13<br><strong>输出：</strong> [1,10,11,12,13,2,3,4,5,6,7,8,9]</p>
 </blockquote>
-</li>
+<p><strong>Tips：</strong> </p>
+<ul>
+<li>$ 1 &lt;&#x3D; n &lt;&#x3D; 5 * 10^4 $</li>
 </ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>过一遍输出过程便很好理解。以123为例</p>
+<ul>
+<li>先1，然后10，之后100</li>
+<li>再往上走发现1000不可以，便回到100加1，101，…, 109</li>
+<li>继续回退，到11, 12, …, 19</li>
+<li>回退到个位数之后，加1继续遍历，即2, 20, 200(x), 21, 22, …, 29;之后3, 30, 300(x),… 以此类推</li>
+</ul>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">lexicalOrder</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        ans = [<span class="number">0</span>] * n</span><br><span class="line">        num = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            ans[i] = num</span><br><span class="line">            <span class="keyword">if</span> num * <span class="number">10</span> &lt;= n:</span><br><span class="line">                num *= <span class="number">10</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 到头了或者超出界限便回退</span></span><br><span class="line">                <span class="keyword">while</span> num % <span class="number">10</span> == <span class="number">9</span> <span class="keyword">or</span> num + <span class="number">1</span> &gt; n:</span><br><span class="line">                    num //= <span class="number">10</span></span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
 
+<hr>
+<h1 id="字典序的第K小数字"><a href="#字典序的第K小数字" class="headerlink" title="字典序的第K小数字"></a><font color=red>字典序的第K小数字</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/k-th-smallest-in-lexicographical-order/">https://leetcode.cn/problems/k-th-smallest-in-lexicographical-order/</a><br>给定整数 n 和 k，返回  [1, n] 中字典序第 k 小的数字。</p>
+<p><strong>示例1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> n &#x3D; 13, k &#x3D; 2<br><strong>输出：</strong> 10</p>
+</blockquote>
+<p><strong>Tips：</strong> </p>
+<ul>
+<li>$ 1 &lt;&#x3D; k &lt;&#x3D; n &lt;&#x3D; 10^9 $</li>
+</ul>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>这里用上一题的code会超时，还要进行优化，比较难。<br>可以将[1, n]的序列看成下图所示的树，这个树有几个特征：</p>
+<ul>
+<li>兄弟节点之间差距为1</li>
+<li>最左边节点与父节点是10倍的关系</li>
+<li>右边节点及其子树节点的字典序均比左边更大<img src='/img/202506/10lc0.png'></li>
+</ul>
+<p>从父节点开始，首先k减去1（即去掉该父节点）。每次查看最小未遍历过子节点的子树大小，如果大小小于等于k，说明第k个值不在该子树中；遍历其右侧兄弟节点继续，k减去子树大小。<br>反之，说明在该子树中，进入最左的子节点继续上述操作</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">findKthNumber</span>(<span class="params">self, n: <span class="built_in">int</span>, k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment"># 逐层统计 node 子树大小</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">count_subtree_size</span>(<span class="params">node: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            cnt, left, right = <span class="number">0</span>, node, node + <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> left &lt;= n:</span><br><span class="line">                cnt += <span class="built_in">min</span>(n + <span class="number">1</span>, right) - left</span><br><span class="line">                left *= <span class="number">10</span></span><br><span class="line">                right *= <span class="number">10</span></span><br><span class="line">            <span class="keyword">return</span> cnt</span><br><span class="line">        node = <span class="number">1</span></span><br><span class="line">        k -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">while</span> k &gt; <span class="number">0</span>:</span><br><span class="line">            size = count_subtree_size(node)</span><br><span class="line">            <span class="keyword">if</span> size &lt;= k:</span><br><span class="line">                node += <span class="number">1</span></span><br><span class="line">                k -= size</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                node *= <span class="number">10</span></span><br><span class="line">                k -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> node</span><br></pre></td></tr></table></figure>
       
 
       
@@ -550,138 +1001,16 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DP//" class="article-tag-list-link color3">DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DP/Hard//" class="article-tag-list-link color5">Hard</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法/动态规划/DFS/找出-3-位偶数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E6%89%BE%E5%87%BA-3-%E4%BD%8D%E5%81%B6%E6%95%B0/">找出3位偶数</a>
-    </h1>
-  
-
-        
-        <a href="/2025/05/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E6%89%BE%E5%87%BA-3-%E4%BD%8D%E5%81%B6%E6%95%B0/" class="archive-article-date">
-  	<time datetime="2025-05-12T03:29:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="找出3位偶数"><a href="#找出3位偶数" class="headerlink" title="找出3位偶数"></a><font color=green>找出3位偶数</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/finding-3-digit-even-numbers/description">https://leetcode.cn/problems/finding-3-digit-even-numbers/description</a><br>给你一个整数数组 <code>digits</code> ，其中每个元素是一个数字（<code>0 - 9</code>）。数组中可能存在重复元素。<br>你需要找出 <strong>所有</strong> 满足下述条件且 <strong>互不相同</strong> 的整数：</p>
-<ul>
-<li>该整数由 digits 中的三个元素按 <strong>任意</strong> 顺序 <strong>依次连接</strong> 组成。</li>
-<li>该整数不含 <strong>前导零</strong></li>
-<li>该整数是一个 <strong>偶数</strong><br>例如，给定的 <code>digits</code> 是 <code>[1, 2, 3]</code> ，整数 <code>132</code> 和 <code>312</code> 满足上面列出的全部条件。<br>将找出的所有互不相同的整数按 <strong>递增顺序</strong> 排列，并以数组形式返回。<br><strong>示例1：</strong><br><strong>输入：</strong> <code>digits = [2,1,3,0]</code><br><strong>输出：</strong> <code>[102,120,130,132,210,230,302,310,312,320]</code></li>
-</ul>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p>很明显的回溯，枚举每一位可能的值，返回其中的偶数（但是还是不太会，多练。。）</p>
-<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">findEvenNumbers</span>(<span class="params">self, digits: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        cnt = [<span class="number">0</span>] * <span class="number">10</span></span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> digits:</span><br><span class="line">            cnt[d] += <span class="number">1</span></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, x</span>):</span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">3</span>:</span><br><span class="line">                ans.append(x)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">for</span> d, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(cnt):</span><br><span class="line">                <span class="keyword">if</span> c &gt; <span class="number">0</span> <span class="keyword">and</span> (i == <span class="number">0</span> <span class="keyword">and</span> d &gt; <span class="number">0</span> <span class="keyword">or</span> i == <span class="number">1</span> <span class="keyword">or</span> i == <span class="number">2</span> <span class="keyword">and</span> d % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">                    cnt[d] -= <span class="number">1</span></span><br><span class="line">                    dfs(i + <span class="number">1</span>, x * <span class="number">10</span> + d)</span><br><span class="line">                    cnt[d] += <span class="number">1</span> <span class="comment"># 复原</span></span><br><span class="line">        dfs(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFS</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Easy</a>
-        		</li>
       		
 		</ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DFS/Easy//" class="article-tag-list-link color5">Easy</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -711,462 +1040,35 @@
 
 
   
-    <article id="post-算法/图中边值的最大和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Paper/2023/Sym-NCO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/11/%E7%AE%97%E6%B3%95/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/">图中边值的最大和</a>
+      <a class="article-title" href="/2025/06/04/Paper/2023/Sym-NCO/">Sym-NCO</a>
     </h1>
   
 
         
-        <a href="/2025/05/11/%E7%AE%97%E6%B3%95/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" class="archive-article-date">
-  	<time datetime="2025-05-11T04:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-11</time>
+        <a href="/2025/06/04/Paper/2023/Sym-NCO/" class="archive-article-date">
+  	<time datetime="2025-06-04T08:32:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="图中边值的最大和"><a href="#图中边值的最大和" class="headerlink" title="图中边值的最大和"></a><font color=red>图中边值的最大和</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/contest/weekly-contest-449/problems/maximum-sum-of-edge-values-in-a-graph/description/">https://leetcode.cn/contest/weekly-contest-449/problems/maximum-sum-of-edge-values-in-a-graph/description/</a><br>给你一个包含<code>n</code>个节点的<strong>无向图</strong>，节点按从<code>0</code>到<code>n - 1</code>编号。每个节点 <strong>最多</strong> 与其他两个节点相连。<br>图中包含<code>m</code>条边，使用一个二维数组<code>edges</code>表示，其中<code>edges[i] = [ai, bi]</code>表示节点<code>ai</code>和节点<code>bi</code>之间有一条边。<br>你需要为每个节点分配一个从<code>1</code>到<code>n</code>的 <strong>唯一</strong> 值。边的值定义为其两端节点值的 <strong>乘积</strong> 。<br>你的得分是图中所有边值的总和。<br>返回你可以获得的 <strong>最大</strong> 得分。</p>
-<blockquote>
-<h3 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h3><img src="/img/202505/11lc0.png">
-
-<p><strong>输入：</strong> <code>n = 7, edges = [[0,1],[1,2],[2,0],[3,4],[4,5],[5,6]]</code><br><strong>输出：</strong> <code>130</code><br><strong>解释：</strong> <code>上图展示了一个最优的节点值分配方式。边值的总和为：(7 * 6) + (7 * 5) + (6 * 5) + (1 * 3) + (3 * 4) + (4 * 2) = 130</code></p>
-</blockquote>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">贪心</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/贪心//" class="article-tag-list-link color3">贪心</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/贪心/Hard//" class="article-tag-list-link color5">Hard</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法/贪心/数组的最小相等和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/10/%E7%AE%97%E6%B3%95/%E8%B4%AA%E5%BF%83/%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E7%9B%B8%E7%AD%89%E5%92%8C/">数组的最小相等和</a>
-    </h1>
-  
-
-        
-        <a href="/2025/05/10/%E7%AE%97%E6%B3%95/%E8%B4%AA%E5%BF%83/%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E7%9B%B8%E7%AD%89%E5%92%8C/" class="archive-article-date">
-  	<time datetime="2025-05-10T02:40:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="数组的最小相等和"><a href="#数组的最小相等和" class="headerlink" title="数组的最小相等和"></a><font color=orange>数组的最小相等和</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros/description">https://leetcode.cn/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros/description</a><br>给你两个由正整数和<code>0</code>组成的数组<code>nums1</code>和<code>nums2</code>。<br>你必须将两个数组中的 <strong>所有</strong> <code>0</code> 替换为 <strong>严格</strong> 正整数，并且满足两个数组中所有元素的和 <strong>相等</strong> 。<br>返回 <strong>最小</strong> 相等和 ，如果无法使两数组相等，则返回 <code>-1</code> 。<br><strong>示例1：</strong><br><strong>输入:</strong> nums1 &#x3D; [3,2,0,1,0], nums2 &#x3D; [6,5,0]<br><strong>输出:</strong> 12<br><strong>解释:</strong> 可以按下述方式替换数组中的 0 ：</p>
-<ul>
-<li>用 2 和 4 替换 nums1 中的两个 0 。得到 nums1 &#x3D; [3,2,2,1,4] 。</li>
-<li>用 1 替换 nums2 中的一个 0 。得到 nums2 &#x3D; [6,5,1] 。<br>两个数组的元素和相等，都等于 12 。可以证明这是可以获得的最小相等和。</li>
-</ul>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="自己的想法"><a href="#自己的想法" class="headerlink" title="自己的想法"></a>自己的想法</h4><p>这个题蛮简单的，显然把两个数组中的0都换成1后得到的是各自的最小数组。问题在于<strong>不能相等的判断</strong>（其实也很简单。。多一步）<br>如果两个数组<strong>都有0</strong>，他们都是可控的，<strong>肯定</strong>可以相等。如果只有一个数组有0，另一个数组和小于这个数组的最小和，那就不行</p>
-<ul>
-<li>Code:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minSum</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], nums2: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        sum1, sum2, cnt1, cnt2 = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums1:</span><br><span class="line">            sum1 += num</span><br><span class="line">            cnt1 += <span class="number">1</span> <span class="keyword">if</span> num == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums2:</span><br><span class="line">            sum2 += num</span><br><span class="line">            cnt2 += <span class="number">1</span> <span class="keyword">if</span> num == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="comment"># 一个数组比另一个数组和大且这另一个数组不能加</span></span><br><span class="line">        <span class="keyword">if</span> (sum1 + cnt1 &gt; sum2 <span class="keyword">and</span> cnt2 == <span class="number">0</span>) <span class="keyword">or</span> (sum2 + cnt2 &gt; sum1 <span class="keyword">and</span> cnt1 == <span class="number">0</span>):</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">max</span>(sum1 + cnt1, sum2 + cnt2)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="灵神的优雅code："><a href="#灵神的优雅code：" class="headerlink" title="灵神的优雅code："></a>灵神的优雅code：</h2><p>再记忆一下python可以<strong>用<code>not in</code>判断</strong>是否一个数组有某元素，不需要再来for了</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minSum</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], nums2: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        s1 = <span class="built_in">sum</span>(<span class="built_in">max</span>(x, <span class="number">1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> nums1)</span><br><span class="line">        s2 = <span class="built_in">sum</span>(<span class="built_in">max</span>(x, <span class="number">1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> nums2)</span><br><span class="line">        <span class="keyword">if</span> s1 &lt; s2 <span class="keyword">and</span> <span class="number">0</span> <span class="keyword">not</span> <span class="keyword">in</span> nums1 <span class="keyword">or</span> \</span><br><span class="line">           s2 &lt; s1 <span class="keyword">and</span> <span class="number">0</span> <span class="keyword">not</span> <span class="keyword">in</span> nums2:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(s1, s2)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">贪心</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/贪心//" class="article-tag-list-link color3">贪心</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/贪心/Medium//" class="article-tag-list-link color2">Medium</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法/图 (树)/迪杰斯特拉算法/到达最后一个房间的最少时间" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%9B%BE%20(%E6%A0%91)/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/">到达最后一个房间的最少时间</a>
-    </h1>
-  
-
-        
-        <a href="/2025/05/07/%E7%AE%97%E6%B3%95/%E5%9B%BE%20(%E6%A0%91)/%E8%BF%AA%E6%9D%B0%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95/%E5%88%B0%E8%BE%BE%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E6%88%BF%E9%97%B4%E7%9A%84%E6%9C%80%E5%B0%91%E6%97%B6%E9%97%B4/" class="archive-article-date">
-  	<time datetime="2025-05-07T04:06:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="到达最后一个房间的最少时间"><a href="#到达最后一个房间的最少时间" class="headerlink" title="到达最后一个房间的最少时间"></a><font color=orange>到达最后一个房间的最少时间</font></h1><p><strong>link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/">https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/description/</a><br>有一个地窖，地窖中有 <code>n x m</code> 个房间，它们呈网格状排布。</p>
-<p>给你一个大小为 <code>n x m</code> 的二维数组 <code>moveTime</code> ，其中 <code>moveTime[i][j]</code> 表示在这个时刻 <strong>以后</strong> 你才可以 <strong>开始</strong> 往这个房间 <strong>移动</strong> 。你在时刻 <code>t = 0</code> 时从房间 <code>(0, 0)</code> 出发，每次可以移动到 <strong>相邻</strong> 的一个房间。在 <strong>相邻</strong> 房间之间移动需要的时间为：第一次花费 1 秒，第二次花费 2 秒，第三次花费 1 秒，第四次花费 2 秒……如此 <strong>往复</strong> 。<br>请你返回到达房间 (n - 1, m - 1) 所需要的 <strong>最少</strong> 时间。<br>如果两个房间有一条公共边（可以是水平的也可以是竖直的），那么我们称这两个房间是 <strong>相邻</strong> 的。</p>
-<p><strong>示例1：</strong><br><strong>输入:</strong> moveTime &#x3D; [[0,4],[4,4]]<br><strong>输出:</strong> 7<br><strong>解释:</strong> 需要花费的最少时间为 7 秒。</p>
-<ul>
-<li>在时刻 t &#x3D;&#x3D; 4 ，从房间 (0, 0) 移动到房间 (1, 0) ，花费 1 秒。</li>
-<li>在时刻 t &#x3D;&#x3D; 5 ，从房间 (1, 0) 移动到房间 (1, 1) ，花费 2 秒。</li>
-</ul>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="当时的想法"><a href="#当时的想法" class="headerlink" title="当时的想法"></a>当时的想法</h4><p>想着用动态规划解决，只是距离由1变成了相邻的dp值和moveTime最大值而已。但是其实路径不只是往右和往下，也可以往上。那么这里dp就比较复杂了。所以是迪杰斯特拉</p>
-<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p><strong>迪杰斯特拉方法：</strong>构建一个<strong>最小堆</strong>，每次选择堆中<strong>距离起点最近</strong>的节点，更新四个方向节点距离起点最小的距离值，如果有节点距离变小，则把该节点加入堆（所以是存在堆中重复节点的情况，不影响，就是步骤重复点）<br>以此类推，直到取出的节点是<strong>终点</strong>，此时的距离值便为最小值</p>
-<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTimeToReach</span>(<span class="params">self, moveTime: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n, m = <span class="built_in">len</span>(moveTime), <span class="built_in">len</span>(moveTime[<span class="number">0</span>])</span><br><span class="line">        dis = [[inf] * m <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        dis[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">        h = [(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)]</span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            d, i, j = heappop(h)</span><br><span class="line">            <span class="keyword">if</span> i == n - <span class="number">1</span> <span class="keyword">and</span> j == m - <span class="number">1</span>:</span><br><span class="line">                <span class="keyword">return</span> d</span><br><span class="line">            <span class="keyword">if</span> d &gt; dis[i][j]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            time = (i + j) % <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> x, y <span class="keyword">in</span> (i + <span class="number">1</span>, j), (i - <span class="number">1</span>, j), (i, j + <span class="number">1</span>), (i, j - <span class="number">1</span>):  <span class="comment"># 枚举周围四个格子</span></span><br><span class="line">                <span class="keyword">if</span> <span class="number">0</span> &lt;= x &lt; n <span class="keyword">and</span> <span class="number">0</span> &lt;= y &lt; m:</span><br><span class="line">                    new_dis = <span class="built_in">max</span>(d, moveTime[x][y]) + time</span><br><span class="line">                    <span class="keyword">if</span> new_dis &lt; dis[x][y]:</span><br><span class="line">                        dis[x][y] = new_dis</span><br><span class="line">                        heappush(h, (new_dis, x, y))</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">迪杰斯特拉算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/迪杰斯特拉算法//" class="article-tag-list-link color3">迪杰斯特拉算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/迪杰斯特拉算法/Medium//" class="article-tag-list-link color2">Medium</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法/动态规划/DP/多米诺和托米诺平铺" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/">多米诺和托米诺平铺</a>
-    </h1>
-  
-
-        
-        <a href="/2025/05/05/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DP/%E5%A4%9A%E7%B1%B3%E8%AF%BA%E5%92%8C%E6%89%98%E7%B1%B3%E8%AF%BA%E5%B9%B3%E9%93%BA/" class="archive-article-date">
-  	<time datetime="2025-05-05T03:08:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="多米诺和托米诺平铺"><a href="#多米诺和托米诺平铺" class="headerlink" title="多米诺和托米诺平铺"></a><font color=orange>多米诺和托米诺平铺</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/domino-and-tromino-tiling/description">https://leetcode.cn/problems/domino-and-tromino-tiling/description</a><br>有两种形状的瓷砖：一种是 <code>2 x 1</code> 的多米诺形，另一种是形如 “L” 的托米诺形。两种形状都可以旋转。<br><img src="/img/202505/05lc0.jpg"><br>给定整数 <code>n</code> ，返回可以平铺 <code>2 x n</code> 的面板的方法的数量。<strong>返回对 <code>10^9 + 7</code> 取模</strong> 的值。<br>平铺指的是每个正方形都必须有瓷砖覆盖。两个平铺不同，当且仅当面板上有四个方向上的相邻单元中的两个，使得恰好有一个平铺有一个瓷砖占据两个正方形。</p>
-<p><strong>示例1：</strong><br><img src="/img/202505/05lc1.jpg"></p>
-<p><strong>输入:</strong> n &#x3D; 3<br><strong>输出:</strong> 5<br><strong>解释:</strong> 五种不同的方法如上所示。</p>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="自己当时的想法"><a href="#自己当时的想法" class="headerlink" title="自己当时的想法"></a>自己当时的想法</h4><p>显然是一个动态规划问题，假设<code>dp[i]</code>表示<code>2 x i</code>的问题答案。如果一个n的问题能够划分成为k和n-k的问题，那么：<code>dp[i] = dp[k] * dp[n - k]</code>，但是<code>dp[k]</code>和<code>dp[n-k]</code>也不好求，并且要遍历所有<code>1</code>到<code>n - 1</code>的数，而且其实会有重复，比如都是竖的，那么<code>i</code>取几得到的结果都会是一样的，存在重复，因此不能这样</p>
-<h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><img src="/img/202505/05lc3.png">
-
-<p>划小一点分析，先看看<code>i</code>和<code>i - 1</code>的关系，如上图所示，会发现<code>i</code>和<code>i - 1</code>只能插入一个竖牌。同理<code>i</code>和<code>i - 2</code>只能插入两个横排（两个竖排就跟<code>i - 1</code>一样了，<strong>后面插入的要求不能再被竖分</strong>）<br>关键在于3及以后的，必须加入<code>L型</code>，3有2种，4有2种，5也是两种（如上图所示）。<br>5之后除了在3 &amp; 4的答案中间插入横杠之外，无法再得到其他不能分割的答案。因此3以后的都是可以插入两种方案。<br>所以递归式由上图所示：<br>$$ dp[i] &#x3D; dp[i - 1] + dp[i - 2] + 2 * (dp[i - 3] + … + dp[1] + 1) $$<br>$$ &#x3D; dp[i - 1] + (dp[i - 2] + dp[i - 3] + 2 * (dp[i - 4] + … + dp[1] + 1)) + dp[i - 3] $$<br>$$ &#x3D; dp[i - 1] + dp[i - 1] + dp[i - 3] &#x3D; 2 * dp[i - 1] + dp[i - 3] $$</p>
-<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">numTilings</span>(<span class="params">self, n: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">    MOD = <span class="number">1_000_000_007</span></span><br><span class="line">    dp = [<span class="number">0</span>] * <span class="number">1001</span></span><br><span class="line">    dp[<span class="number">0</span>] = dp[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">    dp[<span class="number">2</span>] = <span class="number">2</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, <span class="number">1001</span>):</span><br><span class="line">        dp[i] = (dp[i - <span class="number">1</span>] * <span class="number">2</span> + dp[i - <span class="number">3</span>]) % MOD</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DP//" class="article-tag-list-link color3">DP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DP/Medium//" class="article-tag-list-link color2">Medium</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Paper/TSPBaseline" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/14/Paper/TSPBaseline/">TSPBaseline</a>
-    </h1>
-  
-
-        
-        <a href="/2025/04/14/Paper/TSPBaseline/" class="archive-article-date">
-  	<time datetime="2025-04-14T08:19:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="目前常用的NCO-Baseline汇总"><a href="#目前常用的NCO-Baseline汇总" class="headerlink" title="目前常用的NCO Baseline汇总"></a>目前常用的NCO Baseline汇总</h1><h2 id="AM"><a href="#AM" class="headerlink" title="AM"></a>AM</h2><h2 id="POMO-2020-nips"><a href="#POMO-2020-nips" class="headerlink" title="POMO(2020 nips)"></a>POMO(2020 nips)</h2><p><strong>Link：</strong> <a target="_blank" rel="noopener" href="https://proceedings.neurips.cc/paper/2020/hash/f231f2107df69eab0a3862d50018a9b2-Abstract.html">https://proceedings.neurips.cc/paper/2020/hash/f231f2107df69eab0a3862d50018a9b2-Abstract.html</a></p>
+        <h1 id="Sym-NCO"><a href="#Sym-NCO" class="headerlink" title="Sym-NCO"></a><font color=orange>Sym-NCO</font></h1><h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p><strong>1. 组合优化问题（COPs）的挑战</strong><br>COPs 因 NP 难特性难以快速找到最优解，传统方法依赖专家知识或启发式规则，而基于深度强化学习的组合优化方法（DRL-NCO）虽能减少对领域知识的依赖，但存在泛化能力不足和与传统启发式方法的性能差距。<br><strong>2. 对称性的潜在价值</strong><br>COPs 中普遍存在问题对称性（如旋转、反射不变性）和解对称性（对称解具有相同目标值），这些对称性可作为归纳偏置，压缩训练空间并提升模型对未见问题的泛化能力。现有方法（如 POMO）仅利用特定任务的解对称性，缺乏通用的对称性学习框架。<br><strong>3. 目标</strong><br>提出一种通用、无架构修改的训练方案，利用对称性提升 DRL-NCO 的性能，缩小与传统方法的差距。</p>
+<h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><p>其实比较简单，Sym-NCO并没有对模型网络架构进行修改，主要是对数据集进行了augment，以及同一个data对生成多个solution。<br><img src="/img/202506/24SymNCO0.png"></p>
+<p><strong>Loss函数：</strong><br>$L_{total} &#x3D; L_{Sym-RL} + \alpha * L_{inv} &#x3D; L_{ps} + \beta * L_{ss} + \alpha * L_{inv}$</p>
 <ol>
-<li><p>将一个例子中每个节点都设置为初始的action，增加了solution多样性，容易跳出局部解。</p>
-<figure>
-  <img src="../../img/202505/26pomo0.png" alt="图片描述">
-  <figcaption style="font-size: 14px; color: #888; text-align:center">POMO示例图，初始选点由单一变为多样化，instance的每个节点均作为初始点进行选择</figcaption>
-</figure>
-</li>
-<li><p>因为初始点是多样的，这样的缺点就在于节点数<code>N</code>值<strong>不可以过大</strong>，否则会使显存爆炸。因此在推理阶段有一个数据增强的小Trick，将同一个图输入进行如转置等变换（即最优解是保持不变的），作为多个输入</p>
-<figure>
-  <img src="../../img/202505/26pomo1.png" alt="图片描述">
-  <figcaption style="font-size: 14px; color: #888; text-align:center">推理阶段进行数据集的增强</figcaption>
-</figure></li>
+<li>$L_{ss}$是解对称性损失，同一问题多样采样解比较：<br>$L_{ss} \approx - \frac{1}{K}\sum\limits_{k&#x3D;1}^{K}[R(\pi^k; P) - \frac{1}{K}\sum R(\pi^k; P)]\nabla _ \theta log F_\theta$</li>
+<li>$L_{ps}$是整体问题的对称性损失，同一问题变种所有solution的效果比较：<br>$L_{ps} \approx \frac{1}{LK}\sum\limits_{l&#x3D;1}^{L}\sum\limits_{k&#x3D;1}^{K}[R(\pi^{l, k}; P) - \frac{1}{LK}\sum R(\pi^{l, k}; P)]\nabla _ \theta log F_\theta$</li>
+<li>$L_{inv}$是问题编码的余弦相似性损失，同一问题变换后，本质与原问题一样，得到的hidden state应尽可能相似：<br>$L_{inv} &#x3D; -S_{cos}(g(h(x)), g(h(Q(x))))$<img src="/img/202506/24SymNCO1.png"></li>
 </ol>
-<h2 id="ATT-GCN-MCTS"><a href="#ATT-GCN-MCTS" class="headerlink" title="ATT-GCN+MCTS"></a>ATT-GCN+MCTS</h2><h2 id="H-TSP"><a href="#H-TSP" class="headerlink" title="H-TSP"></a>H-TSP</h2><h2 id="DIFUSCO"><a href="#DIFUSCO" class="headerlink" title="DIFUSCO"></a>DIFUSCO</h2><p>参考DIFFUSION思路，将其应用到TSP和MIS问题上。</p>
-<h3 id="1-Noise"><a href="#1-Noise" class="headerlink" title="1. Noise"></a>1. Noise</h3><h3 id="2-Denoise"><a href="#2-Denoise" class="headerlink" title="2. Denoise"></a>2. Denoise</h3><ul>
-<li><h4 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h4></li>
-<li><h4 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h4></li>
-</ul>
-<h3 id="3-Generate-Solution"><a href="#3-Generate-Solution" class="headerlink" title="3. Generate Solution"></a>3. Generate Solution</h3>
+
       
 
       
@@ -1189,6 +1091,79 @@
 		</ul>
 	</div>
 
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/NCO//" class="article-tag-list-link color4">NCO</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/NCO/VRP//" class="article-tag-list-link color4">VRP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Paper/RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/06/04/Paper/RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS/">RETHINKING LIGHT DECODER-BASED SOLVERS FOR VEHICLE ROUTING PROBLEMS</a>
+    </h1>
+  
+
+        
+        <a href="/2025/06/04/Paper/RETHINKING-LIGHT-DECODER-BASED-SOLVERS-FOR-VEHICLE-ROUTING-PROBLEMS/" class="archive-article-date">
+  	<time datetime="2025-06-04T08:17:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
       
 
       
@@ -1221,7 +1196,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1337,6 +1312,54 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NCO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">nips</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2025</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2021</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2024</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RVRP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cmd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VRP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Torch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
@@ -1346,6 +1369,22 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hard</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rl4co</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1361,6 +1400,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2023</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">paper</a>
               </li>
              
@@ -1369,23 +1416,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NCO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VRP</a>
+                <a href="javascript:void(0)" class="js-tag color5">MARL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1393,11 +1424,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">堆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">迪杰斯特拉算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">双指针</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">枚举</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1409,31 +1444,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Torch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cmd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">双指针</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MARL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">堆</a>
+                <a href="javascript:void(0)" class="js-tag color3">迪杰斯特拉算法</a>
               </li>
             
             <div class="clearfix"></div>

@@ -162,30 +162,47 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-科研/科研进展记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/滑动窗口（双指针）/分发糖果" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/">科研进展记录</a>
+      <a class="article-title" href="/2025/06/04/%E7%AE%97%E6%B3%95/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%EF%BC%88%E5%8F%8C%E6%8C%87%E9%92%88%EF%BC%89/%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/">分发糖果</a>
     </h1>
   
 
         
-        <a href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2025-04-13T06:54:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-13</time>
+        <a href="/2025/06/04/%E7%AE%97%E6%B3%95/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%EF%BC%88%E5%8F%8C%E6%8C%87%E9%92%88%EF%BC%89/%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/" class="archive-article-date">
+  	<time datetime="2025-06-04T03:28:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        请输入密码查看内容
-        
-          <a class="article-more-a" href="/2025/04/13/%E7%A7%91%E7%A0%94/%E7%A7%91%E7%A0%94%E8%BF%9B%E5%B1%95%E8%AE%B0%E5%BD%95/#more">more >></a>
-        
+        <h1 id="分发糖果"><a href="#分发糖果" class="headerlink" title="分发糖果"></a><font color=red>分发糖果</font></h1><p><code>n</code> 个孩子站成一排。给你一个整数数组 <code>ratings</code> 表示每个孩子的评分。<br>你需要按照以下要求，给这些孩子分发糖果：</p>
+<ul>
+<li>每个孩子至少分配到 <code>1</code> 个糖果。</li>
+<li><strong>相邻</strong>两个孩子<strong>评分更高</strong>的孩子会获得更多的糖果。<br>请你给每个孩子分发糖果，计算并返回需要准备的<strong>最少糖果数目</strong>。</li>
+</ul>
+<p><strong>示例1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>ratings = [1,0,2]</code><br><strong>输出：</strong> <code>5</code><br><strong>解释：</strong> 你可以分别给第一个、第二个、第三个孩子分发 2、1、2 颗糖果。</p>
+</blockquote>
+<p><strong>示例2：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>ratings = [1,2,2]</code><br><strong>输出：</strong> <code>4</code><br><strong>解释：</strong> 你可以分别给第一个、第二个、第三个孩子分发 1、2、1 颗糖果。</p>
+</blockquote>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>类似于寻找波峰与波谷，如下图所示，波谷的糖果可以为最小值1，升序部分糖果数依次递增，降序部分由左到右依次递增，而波峰的糖果数为左右 “<strong>波浪数</strong>” 的最大值。</li>
+<li>每次寻找一座如下图的完整的山（即有升序也有降序）。记录峰顶 $i$ 以及左右山脚的索引 $start、end$。那么这座山峰需要发放的糖果为<strong>左侧升序+右侧升序+峰顶值</strong></li>
+<li>左侧升序 $ &#x3D; 1 + 2 + 3 + … + (i - start) &#x3D; \frac{(1 + i - start) * (i - start)}{2}$</li>
+<li>同理右侧升序 $ &#x3D; 1 + 2 + 3 + … + (end - i) &#x3D; \frac{(1 + end - i) * (end - i)}{2}$</li>
+<li>峰顶值 $&#x3D; max(i - start, end - i) + 1$<img src='/img/202506/04lc0.png'></li>
+</ul>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">candy</span>(<span class="params">self, ratings: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        ans = n = <span class="built_in">len</span>(ratings)</span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; n:</span><br><span class="line">            start = i - <span class="number">1</span> <span class="keyword">if</span> i &gt; <span class="number">0</span> <span class="keyword">and</span> ratings[i - <span class="number">1</span>] &lt; ratings[i] <span class="keyword">else</span> i</span><br><span class="line">            <span class="keyword">while</span> i + <span class="number">1</span> &lt; n <span class="keyword">and</span> ratings[i] &lt; ratings[i + <span class="number">1</span>]:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            top = i</span><br><span class="line">            <span class="keyword">while</span> i + <span class="number">1</span> &lt; n <span class="keyword">and</span> ratings[i] &gt; ratings[i + <span class="number">1</span>]:</span><br><span class="line">                i += <span class="number">1</span></span><br><span class="line">            inc = top - start</span><br><span class="line">            dec = i - top</span><br><span class="line">            ans += (inc * (inc - <span class="number">1</span>) + dec * (dec - <span class="number">1</span>)) // <span class="number">2</span> + <span class="built_in">max</span>(inc, dec)</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
       
 
       
@@ -198,13 +215,32 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">生活</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">双指针</a>
         		</li>
       		
 		</ul>
 	</div>
 
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/双指针//" class="article-tag-list-link color4">双指针</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -234,32 +270,48 @@
 
 
   
-    <article id="post-算法/动态规划/DFS/统计对称整数的数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/动态规划/DFS/你能从盒子里获得的最大糖果数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/">统计对称整数的数目</a>
+      <a class="article-title" href="/2025/06/04/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E4%BD%A0%E8%83%BD%E4%BB%8E%E7%9B%92%E5%AD%90%E9%87%8C%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B3%96%E6%9E%9C%E6%95%B0/">你能从盒子里获得的最大糖果数</a>
     </h1>
   
 
         
-        <a href="/2025/04/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%AF%B9%E7%A7%B0%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2025-04-12T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-12</time>
+        <a href="/2025/06/04/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E4%BD%A0%E8%83%BD%E4%BB%8E%E7%9B%92%E5%AD%90%E9%87%8C%E8%8E%B7%E5%BE%97%E7%9A%84%E6%9C%80%E5%A4%A7%E7%B3%96%E6%9E%9C%E6%95%B0/" class="archive-article-date">
+  	<time datetime="2025-06-04T02:50:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="统计对称整数的数目"><a href="#统计对称整数的数目" class="headerlink" title="统计对称整数的数目"></a><font color=red>统计对称整数的数目</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&envId=2025-04-11">https://leetcode.cn/problems/count-symmetric-integers/description/?envType=daily-question&amp;envId=2025-04-11</a><br>给你两个正整数<code>low</code>和<code>high</code>。<br>对于一个由<code>2 * n</code>位数字组成的整数<code>x</code>，如果其前<code>n</code>位数字之和与后<code>n</code>位数字之和相等，则认为这个数字是一个对称整数。<br>返回在<code>[low, high]</code>范围内的<strong>对称整数的数目</strong>。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>low &#x3D; 1, high &#x3D; 100</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>9</font><br><strong>解释：</strong> 在 1 到 100 范围内共有 9 个对称整数：11、22、33、44、55、66、77、88 和 99 。<br><strong>提示：</strong></p>
+        <h1 id="你能从盒子里获得的最大糖果数"><a href="#你能从盒子里获得的最大糖果数" class="headerlink" title="你能从盒子里获得的最大糖果数"></a><font color=red>你能从盒子里获得的最大糖果数</font></h1><p>给你 n 个盒子，每个盒子的格式为 <code>[status, candies, keys, containedBoxes]</code> ，其中：</p>
 <ul>
-<li><strong>1 &lt;&#x3D; low &lt;&#x3D; high &lt;&#x3D; 10<sup>18</sup></strong></li>
+<li>**状态字 <code>status[i]</code>**：整数，如果 <code>box[i]</code> 是开的，那么是 <code>1</code> ，否则是 <code>0</code>。</li>
+<li>**糖果数 <code>candies[i]</code>**：整数，表示 <code>box[i]</code> 中糖果的数目。</li>
+<li>**钥匙 <code>keys[i]</code>**：数组，表示你打开 <code>box[i]</code> 后，可以得到一些盒子的钥匙，每个元素分别为该钥匙对应盒子的下标。<br>给你一个整数数组 <code>initialBoxes</code>，包含你最初拥有的盒子。按照以下规则操作：</li>
 </ul>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h3 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h3><p>与前一天<a href="./%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE.md">统计强大整数的数目</a>的类似.<br>假设<code>dfs(i, start, diff, limit_low, limit_high)</code>表示现在是第<code>i</code>位, 从<code>start</code>开始有数字, 前半部分与后半部分的差别是<code>diff</code>.<code>limit_low</code>, <code>limit_high</code>还是表示是否前面的数与<code>low/high</code>重合.推导过程可以结合前一个题解自行推理(如果第二次还不会再写&#x3D; &#x3D;懒了)</p>
-<h3 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">countSymmetricIntegers</span>(<span class="params">self, low: <span class="built_in">int</span>, high: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        high = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(high)))  <span class="comment"># 避免在 dfs 中频繁调用 int()</span></span><br><span class="line">        n = <span class="built_in">len</span>(high)</span><br><span class="line">        low = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(low).zfill(n)))  <span class="comment"># 补前导零，和 high 对齐</span></span><br><span class="line">        </span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i: <span class="built_in">int</span>, start: <span class="built_in">int</span>, diff: <span class="built_in">int</span>, limit_low: <span class="built_in">bool</span>, limit_high: <span class="built_in">bool</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> diff == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            lo = low[i] <span class="keyword">if</span> limit_low <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            hi = high[i] <span class="keyword">if</span> limit_high <span class="keyword">else</span> <span class="number">9</span></span><br><span class="line">            <span class="comment"># 如果前面没有填数字，且剩余数位个数是奇数，那么当前数位不能填数字</span></span><br><span class="line">            <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> (n - i) % <span class="number">2</span>:</span><br><span class="line">                <span class="comment"># 如果必须填数字（lo &gt; 0），不合法，返回 0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> <span class="keyword">if</span> lo <span class="keyword">else</span> dfs(i + <span class="number">1</span>, start, diff, <span class="literal">True</span>, <span class="literal">False</span>)</span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            is_left = start &lt; <span class="number">0</span> <span class="keyword">or</span> i &lt; (start + n) // <span class="number">2</span></span><br><span class="line">            <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">range</span>(lo, hi + <span class="number">1</span>):</span><br><span class="line">                res += dfs(i + <span class="number">1</span>,</span><br><span class="line">                           i <span class="keyword">if</span> start &lt; <span class="number">0</span> <span class="keyword">and</span> d <span class="keyword">else</span> start,  <span class="comment"># 记录第一个填数字的位置</span></span><br><span class="line">                           diff + (d <span class="keyword">if</span> is_left <span class="keyword">else</span> -d),  <span class="comment"># 左半 + 右半 -</span></span><br><span class="line">                           limit_low <span class="keyword">and</span> d == lo,</span><br><span class="line">                           limit_high <span class="keyword">and</span> d == hi)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<p>请你按照上述规则，返回可以获得糖果的 <strong>最大糖果数目</strong> 。</p>
+<ul>
+<li>你可以使用已打开盒子中的钥匙去开启新的盒子。</li>
+<li>你可以使用在已打开盒子中发现的其他盒子。<br>给你一个整数数组 <code>initialBoxes</code>，包含你<strong>最初</strong>拥有的盒子。你可以拿走每个 <strong>已打开盒子</strong> 里的所有糖果，并且可以使用其中的钥匙去开启新的盒子，并且可以使用在其中发现的其他盒子。<br>请你按照上述规则，返回可以获得糖果的 <strong>最大数目</strong> 。</li>
+</ul>
+<p><strong>示例1：</strong></p>
+<blockquote>
+<p><strong>输入：</strong> <code>status = [1,0,1,0], candies = [7,5,4,100], keys = [[],[],[1],[]], containedBoxes = [[1,2],[3],[],[]], initialBoxes = [0]</code><br><strong>输出：</strong> <code>16</code><br><strong>解释：</strong>  1. 一开始你有盒子 0 。你将获得它里面的 7 个糖果和盒子 1 和 2。<br>2. 在盒子 1 中，你会获得 5 个糖果和盒子 3 ，但是由于你没有盒子 3 的对应钥匙，所以盒子 3 会保持关闭状态。<br>3. 在盒子 1 中，你会获得 5 个糖果和盒子 3 ，但是你没法获得盒子 3 的钥匙，所以盒子 3 会保持关闭状态。<br>4. 你总共可以获得的糖果数目 &#x3D; 7 + 4 + 5 &#x3D; 16 个。</p>
+</blockquote>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
+<li>将初始状态认为是否有对应盒子钥匙</li>
+<li>当拿到钥匙的时候，如果盒子也有，则可以开这个盒子拿到里面的糖果、盒子与钥匙。</li>
+<li>当拿到盒子的时候，如果钥匙也有，也可以开这个盒子拿到里面的糖果、盒子与钥匙。</li>
+<li>为防止钥匙重复导致反复打开，盒子打开后将该盒子设为没有了</li>
+</ul>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxCandies</span>(<span class="params">self, status: <span class="type">List</span>[<span class="built_in">int</span>], candies: <span class="type">List</span>[<span class="built_in">int</span>], keys: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], containedBoxes: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], initialBoxes: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        ans = <span class="number">0</span></span><br><span class="line">        has_key = status</span><br><span class="line">        has_box = [<span class="literal">False</span>] * <span class="built_in">len</span>(status)</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">x</span>):</span><br><span class="line">            <span class="keyword">nonlocal</span> ans</span><br><span class="line">            ans += candies[x]</span><br><span class="line">            has_box[x] = <span class="literal">False</span></span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> keys[x]:</span><br><span class="line">                has_key[y] = <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> has_box[y]:</span><br><span class="line">                    dfs(y)</span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> containedBoxes[x]:</span><br><span class="line">                has_box[y] = <span class="literal">True</span></span><br><span class="line">                <span class="keyword">if</span> has_key[y] == <span class="number">1</span>:</span><br><span class="line">                    dfs(y)</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> initialBoxes:</span><br><span class="line">            has_box[x] = <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> has_key[x] == <span class="number">1</span> <span class="keyword">and</span> has_box[x]:</span><br><span class="line">                dfs(x)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
       
 
       
@@ -273,10 +325,6 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -298,10 +346,6 @@
         		<li class="article-tag-list-item">
         			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -335,41 +379,73 @@
 
 
   
-    <article id="post-算法/动态规划/DFS/统计强大整数的数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/图 (树)/DFS/连接两棵树后最大目标节点数目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/10/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/">统计强大整数的数目</a>
+      <a class="article-title" href="/2025/05/28/%E7%AE%97%E6%B3%95/%E5%9B%BE%20(%E6%A0%91)/DFS/%E8%BF%9E%E6%8E%A5%E4%B8%A4%E6%A3%B5%E6%A0%91%E5%90%8E%E6%9C%80%E5%A4%A7%E7%9B%AE%E6%A0%87%E8%8A%82%E7%82%B9%E6%95%B0%E7%9B%AE/">连接两棵树后最大目标节点数目</a>
     </h1>
   
 
         
-        <a href="/2025/04/10/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E7%BB%9F%E8%AE%A1%E5%BC%BA%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9A%84%E6%95%B0%E7%9B%AE/" class="archive-article-date">
-  	<time datetime="2025-04-10T13:10:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-10</time>
+        <a href="/2025/05/28/%E7%AE%97%E6%B3%95/%E5%9B%BE%20(%E6%A0%91)/DFS/%E8%BF%9E%E6%8E%A5%E4%B8%A4%E6%A3%B5%E6%A0%91%E5%90%8E%E6%9C%80%E5%A4%A7%E7%9B%AE%E6%A0%87%E8%8A%82%E7%82%B9%E6%95%B0%E7%9B%AE/" class="archive-article-date">
+  	<time datetime="2025-05-28T02:50:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="统计强大整数的数目"><a href="#统计强大整数的数目" class="headerlink" title="统计强大整数的数目"></a><font color=red>统计强大整数的数目</font></h1><p><strong>Link：</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/?envType=daily-question&envId=2025-04-10">https://leetcode.cn/problems/count-the-number-of-powerful-integers/description/?envType=daily-question&amp;envId=2025-04-10</a><br>给你三个整数<code>start</code>，<code>finish</code>和<code>limit</code>。同时给你一个下标从 <strong>0</strong> 开始的字符串 <code>s</code> ，表示一个 <strong>正</strong> 整数。<br>如果一个<strong>正</strong>整数 <code>x</code>末尾部分是<code>s</code>（换句话说，<code>s</code>是<code>x</code>的后缀），且<code>x</code>中的每个数位至多是 <code>limit</code> ，那么我们称 <code>x</code> 是 <strong>强大的</strong> 。<br>请你返回区间 <code>[start..finish]</code> 内强大整数的 <strong>总数目</strong> 。<br>如果一个字符串 <code>x</code> 是 <code>y</code> 中某个下标开始（包括 <strong>0</strong> ），到下标为 <code>y.length - 1</code> 结束的子字符串，那么我们称 <code>x</code> 是<code>y</code> 的一个后缀。比方说，<code>25</code> 是<code>5125</code> 的一个后缀，但不是 <code>512</code> 的后缀。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>start &#x3D; 1, finish &#x3D; 6000, limit &#x3D; 4, s &#x3D; “124”</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>5</font><br><strong>解释：</strong> 区间 [1..6000] 内的强大数字为 124 ，1124 ，2124 ，3124 和 4124 。这些整数的各个数位都 &lt;&#x3D; 4 且 “124” 是它们的后缀。注意 5124 不是强大整数，因为第一个数位 5 大于 4。<br>这个区间内总共只有这 5 个强大整数。<br><br><strong>提示：</strong></p>
+        <h1 id="连接两棵树后最大目标节点数目-I"><a href="#连接两棵树后最大目标节点数目-I" class="headerlink" title="连接两棵树后最大目标节点数目 I"></a><font color=orange>连接两棵树后最大目标节点数目 I</font></h1><p>有两棵 <strong>无向</strong> 树，分别有 <code>n</code> 和 <code>m</code> 个树节点。两棵树中的节点编号分别为<code>[0, n - 1]</code> 和 <code>[0, m - 1]</code> 中的整数。<br>给你两个二维整数 <code>edges1</code> 和 <code>edges2</code> ，长度分别为 <code>n - 1</code> 和 <code>m - 1</code> ，其中 <code>edges1[i] = [ai, bi]</code> 表示第一棵树中节点 <code>ai</code> 和 <code>bi</code> 之间有一条边，<code>edges2[i] = [ui, vi]</code> 表示第二棵树中节点 <code>ui</code> 和 <code>vi</code> 之间有一条边。同时给你一个整数 <code>k</code> 。<br>如果节点 <code>u</code> 和节点 <code>v</code> 之间路径的边数小于等于 <code>k</code> ，那么我们称节点 <code>u</code> 是节点 <code>v</code> 的 <strong>目标节点</strong> 。注意 ，一个节点一定是它自己的 <strong>目标节点</strong> 。<br>请你返回一个长度为 <code>n</code> 的整数数组 <code>answer</code> ，<code>answer[i]</code> 表示将第一棵树中的一个节点与第二棵树中的一个节点连接一条边后，第一棵树中节点 <code>i</code> 的 <strong>目标节点</strong> 数目的 <strong>最大值</strong> 。<br>注意，每个查询相互独立。意味着进行下一次查询之前，你需要先把刚添加的边给删掉。</p>
+<h3 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h3><blockquote>
+<p><strong>输入：</strong> <code>edges1 = [[0,1],[0,2],[2,3],[2,4]], edges2 = [[0,1],[0,2],[0,3],[2,7],[1,4],[4,5],[4,6]], k = 2</code><br><strong>输出：</strong> <code>[9,7,9,8,8]</code><br><strong>解释：</strong> 对于每个 <code>i</code> ，连接第一棵树中的节点 <code>i</code> 和第二棵树中的节点<code>0</code>或<code>4</code>。<br><img src="/img/202505/28lc0.png"></p>
+</blockquote>
+<p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= start &lt;= finish &lt;= 1015</code></li>
-<li><code>1 &lt;= limit &lt;= 9</code></li>
-<li><code>1 &lt;= s.length &lt;= floor(log10(finish)) + 1</code></li>
-<li><code>s</code> 数位中每个数字都小于等于 <code>limit</code> 。</li>
-<li><code>s</code> 不包含任何前导<code>0</code>。<br></li>
+<li><code>2 &lt;= n, m &lt;= 1000</code></li>
+<li><code>edges1.length == n - 1</code></li>
+<li><code>edges2.length == m - 1</code></li>
+<li><code>edges1[i].length == edges2[i].length == 2</code></li>
+<li><code>edges1[i] = [ai, bi]</code></li>
+<li><code>0 &lt;= ai, bi &lt; n</code></li>
+<li><code>edges2[i] = [ui, vi]</code></li>
+<li><code>0 &lt;= ui, vi &lt; m</code></li>
+<li><code>输入保证 edges1 和 edges2 都表示合法的树</code></li>
+<li><code>0 &lt;= k &lt;= 1000</code></li>
 </ul>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>有点像位运算。</p>
-<h3 id="1-分析："><a href="#1-分析：" class="headerlink" title="1. 分析："></a>1. 分析：</h3><ul>
-<li>假设<code>dfs(i, low_limit, high_limit)</code>表示<strong>前<code>i</code>位确定</strong>，后缀为<code>s</code>的可能字符串数目。<code>low_limit</code>表示<strong>前<code>i - 1</code>位数字与<code>start</code>前<code>i</code>位重合</strong>，那么第<code>i</code>位也受到<code>start[i]</code>的约束（不能低于<code>start[i]</code>，否则会低于<code>start</code>）。同理<code>high_limit</code>表示<strong>前<code>i - 1</code>位数字与<code>finish</code>前<code>i</code>位重合</strong>，那么第<code>i</code>位也受到<code>finish[i]</code>的约束（不能高于<code>finish[i]</code>）<br><strong>结束条件：</strong></li>
-<li>后缀强制为<code>s</code>，如果得到的数字<strong>高于<code>high</code>或低于<code>start</code>，返回<code>0</code></strong></li>
-<li><code>i == n</code>时返回<code>1</code></li>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对于第一个树，每个节点<code>i</code>只需要计算其目标节点个数$C_i$；<br>对于第二个树，只需要计算拥有边数小于等于<code>k-1</code><strong>目标节点最多的节点</strong>和其目标节点数$C_{max}$即可，第一个树的节点都是连该点能得到最多的目标节点.<br>每个点的最大目标节点数为$C_i + C_{max}$</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><ul>
+<li><code>build</code>方法遍历所有边，构建<code>children</code>数组，记录每个节点连接的节点</li>
+<li><code>dfs</code>方法进行深度优先搜索，加<code>child==parent</code>判断是去掉父节点的dfs防止死循环（因为是无向图，所以<code>parent</code>也会是<code>child</code>）<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxTargetNodes</span>(<span class="params">self, edges1: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], edges2: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], k: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">node: <span class="built_in">int</span>, parent: <span class="built_in">int</span>, children: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">            <span class="keyword">if</span> k &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            res = <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> child <span class="keyword">in</span> children[node]:</span><br><span class="line">                <span class="keyword">if</span> child == parent:</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                res += dfs(child, node, children, k - <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">build</span>(<span class="params">edges: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], k: <span class="built_in">int</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">            n = <span class="built_in">len</span>(edges) + <span class="number">1</span></span><br><span class="line">            children = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">            <span class="keyword">for</span> u, v <span class="keyword">in</span> edges:</span><br><span class="line">                children[u].append(v)</span><br><span class="line">                children[v].append(u)</span><br><span class="line">            res = [<span class="number">0</span>] * n</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">                res[i] = dfs(i, -<span class="number">1</span>, children, k)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        n = <span class="built_in">len</span>(edges1) + <span class="number">1</span></span><br><span class="line">        count1 = build(edges1, k)</span><br><span class="line">        count2 = build(edges2, k - <span class="number">1</span>)</span><br><span class="line">        maxCount2 = <span class="built_in">max</span>(count2)</span><br><span class="line">        res = [count1[i] + maxCount2 <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n)]</span><br><span class="line">        <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<strong>时间复杂度：$O(m^2 + n^2)$</strong> ，其中<code>m，n</code>分别是两个<code>edges</code>集合的长度。<br><strong>空间复杂度：$O(m + n)$</strong></li>
 </ul>
-<h3 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code:"></a>2. Code:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numberOfPowerfulInt</span>(<span class="params">self, start: <span class="built_in">int</span>, finish: <span class="built_in">int</span>, limit: <span class="built_in">int</span>, s: <span class="built_in">str</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        high = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(finish)))</span><br><span class="line">        n = <span class="built_in">len</span>(high)</span><br><span class="line">        low = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">int</span>, <span class="built_in">str</span>(start).zfill(n)))</span><br><span class="line">        <span class="comment"># 除去后缀s的位数</span></span><br><span class="line">        diff = n - <span class="built_in">len</span>(s)</span><br><span class="line"></span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, limit_low, limit_high</span>):</span><br><span class="line">            <span class="comment"># 枚举到最后一位了</span></span><br><span class="line">            <span class="keyword">if</span> i == n:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">            <span class="comment"># 第 i 个数位可以从 lo 枚举到 hi</span></span><br><span class="line">            lo = low[i] <span class="keyword">if</span> limit_low <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">            hi = high[i] <span class="keyword">if</span> limit_high <span class="keyword">else</span> <span class="number">9</span></span><br><span class="line">            res = <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> i &lt; diff:</span><br><span class="line">                <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">range</span>(lo, <span class="built_in">min</span>(hi, limit) + <span class="number">1</span>):</span><br><span class="line">                    res += dfs(i + <span class="number">1</span>, limit_low <span class="keyword">and</span> d == lo, limit_high <span class="keyword">and</span> d == hi)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                x = <span class="built_in">int</span>(s[i - diff])</span><br><span class="line">                <span class="keyword">if</span> lo &lt;= x &lt;= hi:</span><br><span class="line">                    res = dfs(i + <span class="number">1</span>, limit_low <span class="keyword">and</span> x == lo, limit_high <span class="keyword">and</span> x == hi)</span><br><span class="line">            <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> dfs(<span class="number">0</span>, <span class="literal">True</span>, <span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="连接两棵树后最大目标节点数目-II"><a href="#连接两棵树后最大目标节点数目-II" class="headerlink" title="连接两棵树后最大目标节点数目 II"></a><font color=red>连接两棵树后最大目标节点数目 II</font></h1><p>有两棵 <strong>无向</strong> 树，分别有 <code>n</code> 和 <code>m</code> 个树节点。两棵树中的节点编号分别为<code>[0, n - 1]</code> 和 <code>[0, m - 1]</code> 中的整数。<br>给你两个二维整数 <code>edges1</code> 和 <code>edges2</code> ，长度分别为 <code>n - 1</code> 和 <code>m - 1</code> ，其中 <code>edges1[i] = [ai, bi]</code> 表示第一棵树中节点 <code>ai</code> 和 <code>bi</code> 之间有一条边，<code>edges2[i] = [ui, vi]</code> 表示第二棵树中节点 <code>ui</code> 和 <code>vi</code> 之间有一条边。同时给你一个整数 <code>k</code> 。<br>如果节点 <code>u</code> 和节点 <code>v</code> 之间路径的边数是<strong>偶数</strong>，那么我们称节点 <code>u</code> 是节点 <code>v</code> 的 <strong>目标节点</strong> 。注意 ，一个节点一定是它自己的 <strong>目标节点</strong> 。<br>请你返回一个长度为 <code>n</code> 的整数数组 <code>answer</code> ，<code>answer[i]</code> 表示将第一棵树中的一个节点与第二棵树中的一个节点连接一条边后，第一棵树中节点 <code>i</code> 的 <strong>目标节点</strong> 数目的 <strong>最大值</strong> 。<br>注意，每个查询相互独立。意味着进行下一次查询之前，你需要先把刚添加的边给删掉。</p>
+<blockquote>
+<p><strong>输入：</strong> <code>edges1 = [[0,1],[0,2],[2,3],[2,4]], edges2 = [[0,1],[0,2],[0,3],[2,7],[1,4],[4,5],[4,6]]</code><br><strong>输出：</strong> <code>[8,7,7,8,8]</code><br><strong>解释：</strong> 对于每个 <code>i</code> ，连接第一棵树中的节点 <code>i</code> 和第二棵树中的节点<code>0</code>或<code>4</code>或<code>7</code>。<br><img src="/img/202505/29lc0.png"></p>
+</blockquote>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>2 &lt;= n, m &lt;= 10^5</code></li>
+<li><code>edges1.length == n - 1</code></li>
+<li><code>edges2.length == m - 1</code></li>
+<li><code>edges1[i].length == edges2[i].length == 2</code></li>
+<li><code>edges1[i] = [ai, bi]</code></li>
+<li><code>0 &lt;= ai, bi &lt; n</code></li>
+<li><code>edges2[i] = [ui, vi]</code></li>
+<li><code>0 &lt;= ui, vi &lt; m</code></li>
+<li><code>输入保证 edges1 和 edges2 都表示合法的树</code></li>
+</ul>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>因为<code>n</code>和<code>m</code>大小到10^5，所以上一题的方法不能再用。但是其实仔细看会发现奇偶性自然将每个树划分为两个子节点集合，假设是黑白两色：</p>
+<ul>
+<li>黑色节点的邻居均为白色（白色节点的邻居也均为黑色）</li>
+</ul>
+<p>会发现黑色集合中所有节点的<strong>其他节点均为目标节点</strong>，白色同理。即同一集合中所有节点的目标节点个数均相同。<br>因此不妨从节点<code>0</code>开始dfs，记录与其同一集合与不同集合的节点，最后取<strong>最大值</strong>即为连上<code>树2</code>后增加最多的目标节点数。<code>树1</code>也一样计算集合节点数即可</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">count</span>(<span class="params">self, edges: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="type">Tuple</span>[<span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], <span class="type">List</span>[<span class="built_in">int</span>]]:</span><br><span class="line">        g = [[] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(edges) + <span class="number">1</span>)]</span><br><span class="line">        <span class="keyword">for</span> x, y <span class="keyword">in</span> edges:</span><br><span class="line">            g[x].append(y)</span><br><span class="line">            g[y].append(x)</span><br><span class="line"></span><br><span class="line">        cnt = [<span class="number">0</span>, <span class="number">0</span>]</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">x: <span class="built_in">int</span>, fa: <span class="built_in">int</span>, d: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">            cnt[d] += <span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> g[x]:</span><br><span class="line">                <span class="keyword">if</span> y != fa:</span><br><span class="line">                    dfs(y, x, d ^ <span class="number">1</span>)</span><br><span class="line">        dfs(<span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> g, cnt</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxTargetNodes</span>(<span class="params">self, edges1: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], edges2: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        _, cnt2 = <span class="variable language_">self</span>.count(edges2)</span><br><span class="line">        max2 = <span class="built_in">max</span>(cnt2)</span><br><span class="line"></span><br><span class="line">        g, cnt1 = <span class="variable language_">self</span>.count(edges1)</span><br><span class="line">        ans = [max2] * <span class="built_in">len</span>(g)</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">x: <span class="built_in">int</span>, fa: <span class="built_in">int</span>, d: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">            ans[x] += cnt1[d]</span><br><span class="line">            <span class="keyword">for</span> y <span class="keyword">in</span> g[x]:</span><br><span class="line">                <span class="keyword">if</span> y != fa:</span><br><span class="line">                    dfs(y, x, d ^ <span class="number">1</span>)</span><br><span class="line">        dfs(<span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+<p>**时间复杂度：$O(m+n)$**，其中<code>m，n</code>分别是两个<code>edges</code>集合的长度。<br><strong>空间复杂度：$O(m+n)$</strong></p>
+
       
 
       
@@ -383,10 +459,6 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -408,10 +480,6 @@
         		<li class="article-tag-list-item">
         			<a href="/categories/算法/DFS//" class="article-tag-list-link color4">DFS</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DFS/Hard//" class="article-tag-list-link color5">Hard</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -445,43 +513,51 @@
 
 
   
-    <article id="post-Paper/2023/DeepACO" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-科研/tmux简单使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/08/Paper/2023/DeepACO/">DeepACO</a>
+      <a class="article-title" href="/2025/05/27/%E7%A7%91%E7%A0%94/tmux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">tmux简单使用</a>
     </h1>
   
 
         
-        <a href="/2025/04/08/Paper/2023/DeepACO/" class="archive-article-date">
-  	<time datetime="2025-04-08T02:07:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-08</time>
+        <a href="/2025/05/27/%E7%A7%91%E7%A0%94/tmux%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2025-05-27T12:32:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h1><ul>
-<li>传统ACO需要专家先验知识,这种启发性信息增大人工成本,本论文主要就使用神经网络代替先验知识作为启发性信息,通过自我学习不断调整即可</li>
+        <p>Tmux可以方便的在Linux中隔断进程，针对断网无法看到后续输出十分有效</p>
+<h2 id="会话（Session）"><a href="#会话（Session）" class="headerlink" title="会话（Session）"></a>会话（Session）</h2><p>一般用这个下面的五个命令就足以使用</p>
+<ul>
+<li><strong>创建新会话session：</strong> <code>tmux new -s session_name</code><br>创建完新会话之后便可以在里面执行一些cmd代码，断网后也不影响其输出</li>
+<li><strong>分离会话：</strong> <code>ctrl+b d</code></li>
+<li><strong>查看会话列表：</strong> <code>tmux ls</code> or <code>ctrl+b s</code></li>
+<li><strong>重命名当前会话：</strong> <code>ctrl+b $</code></li>
+<li><strong>重新进入会话：</strong> <code>tmux attach -t session_name</code></li>
 </ul>
-<h1 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h1><p>还是比较非常的Easy<br>整体框架如下图所示,传统ACO的概率是<strong>信息素浓度乘以专家先验知识(例如TSP是路径长度)<strong>得到,而DeepACO的先验知识部分通过</strong>learner来学习得到</strong><br><img src="/img/202504/DeepACO1.png" width=800 height=400></p>
-<h1 id="Novelty"><a href="#Novelty" class="headerlink" title="Novelty"></a>Novelty</h1><h1 id="Code-implementation"><a href="#Code-implementation" class="headerlink" title="Code implementation"></a>Code implementation</h1><h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><img src="/img/202504/DeepACOTrain.png" width=750 height=600>
-
-<h2 id="Inference"><a href="#Inference" class="headerlink" title="Inference"></a>Inference</h2><img src="/img/202504/DeepACOInfer.png" width=600 height=400>
-
-<h2 id="Net"><a href="#Net" class="headerlink" title="Net"></a>Net</h2><img src="/img/202504/DeepACONet.png" width=750 height=600>
-
-<h1 id="最后放一些之前没怎么接触过的Code介绍"><a href="#最后放一些之前没怎么接触过的Code介绍" class="headerlink" title="最后放一些之前没怎么接触过的Code介绍"></a>最后放一些之前没怎么接触过的Code介绍</h1><h2 id="1-getattr方法"><a href="#1-getattr方法" class="headerlink" title="1. getattr方法"></a>1. getattr方法</h2><p>调用已有函数的另一种方法,如<code>self.act_fn = getattr(F, &#39;silu&#39;)</code>表示self.act_fn是silu激活函数,与<code>self.act_fn = F.silu()</code>是一样的效果</p>
-<h2 id="2-torch-geometric-nn库"><a href="#2-torch-geometric-nn库" class="headerlink" title="2. torch_geometric.nn库"></a>2. torch_geometric.nn库</h2><p>torch_geometric.nn库是GNN的库,有很多GNN相关的方法.例如这里有用到<code>self.agg_fn = getattr(gnn, f&#39;global_mean_pool&#39;)</code>.表示agg_fn是gnn库中的<strong>global_mean_pool方法</strong>:</p>
-<h3 id="global-mean-pool方法"><a href="#global-mean-pool方法" class="headerlink" title="global_mean_pool方法"></a>global_mean_pool方法</h3><p>函数原型<code>torch_geometric.nn.global_mean_pool(x, batch)</code><br><code>x</code>是<strong>节点特征矩阵</strong>,形状为<code>[N, F]</code>,<code>N</code>为节点数,<code>F</code>为节点的特征数(维度)<br><code>batch</code>是一个长度为<code>N</code>的一维向量，表示每个节点属于哪个图，用于“分组”池化操作。值的范围为 <code>[0, B-1]</code>，<code>B</code> 是图的个数<br><strong>示例代码</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch_geometric.nn <span class="keyword">import</span> global_mean_pool</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line"><span class="comment"># 假设有6个节点，每个节点有3维特征</span></span><br><span class="line">x = torch.tensor([</span><br><span class="line">    [<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>],</span><br><span class="line">    [<span class="number">4.</span>, <span class="number">5.</span>, <span class="number">6.</span>],</span><br><span class="line">    [<span class="number">7.</span>, <span class="number">8.</span>, <span class="number">9.</span>],</span><br><span class="line">    [<span class="number">1.</span>, <span class="number">1.</span>, <span class="number">1.</span>],</span><br><span class="line">    [<span class="number">2.</span>, <span class="number">2.</span>, <span class="number">2.</span>],</span><br><span class="line">    [<span class="number">3.</span>, <span class="number">3.</span>, <span class="number">3.</span>]</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment"># batch 表示节点属于哪个图：前3个属于图0，后3个属于图1</span></span><br><span class="line">batch = torch.tensor([<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">pooled = global_mean_pool(x, batch)</span><br><span class="line"><span class="built_in">print</span>(pooled)</span><br></pre></td></tr></table></figure>
-<p>输出为：<br><code>tensor([[4.0000, 5.0000, 6.0000], [2.0000, 2.0000, 2.0000]])</code><br>说明：<br>    图0中，节点平均特征为 (1+4+7)&#x2F;3 &#x3D; 4，(2+5+8)&#x2F;3 &#x3D; 5，(3+6+9)&#x2F;3 &#x3D; 6<br>    图1中，节点平均特征为 (1+2+3)&#x2F;3 &#x3D; 2，每个维度同理</p>
-<h3 id="GNN的Data"><a href="#GNN的Data" class="headerlink" title="GNN的Data"></a>GNN的Data</h3><p>GNN中的data除了节点feature之外,还有边和边特征的记录,Data原型:<br><code>Data(x=node_feature, edge_index=edge_index, edge_attr=edge_attr)</code><br>注意其中edge_index的形状为<code>[2, N]</code>.表示有<code>N条边</code>,以及边所连接的点索引</p>
-<h2 id="3-torch"><a href="#3-torch" class="headerlink" title="3. torch"></a>3. torch</h2><p><code>torch.topk(distances, k=k_sparse, dim=1, largest=False)</code>选取最小的k个元素<br><code>torch.repeat_interleave(tensor, repeats=k_sparse)</code>重复<code>tensor k_sparse</code>次<br><code>torch.flatten(input, start_dim=0, end_dim=-1)</code>将指定维度范围内的所有元素展平为一维。展平后的张量保持原始张量的顺序。也可以选择展平的维度范围</p>
+<h2 id="窗口"><a href="#窗口" class="headerlink" title="窗口"></a>窗口</h2><ul>
+<li><strong>创建新窗口：</strong> <code>ctrl+b c</code></li>
+<li><strong>切换到上一窗口：</strong> <code>ctrl+b p</code></li>
+<li><strong>切换到下一窗口：</strong> <code>ctrl+b n</code></li>
+<li><strong>切换到指定编号窗口：</strong> <code>ctrl+b &lt;number&gt;</code></li>
+<li><strong>从列表中选择窗口，上下键进行选择：</strong> <code>ctrl+b w</code></li>
+</ul>
+<h2 id="窗格"><a href="#窗格" class="headerlink" title="窗格"></a>窗格</h2><ul>
+<li><strong>划分左右两个窗格：</strong> <code>ctrl+b %</code></li>
+<li><strong>划分上下两个窗格：</strong> <code>ctrl+b &quot;</code></li>
+<li><strong>光标切换到其他窗格：</strong> <code>ctrl+b &lt;arrow key&gt;</code></li>
+<li><strong>光标切换到上一窗格：</strong> <code>ctrl+b ;</code></li>
+<li><strong>光标切换到下一窗格：</strong> <code>ctrl+b o</code></li>
+<li><strong>关闭当前窗格：</strong> <code>ctrl+b x</code></li>
+<li><strong>将当前窗格拆为一个独立窗口：</strong> <code>ctrl+b !</code></li>
+</ul>
 
       
 
@@ -495,11 +571,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cmd</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">进化算法</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tmux</a>
         		</li>
       		
 		</ul>
@@ -511,11 +587,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/paper//" class="article-tag-list-link color1">paper</a>
+        			<a href="/categories/cmd//" class="article-tag-list-link color4">cmd</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/paper/进化算法//" class="article-tag-list-link color5">进化算法</a>
+        			<a href="/categories/cmd/tmux//" class="article-tag-list-link color5">tmux</a>
         		</li>
       		
 		</ul>
@@ -550,31 +626,35 @@
 
 
   
-    <article id="post-算法/动态规划/DFS/分割等和子集" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/移除相邻字符后字典序最小的字符串" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/04/07/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/">分割等和子集</a>
+      <a class="article-title" href="/2025/05/26/%E7%AE%97%E6%B3%95/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/">移除相邻字符后字典序最小的字符串</a>
     </h1>
   
 
         
-        <a href="/2025/04/07/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" class="archive-article-date">
-  	<time datetime="2025-04-07T02:34:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-04-07</time>
+        <a href="/2025/05/26/%E7%AE%97%E6%B3%95/%E7%A7%BB%E9%99%A4%E7%9B%B8%E9%82%BB%E5%AD%97%E7%AC%A6%E5%90%8E%E5%AD%97%E5%85%B8%E5%BA%8F%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="archive-article-date">
+  	<time datetime="2025-05-26T02:08:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-26</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="分割等和子集"><a href="#分割等和子集" class="headerlink" title="分割等和子集"></a><font color=orange>分割等和子集</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&envId=2025-04-07">https://leetcode.cn/problems/partition-equal-subset-sum/description/?envType=daily-question&amp;envId=2025-04-07</a><br>给你一个 <strong>只包含正整数</strong> 的 <strong>非空</strong> 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>nums &#x3D; [1, 5, 11, 5]</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>true</font><br><strong>解释：</strong> 数组可以分割成[1, 5, 5]和[11]<br></p>
-<hr>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="一、分析"><a href="#一、分析" class="headerlink" title="一、分析"></a>一、分析</h2><p>假设nums元素和为s，满足题目的前提是<strong>s为偶数</strong>。原题目变为找一个<strong>和为s&#x2F;2的子集</strong>，可以使用dfs进行记忆化搜索</p>
-<h2 id="二、流程"><a href="#二、流程" class="headerlink" title="二、流程"></a>二、流程</h2><p>从后往前递推，假设dfs(i, j)表示的是在[0, i]索引下是否能够找到和为j的子集。那么递推规则如下：<br><code>dfs(i, j) = dfs(i - 1, j - nums[i]) or dfs(i - 1, j)</code><br>如果选择<code>nums[i]</code>加入子集，那么<code>dfs(i, j) = dfs(i - 1, j - nums[i])</code>，不选择则是<code>dfs(i - 1, j)</code><br>边界即当<code>i &lt; 0</code>或者<code>j &lt; 0</code>时，RETURN False，说明没有满足的子集；当<code>j == 0</code>时，说明找到满足的子集，返回True</p>
-<h2 id="三、Code"><a href="#三、Code" class="headerlink" title="三、Code"></a>三、Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">canPartition</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line"><span class="meta">        @cache</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, j</span>):</span><br><span class="line">            <span class="keyword">if</span> j == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="keyword">if</span> j &lt; <span class="number">0</span> <span class="keyword">or</span> i &lt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            <span class="keyword">return</span> dfs(i-<span class="number">1</span>, j - nums[i]) <span class="keyword">or</span> dfs(i -<span class="number">1</span>, j)</span><br><span class="line">        s = <span class="built_in">sum</span>(nums)</span><br><span class="line">        <span class="keyword">return</span> s % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">and</span> dfs(<span class="built_in">len</span>(nums) - <span class="number">1</span>, s // <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+        <h1 id="移除相邻字符后字典序最小的字符串"><a href="#移除相邻字符后字典序最小的字符串" class="headerlink" title="移除相邻字符后字典序最小的字符串"></a><font color=red>移除相邻字符后字典序最小的字符串</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lexicographically-smallest-string-after-adjacent-removals/description/">https://leetcode.cn/problems/lexicographically-smallest-string-after-adjacent-removals/description/</a><br>给你一个由小写英文字母组成的字符串 <code>s</code>。<br>你可以进行以下操作任意次（包括零次）：</p>
+<ul>
+<li>移除字符串中 <strong>任意</strong> 一对 <strong>相邻</strong> 字符，这两个字符在字母表中是 <strong>连续</strong> 的，无论顺序如何（例如，<code>&#39;a&#39;</code> 和 <code>&#39;b&#39;</code>，或者 <code>&#39;b&#39;</code> 和 <code>&#39;a&#39;</code>）。</li>
+<li>将剩余字符左移以填补空隙。<br>返回经过最优操作后可以获得的 <strong>字典序最小</strong> 的字符串。<br>当且仅当在第一个不同的位置上，字符串 <code>a</code> 的字母在字母表中出现的位置早于字符串 <code>b</code> 的字母，则认为字符串 <code>a</code> 的 <strong>字典序小于</strong> 字符串 <code>b</code>，。<br>如果 <code>min(a.length, b.length)</code> 个字符都相同，则较短的字符串字典序更小。<br><strong>注意：</strong> 字母表被视为循环的，因此 <code>&#39;a&#39;</code> 和 <code>&#39;z&#39;</code> 也视为连续。<blockquote>
+<p><strong>示例1：</strong><br><strong>输入：</strong> <code>s = &quot;abc&quot;</code><br><strong>输出：</strong> <code>&quot;a&quot;</code><br><strong>解释：</strong> 从字符串中移除 “bc”，剩下 “a”。是字典序最小的字符串</p>
+</blockquote>
+</li>
+</ul>
+
       
 
       
@@ -588,14 +668,346 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DP//" class="article-tag-list-link color3">DP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DP/Hard//" class="article-tag-list-link color5">Hard</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/前缀和/零数组变换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/05/22/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E5%92%8C/%E9%9B%B6%E6%95%B0%E7%BB%84%E5%8F%98%E6%8D%A2/">零数组变换</a>
+    </h1>
+  
+
+        
+        <a href="/2025/05/22/%E7%AE%97%E6%B3%95/%E5%89%8D%E7%BC%80%E5%92%8C/%E9%9B%B6%E6%95%B0%E7%BB%84%E5%8F%98%E6%8D%A2/" class="archive-article-date">
+  	<time datetime="2025-05-22T01:33:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="零数组变换-I"><a href="#零数组变换-I" class="headerlink" title="零数组变换 I"></a><font color=orange>零数组变换 I</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-i/description">https://leetcode.cn/problems/zero-array-transformation-i/description</a><br>给定一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code>，其中 <code>queries[i] = [li, ri]</code>。<br>对于每个查询 <code>queries[i]</code>：</p>
+<ul>
+<li>在 <code>nums</code> 的下标范围 <code>[li, ri]</code> 内选择一个下标子集。</li>
+<li>将选中的每个下标对应的元素值减 1。</li>
+</ul>
+<p><strong>零数组</strong> 是指所有元素都等于 0 的数组。<br>如果在按顺序处理所有查询后，可以将 <code>nums</code> 转换为 <strong>零数组</strong> ，则返回 <code>true</code>，否则返回 <code>false</code>。<br><strong>示例1：</strong><br><strong>输入：</strong> <code>nums = [1,0,1], queries = [[0,2]]</code><br><strong>输出：</strong> <code>true</code><br><strong>解释：</strong> </p>
+<ul>
+<li><strong>对于 i &#x3D; 0：</strong><ul>
+<li>选择下标子集 <code>[0, 2]</code> 并将这些下标处的值减 1。</li>
+<li>数组将变为 <code>[0, 0, 0]</code>，这是一个零数组。</li>
+</ul>
+</li>
+</ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>前缀和，取一个长度为<code>n</code>的<code>rec</code>数组，将<code>queries</code>中<strong>左节点对应索引值加1，右节点再右边对应索引值减1</strong><br>取<code>sum_d</code>表示当前<strong>最多</strong>能够减小的数值，遍历<code>nums</code>，如果<code>sum_d</code>比当前<code>nums[i]</code>值小，说明该元素无法减为0，返回<code>False</code>。若遍历完，则返回<code>True</code></p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isZeroArray</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        cnt = [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> l,r <span class="keyword">in</span> queries:</span><br><span class="line">            cnt[l] += <span class="number">1</span></span><br><span class="line">            cnt[r + <span class="number">1</span>] -= <span class="number">1</span></span><br><span class="line">        rec = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">            rec += cnt[i]</span><br><span class="line">            <span class="keyword">if</span> nums[i] &gt; rec:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="零数组变换-II"><a href="#零数组变换-II" class="headerlink" title="零数组变换 II"></a><font color=orange>零数组变换 II</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-ii/solutions/2991505/liang-chong-fang-fa-er-fen-da-an-chai-fe-rcvg/">https://leetcode.cn/problems/zero-array-transformation-ii/solutions/2991505/liang-chong-fang-fa-er-fen-da-an-chai-fe-rcvg/</a><br>给你一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code>，其中 <code>queries[i] = [li, ri, vali]</code>。 每个 <code>queries[i]</code> 表示在 <code>nums</code> 上执行以下操作：<br>• 将 <code>nums</code> 中 <code>[li, ri]</code> 范围内的每个下标对应元素的值 <strong>最多</strong> 减少 $val_i$。<br>• 每个下标的减少的数值可以<strong>独立</strong>选择。<br><strong>零数组</strong> 是指所有元素都等于 0 的数组。<br>返回 <code>k</code> 可以取到的 <strong>最小非负</strong> 值，使得在 <strong>顺序</strong> 处理前 <code>k</code> 个查询后，<code>nums</code> 变成 <strong>零数组</strong>。如果不存在这样的 <code>k</code>，则返回 -1。</p>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>其实好像和上一题一样，只是索引值加不一样即可。But如果<strong>最多</strong>改成<strong>只能</strong>就不一样了</p>
+<h3 id="Code-1"><a href="#Code-1" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minZeroArray</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        diff = [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        sum_d = k = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, (x, d) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(nums, diff)):</span><br><span class="line">            sum_d += d</span><br><span class="line">            <span class="keyword">while</span> k &lt; <span class="built_in">len</span>(queries) <span class="keyword">and</span> sum_d &lt; x:  <span class="comment"># 需要添加询问，把 x 减小</span></span><br><span class="line">                l, r, val = queries[k]</span><br><span class="line">                diff[l] += val</span><br><span class="line">                diff[r + <span class="number">1</span>] -= val</span><br><span class="line">                <span class="keyword">if</span> l &lt;= i &lt;= r:  <span class="comment"># x 在更新范围中</span></span><br><span class="line">                    sum_d += val</span><br><span class="line">                k += <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> sum_d &lt; x:  <span class="comment"># 无法更新</span></span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> k</span><br></pre></td></tr></table></figure>
+
+<h1 id="零数组变换-III"><a href="#零数组变换-III" class="headerlink" title="零数组变换 III"></a><font color=orange>零数组变换 III</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/zero-array-transformation-iii/description/">https://leetcode.cn/problems/zero-array-transformation-iii/description/</a><br>给你一个长度为 <code>n</code> 的整数数组 <code>nums</code> 和一个二维数组 <code>queries</code> ，其中 <code>queries[i] = [li, ri]</code> 。<br>每一个 <code>queries[i]</code> 表示对于 <code>nums</code> 的以下操作：</p>
+<ul>
+<li>将 <code>nums</code> 中下标在范围 <code>[li, ri]</code> 之间的每一个元素<strong>最多</strong>减少 <code>1</code> 。</li>
+<li>坐标范围内每一个元素减少的值相互 <strong>独立</strong> 。<br><strong>零数组</strong> 指的是一个数组里所有元素都等于 0 。<br>请你返回 <strong>最多</strong> 可以从<code>queries</code>中删除多少个元素，使得<code>queries</code> 中剩下的元素仍然能将 <code>nums</code> 变为一个 <strong>零数组</strong> 。如果无法将 <code>nums</code> 变为一个 <strong>零数组</strong> ，返回<code> -1</code> 。</li>
+</ul>
+<h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>贪心。我们想取的区间肯定越长越好，但是如何能够满足所有元素都变成0</p>
+<ol>
+<li>先根据<strong>左节点大小</strong>对<code>queries</code>进行排序</li>
+<li>用<code>sum_d</code>表示<code>nums</code>当前元素最多可以减去几个一（即目前有几个区间包含了<code>nums</code>当前元素），<code>diff[i]</code>表示所选的区间<strong>右节点</strong>为<code>i - 1</code>的个数（即到<code>i</code>的时候<code>sum_d</code>需要减去<code>diff[i]</code>）。<code>sum_d</code>和diff数组初始值均为0</li>
+<li>每个<code>nums</code>元素依次进行判断，将包含该节点的区间右节点推入最小堆中</li>
+<li>每次取出堆中<strong>最大值</strong>节点（所包含区间右节点最大）。将<code>sum_d</code>加1，并将<code>diff[区间右节点 + 1]</code>减1，表示选用了该区间。若堆中没有元素或最大右节点还比当前节点小，且<code>sum_d</code>小于<code>nums</code>当前元素，说明无法达到全零，返回-1</li>
+<li>遍历完所有元素后，返回堆的大小，即为没有使用的区间数目</li>
+</ol>
+<h3 id="Code-2"><a href="#Code-2" class="headerlink" title="Code"></a>Code</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">maxRemoval</span>(<span class="params">self, nums: <span class="type">List</span>[<span class="built_in">int</span>], queries: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        queries.sort()</span><br><span class="line">        h, diff = [], [<span class="number">0</span>] * (<span class="built_in">len</span>(nums) + <span class="number">1</span>)</span><br><span class="line">        sum_d, j = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, x <span class="keyword">in</span> <span class="built_in">enumerate</span>(nums):</span><br><span class="line">            sum_d += diff[i]</span><br><span class="line">            <span class="keyword">while</span> j &lt; <span class="built_in">len</span>(queries) <span class="keyword">and</span> queries[j][<span class="number">0</span>] &lt;= i:</span><br><span class="line">                heappush(h, -queries[j][<span class="number">1</span>])</span><br><span class="line">                j += <span class="number">1</span></span><br><span class="line">            <span class="keyword">while</span> sum_d &lt; x <span class="keyword">and</span> h <span class="keyword">and</span> -h[<span class="number">0</span>] &gt;= i:</span><br><span class="line">                sum_d += <span class="number">1</span></span><br><span class="line">                diff[-heappop(h) + <span class="number">1</span>] -= <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> sum_d &lt; x:</span><br><span class="line">                <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(h)</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">前缀和</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
         		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/前缀和//" class="article-tag-list-link color4">前缀和</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/前缀和/Medium//" class="article-tag-list-link color2">Medium</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/字符串转换后的长度-II" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/05/13/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/">字符串转换后的长度 II</a>
+    </h1>
+  
+
+        
+        <a href="/2025/05/13/%E7%AE%97%E6%B3%95/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2%E5%90%8E%E7%9A%84%E9%95%BF%E5%BA%A6-II/" class="archive-article-date">
+  	<time datetime="2025-05-13T01:56:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="字符串转换后的长度-II"><a href="#字符串转换后的长度-II" class="headerlink" title="字符串转换后的长度 II"></a><font color=red>字符串转换后的长度 II</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/total-characters-in-string-after-transformations-ii/description/">https://leetcode.cn/problems/total-characters-in-string-after-transformations-ii/description/</a><br>给你一个由小写英文字母组成的字符串 <code>s</code>，一个整数 <code>t</code> 表示要执行的 <strong>转换</strong> 次数，以及一个长度为 26 的数组 <code>nums</code>。每次 <strong>转换</strong> 需要根据以下规则替换字符串 <code>s</code> 中的每个字符：</p>
+<ul>
+<li>将 <code>s[i]</code> 替换为字母表中后续的 <code>nums[s[i] - &#39;a&#39;]</code> 个连续字符。例如，如果 <code>s[i] = &#39;a&#39;</code> 且 <code>nums[0] = 3</code>，则字符 <code>&#39;a&#39;</code> 转换为它后面的 3 个连续字符，结果为 <code>&quot;bcd&quot;</code>。</li>
+<li>如果转换超过了 <code>&#39;z&#39;</code>，则 <strong>回绕</strong> 到字母表的开头。例如，如果 <code>s[i] = &#39;y&#39;</code> 且 <code>nums[24] = 3</code>，则字符 <code>&#39;y&#39;</code> 转换为它后面的 3 个连续字符，结果为 <code>&quot;zab&quot;</code>。<br>返回 <strong>恰好</strong> 执行 <code>t</code> 次转换后得到的字符串的 <strong>长度</strong>。<br>由于答案可能非常大，返回其对 $10^9 + 7$ 取余的结果。<blockquote>
+<p><strong>示例1：</strong><br><strong>输入：</strong> <code>s = &quot;abcyy&quot;, t = 2, nums = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2]</code><br><strong>输出：</strong> <code>7</code><br><strong>解释：</strong> 第一次转换后的字符串为: <code>&quot;bcdzz&quot;</code>，第二次转换后的字符串为: <code>&quot;cdeabab&quot;</code>，长度为7</p>
+</blockquote>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DP//" class="article-tag-list-link color3">DP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/DP/Hard//" class="article-tag-list-link color5">Hard</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-算法/动态规划/DFS/找出-3-位偶数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2025/05/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E6%89%BE%E5%87%BA-3-%E4%BD%8D%E5%81%B6%E6%95%B0/">找出3位偶数</a>
+    </h1>
+  
+
+        
+        <a href="/2025/05/12/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/DFS/%E6%89%BE%E5%87%BA-3-%E4%BD%8D%E5%81%B6%E6%95%B0/" class="archive-article-date">
+  	<time datetime="2025-05-12T03:29:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="找出3位偶数"><a href="#找出3位偶数" class="headerlink" title="找出3位偶数"></a><font color=green>找出3位偶数</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/finding-3-digit-even-numbers/description">https://leetcode.cn/problems/finding-3-digit-even-numbers/description</a><br>给你一个整数数组 <code>digits</code> ，其中每个元素是一个数字（<code>0 - 9</code>）。数组中可能存在重复元素。<br>你需要找出 <strong>所有</strong> 满足下述条件且 <strong>互不相同</strong> 的整数：</p>
+<ul>
+<li>该整数由 digits 中的三个元素按 <strong>任意</strong> 顺序 <strong>依次连接</strong> 组成。</li>
+<li>该整数不含 <strong>前导零</strong></li>
+<li>该整数是一个 <strong>偶数</strong><br>例如，给定的 <code>digits</code> 是 <code>[1, 2, 3]</code> ，整数 <code>132</code> 和 <code>312</code> 满足上面列出的全部条件。<br>将找出的所有互不相同的整数按 <strong>递增顺序</strong> 排列，并以数组形式返回。<br><strong>示例1：</strong><br><strong>输入：</strong> <code>digits = [2,1,3,0]</code><br><strong>输出：</strong> <code>[102,120,130,132,210,230,302,310,312,320]</code></li>
+</ul>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h2 id="1-分析"><a href="#1-分析" class="headerlink" title="1. 分析"></a>1. 分析</h2><p>很明显的回溯，枚举每一位可能的值，返回其中的偶数（但是还是不太会，多练。。）</p>
+<h2 id="2-Code"><a href="#2-Code" class="headerlink" title="2. Code"></a>2. Code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">findEvenNumbers</span>(<span class="params">self, digits: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="type">List</span>[<span class="built_in">int</span>]:</span><br><span class="line">        cnt = [<span class="number">0</span>] * <span class="number">10</span></span><br><span class="line">        <span class="keyword">for</span> d <span class="keyword">in</span> digits:</span><br><span class="line">            cnt[d] += <span class="number">1</span></span><br><span class="line">        ans = []</span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">dfs</span>(<span class="params">i, x</span>):</span><br><span class="line">            <span class="keyword">if</span> i == <span class="number">3</span>:</span><br><span class="line">                ans.append(x)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            <span class="keyword">for</span> d, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(cnt):</span><br><span class="line">                <span class="keyword">if</span> c &gt; <span class="number">0</span> <span class="keyword">and</span> (i == <span class="number">0</span> <span class="keyword">and</span> d &gt; <span class="number">0</span> <span class="keyword">or</span> i == <span class="number">1</span> <span class="keyword">or</span> i == <span class="number">2</span> <span class="keyword">and</span> d % <span class="number">2</span> == <span class="number">0</span>):</span><br><span class="line">                    cnt[d] -= <span class="number">1</span></span><br><span class="line">                    dfs(i + <span class="number">1</span>, x * <span class="number">10</span> + d)</span><br><span class="line">                    cnt[d] += <span class="number">1</span> <span class="comment"># 复原</span></span><br><span class="line">        dfs(<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> ans</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">DFS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Easy</a>
         		</li>
       		
 		</ul>
@@ -615,7 +1027,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/DFS/Medium//" class="article-tag-list-link color2">Medium</a>
+        			<a href="/categories/算法/DFS/Easy//" class="article-tag-list-link color5">Easy</a>
         		</li>
       		
 		</ul>
@@ -650,279 +1062,33 @@
 
 
   
-    <article id="post-随笔/20250331随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/图中边值的最大和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/">20250331随笔</a>
+      <a class="article-title" href="/2025/05/11/%E7%AE%97%E6%B3%95/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/">图中边值的最大和</a>
     </h1>
   
 
         
-        <a href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2025-03-31T09:55:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-31</time>
+        <a href="/2025/05/11/%E7%AE%97%E6%B3%95/%E5%9B%BE%E4%B8%AD%E8%BE%B9%E5%80%BC%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" class="archive-article-date">
+  	<time datetime="2025-05-11T04:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        请输入密码查看内容
-        
-          <a class="article-more-a" href="/2025/03/31/%E9%9A%8F%E7%AC%94/20250331%E9%9A%8F%E7%AC%94/#more">more >></a>
-        
-      
+        <h1 id="图中边值的最大和"><a href="#图中边值的最大和" class="headerlink" title="图中边值的最大和"></a><font color=red>图中边值的最大和</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/contest/weekly-contest-449/problems/maximum-sum-of-edge-values-in-a-graph/description/">https://leetcode.cn/contest/weekly-contest-449/problems/maximum-sum-of-edge-values-in-a-graph/description/</a><br>给你一个包含<code>n</code>个节点的<strong>无向图</strong>，节点按从<code>0</code>到<code>n - 1</code>编号。每个节点 <strong>最多</strong> 与其他两个节点相连。<br>图中包含<code>m</code>条边，使用一个二维数组<code>edges</code>表示，其中<code>edges[i] = [ai, bi]</code>表示节点<code>ai</code>和节点<code>bi</code>之间有一条边。<br>你需要为每个节点分配一个从<code>1</code>到<code>n</code>的 <strong>唯一</strong> 值。边的值定义为其两端节点值的 <strong>乘积</strong> 。<br>你的得分是图中所有边值的总和。<br>返回你可以获得的 <strong>最大</strong> 得分。</p>
+<blockquote>
+<h3 id="示例1："><a href="#示例1：" class="headerlink" title="示例1："></a>示例1：</h3><img src="/img/202505/11lc0.png">
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<p><strong>输入：</strong> <code>n = 7, edges = [[0,1],[1,2],[2,0],[3,4],[4,5],[5,6]]</code><br><strong>输出：</strong> <code>130</code><br><strong>解释：</strong> <code>上图展示了一个最优的节点值分配方式。边值的总和为：(7 * 6) + (7 * 5) + (6 * 5) + (1 * 3) + (3 * 4) + (4 * 2) = 130</code></p>
+</blockquote>
 
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-随笔/20250325随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/25/%E9%9A%8F%E7%AC%94/20250325%E9%9A%8F%E7%AC%94/">20250325随笔</a>
-    </h1>
-  
-
-        
-        <a href="/2025/03/25/%E9%9A%8F%E7%AC%94/20250325%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2025-03-25T03:42:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        请输入密码查看内容
-        
-          <a class="article-more-a" href="/2025/03/25/%E9%9A%8F%E7%AC%94/20250325%E9%9A%8F%E7%AC%94/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Paper/2024/Exact-methods-for-the-traveling-salesman-problem-with-drone" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/24/Paper/2024/Exact-methods-for-the-traveling-salesman-problem-with-drone/">引用比较多的Truck-drone benchmark论文</a>
-    </h1>
-  
-
-        
-        <a href="/2025/03/24/Paper/2024/Exact-methods-for-the-traveling-salesman-problem-with-drone/" class="archive-article-date">
-  	<time datetime="2025-03-24T02:54:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Dynamic-Programming-Approaches-for-the-Traveling-Salesman-Problem-with-Drone-Networks2018-Cite300"><a href="#Dynamic-Programming-Approaches-for-the-Traveling-Salesman-Problem-with-Drone-Networks2018-Cite300" class="headerlink" title="Dynamic Programming Approaches for the Traveling Salesman Problem with Drone(Networks2018 Cite300+)"></a>Dynamic Programming Approaches for the Traveling Salesman Problem with Drone(Networks2018 Cite300+)</h1><h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><h2 id="Novelty"><a href="#Novelty" class="headerlink" title="Novelty"></a>Novelty</h2><h2 id="Limitation"><a href="#Limitation" class="headerlink" title="Limitation"></a>Limitation</h2><h1 id="Exact-methods-for-the-traveling-salesman-problem-with-drone-Transportation-Science2021-Cite近200"><a href="#Exact-methods-for-the-traveling-salesman-problem-with-drone-Transportation-Science2021-Cite近200" class="headerlink" title="Exact methods for the traveling salesman problem with drone(Transportation Science2021 Cite近200)"></a>Exact methods for the traveling salesman problem with drone(Transportation Science2021 Cite近200)</h1><h2 id="Motivation-1"><a href="#Motivation-1" class="headerlink" title="Motivation"></a>Motivation</h2><h2 id="Method-1"><a href="#Method-1" class="headerlink" title="Method"></a>Method</h2><h2 id="Novelty-1"><a href="#Novelty-1" class="headerlink" title="Novelty"></a>Novelty</h2><ul>
-<li>提出了一种精确解TSP-D的方法</li>
-<li>提出了许多TSP-D变种问题并给出了解决方案</li>
-</ul>
-<h2 id="Limitation-1"><a href="#Limitation-1" class="headerlink" title="Limitation"></a>Limitation</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">启发式算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/paper//" class="article-tag-list-link color1">paper</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/paper/启发式算法//" class="article-tag-list-link color1">启发式算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法/20250323周赛" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/23/%E7%AE%97%E6%B3%95/20250323%E5%91%A8%E8%B5%9B/">20250323周赛</a>
-    </h1>
-  
-
-        
-        <a href="/2025/03/23/%E7%AE%97%E6%B3%95/20250323%E5%91%A8%E8%B5%9B/" class="archive-article-date">
-  	<time datetime="2025-03-23T08:57:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="2-属性图"><a href="#2-属性图" class="headerlink" title="2. 属性图"></a><font color=orange>2. 属性图</font></h1><p><strong>链接：</strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/properties-graph/description/">https://leetcode.cn/problems/properties-graph/description/</a><br>给你一个二维整数数组<code>properties</code>，其维度为<code>n x m</code>，以及一个整数<code>k</code>。<br>定义一个函数<code>intersect(a, b)</code>，它返回数组<code>a</code>和<code>b</code>中<strong>共有的不同整数的数量</strong> 。<br>构造一个<strong>无向图</strong>，其中每个索引<code>i</code>对应 <code>properties[i]</code>。如果且仅当 <code>intersect(properties[i], properties[j]) &gt;= k</code>（其中 <code>i</code> 和 <code>j</code> 的范围为 <code>[0, n - 1]</code> 且 <code>i != j</code>），节点 <code>i</code> 和节点 <code>j</code> 之间有一条边。<br>返回结果图中 <strong>连通分量</strong> 的数量。<br><br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>properties &#x3D; [[1,2],[1,1],[3,4],[4,5],[5,6],[7,7]], k &#x3D; 1</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>3</font><br><strong>解释：</strong> 生成的图如下所示，有三个连通分量：<br><img src='/img/202503/23/leetcode0323_1.png'></p>
-<hr>
-<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>暴力枚举所有 properties[i] 和 properties[j]，如果交集大小 ≥k，那么用并查集合并 i 和 j。<br>初始连通块个数 cc&#x3D;n，每成功合并一次，就把 cc 减一。</p>
-<div style="border: 1px solid #ddd; border-left: 5px solid #00BFFF; background-color: #E0FFFF; padding: 10px; font-size: 110%;">
-<b>Code:</b>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">UnionFind</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="comment"># 一开始有 n 个集合 &#123;0&#125;, &#123;1&#125;, ..., &#123;n-1&#125;</span></span><br><span class="line">        <span class="comment"># 集合 i 的代表元是自己</span></span><br><span class="line">        <span class="variable language_">self</span>._fa = <span class="built_in">list</span>(<span class="built_in">range</span>(n))  <span class="comment"># 代表元</span></span><br><span class="line">        <span class="variable language_">self</span>.cc = n  <span class="comment"># 连通块个数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 返回 x 所在集合的代表元</span></span><br><span class="line">    <span class="comment"># 同时做路径压缩，也就是把 x 所在集合中的所有元素的 fa 都改成代表元</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find</span>(<span class="params">self, x: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        <span class="comment"># 如果 fa[x] == x，则表示 x 是代表元</span></span><br><span class="line">        <span class="keyword">if</span> <span class="variable language_">self</span>._fa[x] != x:</span><br><span class="line">            <span class="variable language_">self</span>._fa[x] = <span class="variable language_">self</span>.find(<span class="variable language_">self</span>._fa[x])  <span class="comment"># fa 改成代表元</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>._fa[x]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 把 from 所在集合合并到 to 所在集合中</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">self, from_: <span class="built_in">int</span>, to: <span class="built_in">int</span></span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        x, y = <span class="variable language_">self</span>.find(from_), <span class="variable language_">self</span>.find(to)</span><br><span class="line">        <span class="keyword">if</span> x == y:  <span class="comment"># from 和 to 在同一个集合，不做合并</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="variable language_">self</span>._fa[x] = y  <span class="comment"># 合并集合。修改后就可以认为 from 和 to 在同一个集合了</span></span><br><span class="line">        <span class="variable language_">self</span>.cc -= <span class="number">1</span>  <span class="comment"># 合并后，连通块个数减少了 1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">numberOfComponents</span>(<span class="params">self, properties: <span class="type">List</span>[<span class="type">List</span>[<span class="built_in">int</span>]], k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        sets = <span class="built_in">list</span>(<span class="built_in">map</span>(<span class="built_in">set</span>, properties))</span><br><span class="line">        uf = UnionFind(<span class="built_in">len</span>(properties))</span><br><span class="line">        <span class="keyword">for</span> i, a <span class="keyword">in</span> <span class="built_in">enumerate</span>(sets):</span><br><span class="line">            <span class="keyword">for</span> j, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(sets[:i]):</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(a &amp; b) &gt;= k:</span><br><span class="line">                    uf.merge(j, i)</span><br><span class="line">        <span class="keyword">return</span> uf.cc</span><br></pre></td></tr></table></figure>
-</div>
-
-<hr>
-<h1 id="3-酿造药水需要的最少总时间"><a href="#3-酿造药水需要的最少总时间" class="headerlink" title="3. 酿造药水需要的最少总时间"></a><font color=orange>3. 酿造药水需要的最少总时间</font></h1><p><strong>链接：</strong><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/find-the-minimum-amount-of-time-to-brew-potions/?slug=properties-graph&region=local_v2">https://leetcode.cn/problems/find-the-minimum-amount-of-time-to-brew-potions/?slug=properties-graph&amp;region=local_v2</a><br>给你两个长度分别为 <code>n</code> 和 <code>m</code> 的整数数组 <code>skill</code> 和 <code>mana</code> 。<br>在一个实验室里，有 <code>n</code> 个巫师，他们必须按顺序酿造 <code>m</code> 个药水。每个药水的法力值为 <code>mana[j]</code>，并且每个药水 <strong>必须</strong> 依次通过 <strong>所有</strong> 巫师处理，才能完成酿造。第 <code>i</code> 个巫师在第 <code>j</code> 个药水上处理需要的时间为 $time_{ij} &#x3D; skill[i] * mana[j]$。<br>由于酿造过程非常精细，药水在当前巫师完成工作后 <strong>必须</strong> 立即传递给下一个巫师并开始处理。这意味着时间必须保持 <strong>同步</strong>，确保每个巫师在药水到达时 <strong>马上</strong>开始工作。<br>返回酿造所有药水所需的 <strong>最短</strong> 总时间。<br><strong>示例1：</strong><br><strong>输入：</strong> <font face="Times New Roman" size=5>skill &#x3D; [1,5,2,4], mana &#x3D; [5,1,4,2]</font><br><strong>输出：</strong> <font face="Times New Roman" size=5>110</font><br><strong>解释：</strong><br><br><img src='/img/202503/23/leetcode2.png'><br>举个例子，为什么巫师 0 不能在时间 <code>t = 52</code> 前开始处理第 1 个药水，假设巫师们在时间 <code>t = 50</code> 开始准备第 1 个药水。时间 <code>t = 58</code> 时，巫师 2 已经完成了第 1 个药水的处理，但巫师 3 直到时间 <code>t = 60</code> 仍在处理第 0 个药水，无法马上开始处理第 1 个药水。</p>
-<hr>
-<h1 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h1><h2 id="正反两次扫描"><a href="#正反两次扫描" class="headerlink" title="正反两次扫描"></a>正反两次扫描</h2><p>假设$time_i$表示巫师<code>i</code>结束上一瓶药水的时间。现在在做第 2 瓶药水，则巫师<code>i</code>开始制药的时间为巫师<code>i-1</code>做完第 2 瓶药水和巫师<code>i</code>自己做完第 1 瓶药水时间的最大值：$max(time_i, time_{i-1})$。以<strong>示例一</strong>为例：<br><img src='/img/202503/23/lc3.png'><br>结束时间$time_i$这样更新：$$time_i&#x3D;max(time_i, time_{i-1}) + skill[i]*mana[k]$$同时，在做完一轮后，要根据最后一名巫师的时间<strong>倒退</strong>前面所有巫师<strong>正确的结束时间</strong>，以便开始下一轮.最终返回$time_i[-1]$</p>
-<div style="border: 1px solid #ddd; border-left: 5px solid #00BFFF; background-color: #E0FFFF; padding: 10px; font-size: 110%;">
-<b>Code:</b>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minTime</span>(<span class="params">self, skill: <span class="type">List</span>[<span class="built_in">int</span>], mana: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        n = <span class="built_in">len</span>(skill)</span><br><span class="line">        last_finish = [<span class="number">0</span>] * n  <span class="comment"># 第 i 名巫师完成上一瓶药水的时间</span></span><br><span class="line">        <span class="keyword">for</span> m <span class="keyword">in</span> mana:</span><br><span class="line">            <span class="comment"># 按题意模拟</span></span><br><span class="line">            sum_t = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> x, last <span class="keyword">in</span> <span class="built_in">zip</span>(skill, last_finish):</span><br><span class="line">                <span class="keyword">if</span> last &gt; sum_t: sum_t = last  <span class="comment"># 手写 max</span></span><br><span class="line">                sum_t += x * m</span><br><span class="line">            <span class="comment"># 倒推：如果酿造药水的过程中没有停顿，那么 last_finish[i] 应该是多少</span></span><br><span class="line">            last_finish[-<span class="number">1</span>] = sum_t</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n - <span class="number">2</span>, -<span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">                sum_t -= skill[i + <span class="number">1</span>] * m</span><br><span class="line">                last_finish[i] = sum_t</span><br><span class="line">        <span class="keyword">return</span> last_finish[-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
-</div>
       
 
       
@@ -939,11 +1105,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">leetcode</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">贪心</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">并查集</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hard</a>
         		</li>
       		
 		</ul>
@@ -959,7 +1125,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="/categories/算法/leetcode//" class="article-tag-list-link color4">leetcode</a>
+        			<a href="/categories/算法/贪心//" class="article-tag-list-link color3">贪心</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/贪心/Hard//" class="article-tag-list-link color5">Hard</a>
         		</li>
       		
 		</ul>
@@ -994,30 +1164,37 @@
 
 
   
-    <article id="post-随笔/20250322随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-算法/贪心/数组的最小相等和" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/03/22/%E9%9A%8F%E7%AC%94/20250322%E9%9A%8F%E7%AC%94/">20250322随笔</a>
+      <a class="article-title" href="/2025/05/10/%E7%AE%97%E6%B3%95/%E8%B4%AA%E5%BF%83/%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E7%9B%B8%E7%AD%89%E5%92%8C/">数组的最小相等和</a>
     </h1>
   
 
         
-        <a href="/2025/03/22/%E9%9A%8F%E7%AC%94/20250322%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2025-03-22T03:52:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-03-22</time>
+        <a href="/2025/05/10/%E7%AE%97%E6%B3%95/%E8%B4%AA%E5%BF%83/%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E7%9B%B8%E7%AD%89%E5%92%8C/" class="archive-article-date">
+  	<time datetime="2025-05-10T02:40:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-05-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        请输入密码查看内容
-        
-          <a class="article-more-a" href="/2025/03/22/%E9%9A%8F%E7%AC%94/20250322%E9%9A%8F%E7%AC%94/#more">more >></a>
-        
+        <h1 id="数组的最小相等和"><a href="#数组的最小相等和" class="headerlink" title="数组的最小相等和"></a><font color=orange>数组的最小相等和</font></h1><p><strong>Link:</strong> <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros/description">https://leetcode.cn/problems/minimum-equal-sum-of-two-arrays-after-replacing-zeros/description</a><br>给你两个由正整数和<code>0</code>组成的数组<code>nums1</code>和<code>nums2</code>。<br>你必须将两个数组中的 <strong>所有</strong> <code>0</code> 替换为 <strong>严格</strong> 正整数，并且满足两个数组中所有元素的和 <strong>相等</strong> 。<br>返回 <strong>最小</strong> 相等和 ，如果无法使两数组相等，则返回 <code>-1</code> 。<br><strong>示例1：</strong><br><strong>输入:</strong> nums1 &#x3D; [3,2,0,1,0], nums2 &#x3D; [6,5,0]<br><strong>输出:</strong> 12<br><strong>解释:</strong> 可以按下述方式替换数组中的 0 ：</p>
+<ul>
+<li>用 2 和 4 替换 nums1 中的两个 0 。得到 nums1 &#x3D; [3,2,2,1,4] 。</li>
+<li>用 1 替换 nums2 中的一个 0 。得到 nums2 &#x3D; [6,5,1] 。<br>两个数组的元素和相等，都等于 12 。可以证明这是可以获得的最小相等和。</li>
+</ul>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><h4 id="自己的想法"><a href="#自己的想法" class="headerlink" title="自己的想法"></a>自己的想法</h4><p>这个题蛮简单的，显然把两个数组中的0都换成1后得到的是各自的最小数组。问题在于<strong>不能相等的判断</strong>（其实也很简单。。多一步）<br>如果两个数组<strong>都有0</strong>，他们都是可控的，<strong>肯定</strong>可以相等。如果只有一个数组有0，另一个数组和小于这个数组的最小和，那就不行</p>
+<ul>
+<li>Code:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minSum</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], nums2: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        sum1, sum2, cnt1, cnt2 = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums1:</span><br><span class="line">            sum1 += num</span><br><span class="line">            cnt1 += <span class="number">1</span> <span class="keyword">if</span> num == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> num <span class="keyword">in</span> nums2:</span><br><span class="line">            sum2 += num</span><br><span class="line">            cnt2 += <span class="number">1</span> <span class="keyword">if</span> num == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line">        <span class="comment"># 一个数组比另一个数组和大且这另一个数组不能加</span></span><br><span class="line">        <span class="keyword">if</span> (sum1 + cnt1 &gt; sum2 <span class="keyword">and</span> cnt2 == <span class="number">0</span>) <span class="keyword">or</span> (sum2 + cnt2 &gt; sum1 <span class="keyword">and</span> cnt1 == <span class="number">0</span>):</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">max</span>(sum1 + cnt1, sum2 + cnt2)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="灵神的优雅code："><a href="#灵神的优雅code：" class="headerlink" title="灵神的优雅code："></a>灵神的优雅code：</h2><p>再记忆一下python可以<strong>用<code>not in</code>判断</strong>是否一个数组有某元素，不需要再来for了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">minSum</span>(<span class="params">self, nums1: <span class="type">List</span>[<span class="built_in">int</span>], nums2: <span class="type">List</span>[<span class="built_in">int</span>]</span>) -&gt; <span class="built_in">int</span>:</span><br><span class="line">        s1 = <span class="built_in">sum</span>(<span class="built_in">max</span>(x, <span class="number">1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> nums1)</span><br><span class="line">        s2 = <span class="built_in">sum</span>(<span class="built_in">max</span>(x, <span class="number">1</span>) <span class="keyword">for</span> x <span class="keyword">in</span> nums2)</span><br><span class="line">        <span class="keyword">if</span> s1 &lt; s2 <span class="keyword">and</span> <span class="number">0</span> <span class="keyword">not</span> <span class="keyword">in</span> nums1 <span class="keyword">or</span> \</span><br><span class="line">           s2 &lt; s1 <span class="keyword">and</span> <span class="number">0</span> <span class="keyword">not</span> <span class="keyword">in</span> nums2:</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">max</span>(s1, s2)</span><br></pre></td></tr></table></figure>
       
 
       
@@ -1030,7 +1207,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">贪心</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Medium</a>
         		</li>
       		
 		</ul>
@@ -1042,7 +1227,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/随笔//" class="article-tag-list-link color3">随笔</a>
+        			<a href="/categories/算法//" class="article-tag-list-link color3">算法</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/贪心//" class="article-tag-list-link color3">贪心</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/算法/贪心/Medium//" class="article-tag-list-link color2">Medium</a>
         		</li>
       		
 		</ul>
@@ -1079,7 +1272,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -1195,6 +1388,54 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">NCO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">nips</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2025</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2021</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2024</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">RVRP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cmd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">VRP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Torch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
@@ -1204,6 +1445,22 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Hard</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">rl4co</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1219,6 +1476,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">2023</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">paper</a>
               </li>
              
@@ -1227,23 +1492,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">leetcode</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">并查集</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">NCO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">VRP</a>
+                <a href="javascript:void(0)" class="js-tag color5">MARL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1251,11 +1500,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">堆</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">迪杰斯特拉算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">双指针</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">枚举</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1267,31 +1520,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Torch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">cmd</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tmux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">双指针</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">MARL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">堆</a>
+                <a href="javascript:void(0)" class="js-tag color3">迪杰斯特拉算法</a>
               </li>
             
             <div class="clearfix"></div>
